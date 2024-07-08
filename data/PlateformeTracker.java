@@ -39,15 +39,21 @@ public class PlateformeTracker {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from student");
 
-            String firstName;
-            int age;
-            while (resultSet.next()) {
-                firstName = resultSet.getString("firstName");
-                age = resultSet.getInt("age");
-                System.out.println("First name : " + firstName
-                        + " | Age : " + age);
-            }
+            System.out.println(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                "║                     STUDENTS INFO                     ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n");
 
+
+            while (resultSet.next()) {
+
+                System.out.println(       
+                " First Name: " + resultSet.getString("firstName")  + 
+                " | Last Name: " + resultSet.getString("lastName") + 
+                " | Field: " +  resultSet.getString("field") + 
+                " | Average Grade : " +  resultSet.getInt("age") );
+            }
+            System.out.println();
             statement.close();
             connection.close();
             resultSet.close();
@@ -56,6 +62,9 @@ public class PlateformeTracker {
             System.out.println(exception);
         }
         return resultSet;
-
     }
+
+
+
+
 }
