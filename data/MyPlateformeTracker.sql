@@ -17,7 +17,7 @@ CREATE TABLE student (
     lastName VARCHAR(255),
     age INT,
     field VARCHAR(255), 
-    averageGrade INT DEFAULT 0
+    averageGrade DOUBLE DEFAULT 0
 );
 
 INSERT INTO student(firstName, lastName, age, field ) VALUES

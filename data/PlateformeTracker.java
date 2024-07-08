@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class PlateformeTracker {
@@ -40,18 +41,18 @@ public class PlateformeTracker {
             resultSet = statement.executeQuery("select * from student");
 
             System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                "║                     STUDENTS INFO                     ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n");
-
+                    "╔═══════════════════════════════════════════════════════╗\n" +
+                            "║                     STUDENTS INFO                     ║\n" +
+                            "╚═══════════════════════════════════════════════════════╝\n");
 
             while (resultSet.next()) {
 
-                System.out.println(       
-                " First Name: " + resultSet.getString("firstName")  + 
-                " | Last Name: " + resultSet.getString("lastName") + 
-                " | Field: " +  resultSet.getString("field") + 
-                " | Average Grade : " +  resultSet.getInt("age") );
+                System.out.println(
+                        " First Name: " + resultSet.getString("firstName") +
+                                " | Last Name: " + resultSet.getString("lastName") +
+                                " | Field: " + resultSet.getString("field") +
+                                " | Age : " + resultSet.getInt("age") +
+                                " | Average Grade : " + resultSet.getInt("averageGrade"));
             }
             System.out.println();
             statement.close();
@@ -64,6 +65,40 @@ public class PlateformeTracker {
         return resultSet;
     }
 
+    public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
+            double newAverageGrade) {
+
+        try (Connection connection = connect()) {
+            String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                statement.setString(1, newFirstName);
+                statement.setString(2, newLastName);
+                statement.setInt(3, newAge);
+                statement.setString(4, newField);
+                statement.setDouble(5, newAverageGrade);
+
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("\nStudent added successfully !");
+                    return 1;
+
+                } else {
+                    return 0;
+                }
+            } catch (SQLException exception) {
+                System.out.println("Error adding student: " + exception.getMessage());
+                return 0;
+            }
+
+        }catch(SQLException  exception) {
+            System.out.println("ERROR. Connexion failed.");
+            return 0;
+        }
+
+    }
+
+    
 
 
 
