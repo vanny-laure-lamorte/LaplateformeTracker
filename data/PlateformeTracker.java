@@ -3,7 +3,10 @@ import java.util.Vector;
 
 public class PlateformeTracker {
 
-    public void initDataBase() {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/PlateformeTracker";
+    private static final String DB_USER = "root";
+
+    public Connection connect() {
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -15,20 +18,27 @@ public class PlateformeTracker {
 
             for (String password : passwords) {
                 try {
-                    connection = DriverManager.getConnection(
-                            "jdbc:mysql://localhost:3306/PlateformeTracker",
-                            "root", password);
-                            break;
+                    connection = DriverManager.getConnection(DB_URL, DB_USER, password);
+                    break;
 
                 } catch (Exception exception) {
                 }
             }
 
+        } catch (Exception exception) {
+            System.out.println(exception);
+        }
+        return connection;
+    }
+
+    public ResultSet displayStudent() {
+        ResultSet resultSet = null;
+
+        try (Connection connection = connect()) {
             Statement statement;
             statement = connection.createStatement();
-            ResultSet resultSet;
-            resultSet = statement.executeQuery(
-                    "select * from student");
+            resultSet = statement.executeQuery("select * from student");
+
             String firstName;
             int age;
             while (resultSet.next()) {
@@ -37,11 +47,15 @@ public class PlateformeTracker {
                 System.out.println("First name : " + firstName
                         + " | Age : " + age);
             }
-            resultSet.close();
+
             statement.close();
             connection.close();
+            resultSet.close();
+
         } catch (Exception exception) {
             System.out.println(exception);
         }
+        return resultSet;
+
     }
 }
