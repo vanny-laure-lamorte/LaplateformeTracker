@@ -1,9 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalDisplay {
 
     private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
+
+    public void testDisplay(){
+        List<Integer> ids = new ArrayList<>();
+        ids = tracker.getAllId();
+        for(int id : ids){
+            System.out.println(id);
+        }
+
+    }
 
     public void homeDisplay() {
         int choice = -1;
@@ -166,6 +177,7 @@ public class TerminalDisplay {
                         int updateAge = input.nextInt();
                         tracker.updateAge(studentId, updateAge);
                         System.out.println("Age updated successfully! \n");
+                        input.nextLine();
                         break;
                     case 4:
                         System.out.print("> Enter new field: ");

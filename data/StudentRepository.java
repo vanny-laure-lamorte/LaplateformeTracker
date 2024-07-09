@@ -1,10 +1,13 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentRepository {
 
     private Database database = new Database() {
-        
+
     };
+
     public ResultSet displayStudent() {
         ResultSet resultSet = null;
 
@@ -15,8 +18,8 @@ public class StudentRepository {
 
             while (resultSet.next()) {
                 System.out.println(
-                    "Id: " + resultSet.getString("id") +
-                        " | First Name: " + resultSet.getString("firstName") +
+                        "Id: " + resultSet.getString("id") +
+                                " | First Name: " + resultSet.getString("firstName") +
                                 " | Last Name: " + resultSet.getString("lastName") +
                                 " | Field: " + resultSet.getString("field") +
                                 " | Age : " + resultSet.getInt("age") +
@@ -30,11 +33,12 @@ public class StudentRepository {
         return resultSet;
     }
 
-    public int addStudent(String newFirstName, String newLastName, int newAge, String newField, double newAverageGrade) {
+    public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
+            double newAverageGrade) {
         String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = database.connect();
-             PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                PreparedStatement statement = connection.prepareStatement(insertSql)) {
 
             statement.setString(1, newFirstName);
             statement.setString(2, newLastName);
@@ -56,31 +60,32 @@ public class StudentRepository {
         }
     }
 
+    public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge,
+            String updateField, double updateAverageGrade) throws SQLException {
 
-    public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge, String updateField, double updateAverageGrade) throws SQLException {
-        
-        try (Connection connection = database.connect()) { 
+        try (Connection connection = database.connect()) {
 
-        String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
-        
-        try (PreparedStatement statement = connection.prepareStatement(insertSql))  {
-            statement.setString(1, updateFirstName);
-            statement.setString(2, updateLastName);
-            statement.setInt(3, updateAge);
-            statement.setString(4, updateField);
-            statement.setDouble(5, updateAverageGrade);
-            statement.setInt(6, updateStudentId);
-            return statement.executeUpdate();
-        }
+            String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                statement.setString(1, updateFirstName);
+                statement.setString(2, updateLastName);
+                statement.setInt(3, updateAge);
+                statement.setString(4, updateField);
+                statement.setDouble(5, updateAverageGrade);
+                statement.setInt(6, updateStudentId);
+                return statement.executeUpdate();
+            }
 
         }
     }
 
-     public String getStudentNameById(int studentId) {
+    public String getStudentNameById(int studentId) {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
 
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, studentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -97,18 +102,19 @@ public class StudentRepository {
 
     public ResultSet getStudentById(int studentId) throws SQLException {
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
-    
+
         Connection connection = database.connect();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, studentId);
-    
+
         return statement.executeQuery();
     }
 
     // Method to update the first name of a student
     public int updateFirstName(int studentId, String newFirstName) {
         String updateSql = "UPDATE student SET firstName = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newFirstName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -121,7 +127,8 @@ public class StudentRepository {
     // Method to update the last name of a student
     public int updateLastName(int studentId, String newLastName) {
         String updateSql = "UPDATE student SET lastName = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newLastName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -134,7 +141,8 @@ public class StudentRepository {
     // Method to update the age of a student
     public int updateAge(int studentId, int newAge) {
         String updateSql = "UPDATE student SET age = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, newAge);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -147,7 +155,8 @@ public class StudentRepository {
     // Method to update the field of study of a student
     public int updateField(int studentId, String newField) {
         String updateSql = "UPDATE student SET field = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newField);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -157,15 +166,35 @@ public class StudentRepository {
         }
     }
 
-    // Method to delete a student 
+    // Method to delete a student
     public int deleteStudent(int studentId) {
-    String deleteSql = "DELETE FROM student WHERE id = ?";
-    try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-        statement.setInt(1, studentId);
-        return statement.executeUpdate();
-    } catch (SQLException exception) {
-        System.out.println("Error deleting student: " + exception.getMessage());
-        return 0;
+        String deleteSql = "DELETE FROM student WHERE id = ?";
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+            statement.setInt(1, studentId);
+            return statement.executeUpdate();
+        } catch (SQLException exception) {
+            System.out.println("Error deleting student: " + exception.getMessage());
+            return 0;
+        }
+
     }
 
-}}
+    public List<Integer> getAllId() {
+        List<Integer> ids = new ArrayList<>();
+        String query = "SELECT id FROM student";
+        try (Connection connection = database.connect();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                ids.add(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception or rethrow it
+            throw new RuntimeException("Error fetching IDs", e);
+        }
+        return ids;
+    }
+
+}
