@@ -2,38 +2,13 @@ import java.sql.*;
 
 public class PlateformeTracker {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/PlateformeTracker";
-    private static final String DB_USER = "root";
-
-    public Connection connect() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            Vector<String> passwords = new Vector<>();
-            passwords.add("VannyLamorte25!"); // --- Vanny
-            passwords.add("root"); // --- Thanh
-            passwords.add("$~Bc4gB9"); // --- Lucas
-
-            for (String password : passwords) {
-                try {
-                    connection = DriverManager.getConnection(DB_URL, DB_USER, password);
-                    break;
-
-                } catch (Exception exception) {
-                }
-            }
-
-        } catch (Exception exception) {
-            System.out.println(exception);
-        }
-        return connection;
-    }
-
+    private Database database = new Database() {
+        
+    };
     public ResultSet displayStudent() {
         ResultSet resultSet = null;
 
-        try (Connection connection = connect()) {
+        try (Connection connection = database.connect()) {
             Statement statement;
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from student");
@@ -52,6 +27,7 @@ public class PlateformeTracker {
         } catch (SQLException exception) {
             System.err.println("Error displaying students: " + exception.getMessage());
         }
+        return resultSet;
     }
 
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField, double newAverageGrade) {
@@ -83,7 +59,7 @@ public class PlateformeTracker {
 
     public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge, String updateField, double updateAverageGrade) throws SQLException {
         
-        try (Connection connection = connect()) { 
+        try (Connection connection = database.connect()) { 
 
         String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
         
@@ -104,7 +80,7 @@ public class PlateformeTracker {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
 
-        try (Connection connection = connect(); PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, studentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -122,7 +98,7 @@ public class PlateformeTracker {
     // Method to update the first name of a student
     public int updateFirstName(int studentId, String newFirstName) {
         String updateSql = "UPDATE student SET firstName = ? WHERE id = ?";
-        try (Connection connection = connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newFirstName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -135,7 +111,7 @@ public class PlateformeTracker {
     // Method to update the last name of a student
     public int updateLastName(int studentId, String newLastName) {
         String updateSql = "UPDATE student SET lastName = ? WHERE id = ?";
-        try (Connection connection = connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newLastName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -148,7 +124,7 @@ public class PlateformeTracker {
     // Method to update the age of a student
     public int updateAge(int studentId, int newAge) {
         String updateSql = "UPDATE student SET age = ? WHERE id = ?";
-        try (Connection connection = connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, newAge);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -161,7 +137,7 @@ public class PlateformeTracker {
     // Method to update the field of study of a student
     public int updateField(int studentId, String newField) {
         String updateSql = "UPDATE student SET field = ? WHERE id = ?";
-        try (Connection connection = connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newField);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
