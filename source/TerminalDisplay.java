@@ -5,6 +5,28 @@ public class TerminalDisplay {
     private static final PlateformeTracker tracker = new PlateformeTracker();
     private static final Scanner input = new Scanner(System.in);
 
+    public void userAccount(){
+
+        // Ask the user if he has an account
+        System.out.print("Do you have an account with us (Y/N) ? ");
+        String inputAccount = input.nextLine();
+        
+        if (inputAccount.equals("Y")){
+            System.out.print("Please enter your email: ");
+            String userLogin = input.nextLine(); 
+            System.out.print("Please enter your password: ");
+            String userPassword = input.nextLine();            
+
+            // debug
+            System.out.println("Debug:" + userLogin);
+            System.out.println("Debug:" + userPassword);
+        }
+
+        // 
+
+
+    }
+
     public void homeDisplay() {
         int choice = -1;
         do {
