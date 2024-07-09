@@ -27,14 +27,14 @@ INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Lucy','Madec', '21', 'Web'),
 ('Alicia','Cordial', '22', 'Software');
 
-CREATE TABLE note (
+CREATE TABLE grade (
     studentId VARCHAR(255),
     grade VARCHAR(255),
     date DATE,
     subjectName VARCHAR(255)
 );
 
-INSERT INTO note(studentId, grade, date, subjectName) VALUES
+INSERT INTO grade(studentId, grade, date, subjectName) VALUES
 ('1','15','2024-07-05', "Anglais" ),
 ('1','18','2024-07-06', "Python" ),
 ('1','19','2024-07-04', "JavaScript" ),

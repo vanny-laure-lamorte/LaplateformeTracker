@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class PlateformeTracker {
+public class StudentRepository {
 
     private Database database = new Database() {
         
@@ -76,7 +76,7 @@ public class PlateformeTracker {
         }
     }
 
-     public String getStudentById(int studentId) {
+     public String getStudentNameById(int studentId) {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
 
@@ -93,6 +93,16 @@ public class PlateformeTracker {
             System.out.println("Error fetching student: " + exception.getMessage());
         }
         return studentInfo;
+    }
+
+    public ResultSet getStudentById(int studentId) throws SQLException {
+        String query = "SELECT firstName, lastName FROM student WHERE id = ?";
+    
+        Connection connection = database.connect();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, studentId);
+    
+        return statement.executeQuery();
     }
 
     // Method to update the first name of a student

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TerminalDisplay {
 
-    private static final PlateformeTracker tracker = new PlateformeTracker();
+    private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
 
     public void homeDisplay() {
@@ -101,7 +101,7 @@ public class TerminalDisplay {
         input.nextLine();
 
         // Display the user choice
-        String studentSelected = tracker.getStudentById(studentId);
+        String studentSelected = tracker.getStudentNameById(studentId);
         System.out.println("Selected student: " + studentSelected + "\n");
 
         System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
