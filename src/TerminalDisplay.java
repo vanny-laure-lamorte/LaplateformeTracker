@@ -86,4 +86,85 @@ public class TerminalDisplay {
         }
 
     }
+
+    public void displayModifyStudent() {
+        System.out.println(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                   UPDATE STUDENT INFO                 ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");
+
+        // Display options the user can modify
+        tracker.displayStudent();
+
+        // Ask the user to select a student by his Id
+        System.out.print("> Please choose the student Id: ");
+        int studentId = input.nextInt();
+        input.nextLine();
+
+        // Display the user choice
+        String studentSelected = tracker.getStudentById(studentId);
+        System.out.println("Selected student: " + studentSelected + "\n");
+
+        System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
+        String inputStudentUpdate = input.nextLine();
+
+        // Loop to ensure a valid input is provided
+        if (inputStudentUpdate.equalsIgnoreCase("Y")) {
+
+            int infoToModify = 0;
+            boolean validInput = false;
+            while (!validInput) {
+
+                System.out.print(
+                        "\n[1] First Name\n" +
+                                "[2] Last Name \n" +
+                                "[3] Age \n" +
+                                "[4] Field \n" +
+                                "> Please choose the information you wish to modify: ");
+                infoToModify = input.nextInt();
+                input.nextLine();
+
+                // Check is the user input is valid
+                if (infoToModify >= 1 && infoToModify <= 4) {
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid choice. Please enter 1, 2, 3, or 4.");
+                }
+            }
+
+            // Update the database based on the user choice
+            switch (infoToModify) {
+                case 1:
+                    System.out.print("> Enter new first name: ");
+                    String updateFirstName = input.nextLine();
+                    tracker.updateFirstName(studentId, updateFirstName);
+                    System.out.println("First name updated successfully! \n");
+                    break;
+                case 2:
+                    System.out.print("> Enter new last name: ");
+                    String updateLastName = input.nextLine();
+                    tracker.updateLastName(studentId, updateLastName);
+                    System.out.println("Last name updated successfully! \n");
+                    break;
+                case 3:
+                    System.out.print("> Enter new age: ");
+                    int updateAge = input.nextInt();
+                    tracker.updateAge(studentId, updateAge);
+                    System.out.println("Age updated successfully! \n");
+                    break;
+                case 4:
+                    System.out.print("> Enter new field: ");
+                    String updateField = input.nextLine();
+                    tracker.updateField(studentId, updateField);
+                    System.out.println("Field updated successfully! \n");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } else {
+            System.out.println("ERROR. No update performed.");
+        }
+
+    }
 }
