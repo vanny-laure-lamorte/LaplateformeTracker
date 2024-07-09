@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.Vector;
 
 public class PlateformeTracker {
 
@@ -40,54 +39,43 @@ public class PlateformeTracker {
             resultSet = statement.executeQuery("select * from student");
 
             while (resultSet.next()) {
-
                 System.out.println(
                     "Id: " + resultSet.getString("id") +
                         " | First Name: " + resultSet.getString("firstName") +
                                 " | Last Name: " + resultSet.getString("lastName") +
                                 " | Field: " + resultSet.getString("field") +
                                 " | Age : " + resultSet.getInt("age") +
-                                " | Average Grade : " + resultSet.getInt("averageGrade"));
+                                " | Average Grade : " + resultSet.getDouble("averageGrade"));
             }
             System.out.println();
-            statement.close();
-            connection.close();
-            resultSet.close();
 
-        } catch (Exception exception) {
-            System.out.println(exception);
+        } catch (SQLException exception) {
+            System.err.println("Error displaying students: " + exception.getMessage());
         }
-        return resultSet;
     }
 
-    public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
-            double newAverageGrade) {
+    public int addStudent(String newFirstName, String newLastName, int newAge, String newField, double newAverageGrade) {
+        String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection connection = connect()) {
-            String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = database.connect();
+             PreparedStatement statement = connection.prepareStatement(insertSql)) {
 
-            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
-                statement.setString(1, newFirstName);
-                statement.setString(2, newLastName);
-                statement.setInt(3, newAge);
-                statement.setString(4, newField);
-                statement.setDouble(5, newAverageGrade);
+            statement.setString(1, newFirstName);
+            statement.setString(2, newLastName);
+            statement.setInt(3, newAge);
+            statement.setString(4, newField);
+            statement.setDouble(5, newAverageGrade);
 
-                int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("\nStudent added successfully !");
-                    return 1;
-
-                } else {
-                    return 0;
-                }
-            } catch (SQLException exception) {
-                System.out.println("Error adding student: " + exception.getMessage());
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("\nStudent added successfully!");
+                return 1;
+            } else {
                 return 0;
             }
 
-        }catch(SQLException  exception) {
-            System.out.println("ERROR. Connexion failed.");
+        } catch (SQLException exception) {
+            System.err.println("Error adding student: " + exception.getMessage());
             return 0;
         }
     }

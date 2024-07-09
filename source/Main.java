@@ -1,9 +1,7 @@
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         TerminalDisplay display = new TerminalDisplay();
-
-        // --- DISPLAY USER INFO ---//
         display.homeDisplay();
     }
 }
