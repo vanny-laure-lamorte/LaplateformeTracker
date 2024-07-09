@@ -34,7 +34,7 @@ CREATE TABLE note (
     subjectName VARCHAR(255)
 );
 
-INSERT INTO note(studentId, grade, date, subjectName) VALUES
+INSERT INTO grade(studentId, grade, date, subjectName) VALUES
 ('1','15','2024-07-05', "Anglais" ),
 ('1','18','2024-07-06', "Python" ),
 ('1','19','2024-07-04', "JavaScript" ),

@@ -9,10 +9,10 @@ public class TerminalDisplay {
         int choice = -1;
         do {
             System.out.print("\n" +
-                    "       ╔════════════════ Gestion Commerciale ═════════════════╗\n" +
+                    "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
                     "       ║                                                      ║\n" +
-                    "       ║ [1] Display Students     ║  [2] Add a new student    ║\n" +
-                    "       ║ [3] Modify student       ║  [4]                      ║\n" +
+                    "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
+                    "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
                     "       ║ [5]                      ║  [6]                      ║\n" +
                     "       ║                                                      ║\n" +
                     "       ║                                                      ║\n" +
@@ -20,7 +20,7 @@ public class TerminalDisplay {
                     "       ╚══════════════════════════════════════════════════════╝\n");
 
             do {
-                System.out.print("Enter a choice : ");
+                System.out.print("> Chose a menu option : ");
                 String inputString = input.next();
                 if (inputString.matches("[0-6]")) {
                     choice = Integer.parseInt(inputString);
@@ -33,20 +33,35 @@ public class TerminalDisplay {
 
             switch (choice) {
                 case 1:
+                    displayTitleStudentInfo();
                     tracker.displayStudent();
                     break;
                 case 2:
                     displayAddStudent();
                     break;
+                case 3:
+                    displayModifyStudent();
+                    break;
+
+                case 4: 
+                    displayDeleteStudent(); 
+                    break; 
                 case 0:
-                    System.out.println("Au revoir !");
+                    System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
                     break;
                 default:
-                    System.out.println("Choice not yet implemented.");
+                    System.out.println("ERROR. Option not available.");
                     break;
             }
         } while (choice != 0);
         input.close();
+    }
+
+    public void displayTitleStudentInfo() {
+        System.out.println(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                       STUDENT INFO                    ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");
     }
 
     public void displayAddStudent() {
@@ -54,18 +69,17 @@ public class TerminalDisplay {
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                    ADD A NEW STUDENT                  ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
-        input.nextLine();  // Consume the newline left-over
+        input.nextLine(); // Consume the newline left-over
         System.out.print("> Enter student's first name: ");
         String newFirstName = input.nextLine();
         System.out.print("> Enter student's last name: ");
         String newLastName = input.nextLine();
         System.out.print("> Enter student's age: ");
         int newAge = input.nextInt();
-        input.nextLine();  // Consume the newline
+        input.nextLine(); // Consume the newline
         System.out.print("> Enter student's field: ");
         String newField = input.nextLine();
-        System.out.print("> Enter student's average grade: ");
-        double newAverageGrade = input.nextDouble();
+        double newAverageGrade = 0;
 
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
@@ -82,15 +96,15 @@ public class TerminalDisplay {
             }
         } catch (Exception e) {
             System.err.println("Unexpected error occurred: " + e.getMessage());
-            e.printStackTrace();  // Print stack trace for debugging
+            e.printStackTrace();
         }
     }
 
-    public void displayModifyStudent() {
+    public static void displayModifyStudent() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                   UPDATE STUDENT INFO                 ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+                "║                   UPDATE STUDENT INFO                 ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n");
 
         // Display options the user can modify
         tracker.displayStudent();
@@ -104,16 +118,18 @@ public class TerminalDisplay {
         String studentSelected = tracker.getStudentById(studentId);
         System.out.println("Selected student: " + studentSelected + "\n");
 
+        String inputStudentUpdate;
+       do {
         System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
-        String inputStudentUpdate = input.nextLine();
+       // Loop to ensure a valid input is provided
+        inputStudentUpdate = input.nextLine();
 
-        // Loop to ensure a valid input is provided
         if (inputStudentUpdate.equalsIgnoreCase("Y")) {
 
             int infoToModify = 0;
-            boolean validInput = false;
-            while (!validInput) {
 
+            // Check is the user input is valid
+            while (!InputValidator.isValidUpdateStudentInfo(String.valueOf(infoToModify))) {
                 System.out.print(
                         "\n[1] First Name\n" +
                                 "[2] Last Name \n" +
@@ -123,15 +139,12 @@ public class TerminalDisplay {
                 infoToModify = input.nextInt();
                 input.nextLine();
 
-                // Check is the user input is valid
-                if (infoToModify >= 1 && infoToModify <= 4) {
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid choice. Please enter 1, 2, 3, or 4.");
+                if (infoToModify < 1 || infoToModify > 4) {
+                    System.out.print("Invalid input! Please enter 1, 2, 3, or 4 \n");
                 }
-            }
-
-            // Update the database based on the user choice
+                }             
+        
+                        // Update the database based on the user choice
             switch (infoToModify) {
                 case 1:
                     System.out.print("> Enter new first name: ");
@@ -161,9 +174,42 @@ public class TerminalDisplay {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        } else {
-            System.out.println("ERROR. No update performed.");
-        }
+        }} while (inputStudentUpdate.equalsIgnoreCase("Y"));
 
     }
-}
+
+
+        public static void displayDeleteStudent() {
+
+            // Display title
+            System.out.println(
+                    "╔═══════════════════════════════════════════════════════╗\n" +
+                    "║                      DELETE STUDENT                   ║\n" +
+                    "╚═══════════════════════════════════════════════════════╝\n");
+
+            // Display all students the user can delete
+            tracker.displayStudent();
+
+            // Ask the user to select a student to delete by his Id
+            System.out.print("> Please choose the student Id: ");
+            int deleteStudentId = input.nextInt();
+            input.nextLine();
+
+            // Display the user choice
+            String deleteStudentSelected = tracker.getStudentById(deleteStudentId);
+            System.out.println("Selected student: " + deleteStudentSelected + "\n");
+
+            // Ask confirmation before deleting the student
+            String inputStudentDelete;
+            System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? \n"); 
+            inputStudentDelete = input.nextLine(); 
+
+            if (inputStudentDelete.equalsIgnoreCase("Y")) {
+                tracker.deleteStudent(deleteStudentId);
+                System.out.println("Student deleted successfully! ");
+            }
+                      
+    
+  
+
+}}

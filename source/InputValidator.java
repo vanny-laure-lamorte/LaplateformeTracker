@@ -1,9 +1,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class inputValidator {
-
-    public class inputUSer {
+public class InputValidator {   
 
         //--- MENU ---//
 
@@ -15,12 +13,12 @@ public class inputValidator {
         //--- UPDATE STUDENT INFO ---//
 
         // Validate only digits
-        public static boolean isDigit(String input) {
+        public static boolean isValidDigit(String input) {
             return input.matches("\\d+");
         }
         
         // Validate only letters
-        public static boolean isAlphabetic(String input) {
+        public static boolean isValidAlphabetic(String input) {
             return input.matches("[a-zA-Z]+"); 
         }
         
@@ -38,8 +36,8 @@ public class inputValidator {
 
         // Validate only numbers between 1 and 5
         public static boolean isValidUpdateStudentInfo(String input) {
-        return input.matches("[1-5]");
+        return input.matches("[1-4]");
         }       
-    }
+    
     
 }
