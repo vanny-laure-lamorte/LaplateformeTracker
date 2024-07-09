@@ -157,4 +157,15 @@ public class StudentRepository {
         }
     }
 
-}
+    // Method to delete a student 
+    public int deleteStudent(int studentId) {
+    String deleteSql = "DELETE FROM student WHERE id = ?";
+    try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+        statement.setInt(1, studentId);
+        return statement.executeUpdate();
+    } catch (SQLException exception) {
+        System.out.println("Error deleting student: " + exception.getMessage());
+        return 0;
+    }
+
+}}
