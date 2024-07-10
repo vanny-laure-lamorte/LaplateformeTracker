@@ -1,147 +1,22 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class TerminalDisplay {
-
+public class StudentDisplay {
     private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
 
-    public void testDisplay() {
-        List<Integer> ids = new ArrayList<>();
-        ids = tracker.getAllId();
-        for (int id : ids) {
-            System.out.println(id);
-        }
-    }
-
-    public void homeDisplay() {
-        int pageNumber = 1;
-        int choice = -1;
-
-        do {
-
-            if (pageNumber == 1) {
-                System.out.print(
-                        "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
-                                "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
-                                "       ║ [5] Search student by ID ║  [6]                      ║\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║ [0]  Quit                   [9] Next page       1/2  ║\n" +
-                                "       ╚══════════════════════════════════════════════════════╝\n");
-
-                choice = getUserChoice();
-
-                switch (choice) {
-                    case 1:
-                        displayTitleStudentInfo();
-                        tracker.displayStudent();
-                        break;
-                    case 2:
-                        displayAddStudent();
-                        break;
-                    case 3:
-                        displayModifyStudent();
-                        break;
-                    case 4:
-                        displayDeleteStudent();
-                        break;
-                    case 5:
-                        displaySearchStudent();
-                        break;
-                    case 9:
-                        pageNumber = 2;
-                        clearScreen();
-                        break;
-                    case 0:
-                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
-                        break;
-                    default:
-                        System.out.println("ERROR. Option not available.");
-                        break;
-                }
-            } else if (pageNumber == 2) {
-                System.out.print(
-                                "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
-                                "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
-                                "       ║ [5] Search student by ID ║  [6]                      ║\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║                                                      ║\n" +
-                                "       ║ [0]  Quit                   [9] Next page       2/2  ║\n" +
-                                "       ╚══════════════════════════════════════════════════════╝\n");
-
-                choice = getUserChoice();
-
-                switch (choice) {
-                    case 1:
-                        displayTitleStudentInfo();
-                        tracker.displayStudent();
-                        break;
-                    case 2:
-                        displayAddStudent();
-                        break;
-                    case 3:
-                        displayModifyStudent();
-                        break;
-                    case 4:
-                        displayDeleteStudent();
-                        break;
-                    case 5:
-                        displaySearchStudent();
-                        break;
-                    case 9:
-                        pageNumber = 1;
-                        clearScreen();
-                        break;
-                    case 0:
-                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
-                        break;
-                    default:
-                        System.out.println("ERROR. Option not available.");
-                        break;
-                }
-            }
-        } while (choice != 0);
-        input.close();
-    }
-
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private int getUserChoice() {
-        int choice;
-        do {
-            System.out.print("> Choose a menu option: ");
-            String inputString = input.next();
-            if (inputString.matches("[0-9]")) {
-                choice = Integer.parseInt(inputString);
-            } else {
-                choice = -1;
-                System.out.print("Please enter a number between 0 and 9 \n");
-            }
-        } while (choice < 0 || choice > 9);
-        return choice;
-    }
-
-    public void displayTitleStudentInfo() {
+    public static void displayTitleStudentInfo() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                       STUDENT INFO                    ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
     }
 
-    public void displayAddStudent() {
+    public static void displayAddStudent() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                    ADD A NEW STUDENT                  ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
+
         input.nextLine(); // Consume the newline left-over
         System.out.print("> Enter student's first name: ");
         String newFirstName = input.nextLine();
@@ -152,8 +27,7 @@ public class TerminalDisplay {
         input.nextLine(); // Consume the newline
         System.out.print("> Enter student's field: ");
         String newField = input.nextLine();
-        double newAverageGrade = 0;
-
+        double newAverageGrade = 0; // Assuming this is set later or not needed in addStudent
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
 
@@ -182,7 +56,7 @@ public class TerminalDisplay {
         // Display options the user can modify
         tracker.displayStudent();
 
-        // Ask the user to select a student by his Id
+        // Ask the user to select a student by their Id
         System.out.print("> Please choose the student Id: ");
         int studentId = input.nextInt();
         input.nextLine();
@@ -201,7 +75,7 @@ public class TerminalDisplay {
 
                 int infoToModify = 0;
 
-                // Check is the user input is valid
+                // Check if the user input is valid
                 while (!InputValidator.isValidUpdateStudentInfo(String.valueOf(infoToModify))) {
                     System.out.print(
                             "\n[1] First Name\n" +
@@ -250,20 +124,19 @@ public class TerminalDisplay {
                 }
             }
         } while (inputStudentUpdate.equalsIgnoreCase("Y"));
-
     }
 
     public static void displayDeleteStudent() {
         // Display title
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                      DELETE STUDENT                   ║\n" +
+                        "║ DELETE STUDENT ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
 
         // Display all students the user can delete
         tracker.displayStudent();
 
-        // Ask the user to select a student to delete by his Id
+        // Ask the user to select a student to delete by their Id
         System.out.print("> Please choose the student Id: ");
         int deleteStudentId = input.nextInt();
         input.nextLine();
@@ -283,18 +156,27 @@ public class TerminalDisplay {
         }
     }
 
-    public void displaySearchStudent() {
+    public static void displaySearchStudent() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
-
-        // Ask the user to choose the id of a student
+        // Ask the user to choose the ID of a student
         System.out.print("> Please enter the student's ID: ");
         int searchStudentID = input.nextInt();
         input.nextLine();
 
-        // Display the student's information according to the id given
-        System.out.println("\nDetails of the student with ID: " + searchStudentID);
+        // Retrieve student information by ID
+        Student student = new Student(searchStudentID);
+
+        // Display the student's information if found
+        if (student != null) {
+            System.out.println("Student found:\n" +
+                    "Name: " + student.getFirstName() + " " + student.getLastName() +
+                    " | Age: " + student.getAge() +
+                    " | Field: " + student.getField() + "\n");
+        } else {
+            System.out.println("Student with ID " + searchStudentID + " not found.\n");
+        }
     }
 }

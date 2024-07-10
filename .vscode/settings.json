@@ -1,8 +1,11 @@
 {
     "java.project.sourcePaths": [
-        "src",
+        "data/repositories",
+        "src/display",
+        "src/models",
+        "src/validators",
         "data",
-        "source"
+        "src"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
