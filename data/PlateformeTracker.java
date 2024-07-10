@@ -74,7 +74,6 @@ public class PlateformeTracker {
                 statement.setInt(6, updateStudentId);
                 return statement.executeUpdate();
             }
-
         }
     }
 
@@ -188,12 +187,13 @@ public class PlateformeTracker {
     }
 
     // Method to register a new user
-     public boolean registerUser(String email, String hashedPassword) {
-        String sql = "INSERT INTO login (email, password) VALUES (?, ?)";
+     public boolean registerUser(int studentID, String email, String hashedPassword) {
+        String sql = "INSERT INTO login (studentID, email, password) VALUES (?, ?, ?)";
         try (Connection connection = database.connect();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, email);
-            statement.setString(2, hashedPassword);
+            statement.setInt(1, studentID);
+            statement.setString(2, email);
+            statement.setString(3, hashedPassword);
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException exception) {

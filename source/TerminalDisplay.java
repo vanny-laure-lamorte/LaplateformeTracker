@@ -8,7 +8,7 @@ public class TerminalDisplay {
     public void userAccount() {
 
         // Ask the user if he has an account
-        System.out.print("Do you have an account with us (Y/N) ? ");
+        System.out.print("Do you have an account with us (Y/N)? ");
         input.nextLine();
         String inputAccount = input.nextLine();
 
@@ -37,9 +37,10 @@ public class TerminalDisplay {
             userLogin = input.nextLine();
             System.out.print("Please enter your password: ");
             userPassword = input.nextLine();
+            int studentID = 0;
 
             // Register the new user using the method in Login class
-            boolean registrationSuccessful = tracker.registerUser(userLogin, userPassword);
+            boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, userPassword);
 
             if (registrationSuccessful) {
                 System.out.println("Registration successful!");
@@ -60,7 +61,7 @@ public class TerminalDisplay {
                     "       ║                                                      ║\n" +
                     "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
                     "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
-                    "       ║ [5] Search student by ID ║  [6]                      ║\n" +
+                    "       ║ [5] Search student by ID ║  [6] Test Account         ║\n" +
                     "       ║                                                      ║\n" +
                     "       ║                                                      ║\n" +
                     "       ║ [0]  Quit                                            ║\n" +
