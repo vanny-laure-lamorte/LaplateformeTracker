@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlateformeTracker {
 
@@ -33,10 +35,10 @@ public class PlateformeTracker {
 
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
             double newAverageGrade) {
-        String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
+        String Sql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
 
             statement.setString(1, newFirstName);
             statement.setString(2, newLastName);
@@ -63,9 +65,9 @@ public class PlateformeTracker {
 
         try (Connection connection = database.connect()) {
 
-            String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
+            String Sql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
 
-            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+            try (PreparedStatement statement = connection.prepareStatement(Sql)) {
                 statement.setString(1, updateFirstName);
                 statement.setString(2, updateLastName);
                 statement.setInt(3, updateAge);
@@ -79,10 +81,10 @@ public class PlateformeTracker {
 
     public String getStudentById(int studentId) {
         String studentInfo = "";
-        String query = "SELECT firstName, lastName FROM student WHERE id = ?";
+        String Sql = "SELECT firstName, lastName FROM student WHERE id = ?";
 
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(query)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setInt(1, studentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -99,9 +101,9 @@ public class PlateformeTracker {
 
     // Method to update the first name of a student
     public int updateFirstName(int studentId, String newFirstName) {
-        String updateSql = "UPDATE student SET firstName = ? WHERE id = ?";
+        String Sql = "UPDATE student SET firstName = ? WHERE id = ?";
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setString(1, newFirstName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -113,9 +115,9 @@ public class PlateformeTracker {
 
     // Method to update the last name of a student
     public int updateLastName(int studentId, String newLastName) {
-        String updateSql = "UPDATE student SET lastName = ? WHERE id = ?";
+        String Sql = "UPDATE student SET lastName = ? WHERE id = ?";
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setString(1, newLastName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -127,9 +129,9 @@ public class PlateformeTracker {
 
     // Method to update the age of a student
     public int updateAge(int studentId, int newAge) {
-        String updateSql = "UPDATE student SET age = ? WHERE id = ?";
+        String Sql = "UPDATE student SET age = ? WHERE id = ?";
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setInt(1, newAge);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -141,9 +143,9 @@ public class PlateformeTracker {
 
     // Method to update the field of study of a student
     public int updateField(int studentId, String newField) {
-        String updateSql = "UPDATE student SET field = ? WHERE id = ?";
+        String Sql = "UPDATE student SET field = ? WHERE id = ?";
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(updateSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setString(1, newField);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -155,9 +157,9 @@ public class PlateformeTracker {
 
     // Method to delete a student
     public int deleteStudent(int studentId) {
-        String deleteSql = "DELETE FROM student WHERE id = ?";
+        String Sql = "DELETE FROM student WHERE id = ?";
         try (Connection connection = database.connect();
-                PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+                PreparedStatement statement = connection.prepareStatement(Sql)) {
             statement.setInt(1, studentId);
             return statement.executeUpdate();
         } catch (SQLException exception) {
@@ -165,6 +167,8 @@ public class PlateformeTracker {
             return 0;
         }
     }
+
+    //--- ACCOUNT ---//
 
     public String authenticateUser(String userLogin, String userPassword) {
         String sql = "SELECT email, password FROM login WHERE email = ?";
@@ -201,5 +205,11 @@ public class PlateformeTracker {
             return false;
         }
     }
+
+    //--- Filter ---//
+
+   // Method to get students by first name
+   
+
 
 }

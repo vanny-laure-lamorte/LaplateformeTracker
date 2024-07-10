@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class TerminalDisplay {
@@ -101,7 +102,7 @@ public class TerminalDisplay {
                     displaySearchStudent();
                     break;
                 case 6:
-                    userAccount();
+                    filterDisplay(); // Section to test methods
                     break;
                 case 0:
                     System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -281,6 +282,70 @@ public class TerminalDisplay {
 
         // Display the student's information according to the id given
         System.out.println("\nDetails of the student with ID: " + searchStudentID);
+
+    }
+
+
+    //--- FILTER ---//
+
+    public void filterDisplay() {
+        int choice = -1;
+        do {
+            System.out.print("\n" +
+                    "       ╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
+                    "       ║                                                        ║\n" +
+                    "       ║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
+                    "       ║ [3] Statistics             ║  [4] Data import/export   ║\n" +
+                    "       ║ [5] Pagination             ║  [6]  Export results      ║\n" +
+                    "       ║                                                        ║\n" +
+                    "       ║                                                        ║\n" +
+                    "       ║ [0]  Quit                                              ║\n" +
+                    "       ╚════════════════════════════════════════════════════════╝\n");
+
+            do {
+                System.out.print("> Chose a filter option : ");
+                String inputString = input.next();
+                if (inputString.matches("[0-6]")) {
+                    choice = Integer.parseInt(inputString);
+                } else {
+                    choice = -1;
+                    System.out.print("Please enter a number between 0 et 6 \n");
+                }
+
+            } while (choice < 0 || choice > 7);
+
+            switch (choice) {
+                case 1: 
+                filterStudentsByFirstName();                  
+                    break;
+                case 2:                   
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 0:
+                    System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
+                    break;
+                default:
+                    System.out.println("ERROR. Filter option not available.");
+                    break;
+            }
+        } while (choice != 0);
+        input.close();
+    }
+    
+    public void filterStudentsByFirstName(){
+        System.out.println(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                "║                 FILTER STUDENTS BY FIRST NAME         ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n"+
+                "Enter the first name to filter students:");                
+        String filterName = input.nextLine();  
 
     }
 }
