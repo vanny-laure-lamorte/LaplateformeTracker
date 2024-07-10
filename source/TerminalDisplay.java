@@ -21,15 +21,34 @@ public class TerminalDisplay {
             userLogin = input.nextLine();
             System.out.print("Please enter your password: ");
             userPassword = input.nextLine();
+
+            // Check login credentials
+            boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
+
+            if (loginSuccessful) {
+                System.out.println("Login successful!");
+            } else {
+                System.out.println("Invalid email or password.");
+            }
+        } else if (inputAccount.equalsIgnoreCase("N")) {
+
+            // Ask the user to enter his account details       
+            System.out.print("Please enter your email: ");
+            userLogin = input.nextLine();
+            System.out.print("Please enter your password: ");
+            userPassword = input.nextLine();
+
+            // Register the new user using the method in Login class
+            boolean registrationSuccessful = tracker.registerUser(userLogin, userPassword);
+
+            if (registrationSuccessful) {
+                System.out.println("Registration successful!");
+            } else {
+                System.out.println("Registration failed. Try again.");
+            }
         }
-
-        // Check login credentials
-        boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
-
-        if (loginSuccessful) {
-            System.out.println("Login successful!");
-        } else {
-            System.out.println("Invalid email or password.");
+        else {
+            System.out.println("Invalid input. Please enter 'Y' or 'N'.");
         }
     }
 

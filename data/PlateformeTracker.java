@@ -3,8 +3,9 @@ import java.sql.*;
 public class PlateformeTracker {
 
     private Database database = new Database() {
-        
+
     };
+
     public ResultSet displayStudent() {
         ResultSet resultSet = null;
 
@@ -15,8 +16,8 @@ public class PlateformeTracker {
 
             while (resultSet.next()) {
                 System.out.println(
-                    "Id: " + resultSet.getString("id") +
-                        " | First Name: " + resultSet.getString("firstName") +
+                        "Id: " + resultSet.getString("id") +
+                                " | First Name: " + resultSet.getString("firstName") +
                                 " | Last Name: " + resultSet.getString("lastName") +
                                 " | Field: " + resultSet.getString("field") +
                                 " | Age : " + resultSet.getInt("age") +
@@ -30,11 +31,12 @@ public class PlateformeTracker {
         return resultSet;
     }
 
-    public int addStudent(String newFirstName, String newLastName, int newAge, String newField, double newAverageGrade) {
+    public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
+            double newAverageGrade) {
         String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = database.connect();
-             PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                PreparedStatement statement = connection.prepareStatement(insertSql)) {
 
             statement.setString(1, newFirstName);
             statement.setString(2, newLastName);
@@ -56,31 +58,32 @@ public class PlateformeTracker {
         }
     }
 
+    public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge,
+            String updateField, double updateAverageGrade) throws SQLException {
 
-    public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge, String updateField, double updateAverageGrade) throws SQLException {
-        
-        try (Connection connection = database.connect()) { 
+        try (Connection connection = database.connect()) {
 
-        String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
-        
-        try (PreparedStatement statement = connection.prepareStatement(insertSql))  {
-            statement.setString(1, updateFirstName);
-            statement.setString(2, updateLastName);
-            statement.setInt(3, updateAge);
-            statement.setString(4, updateField);
-            statement.setDouble(5, updateAverageGrade);
-            statement.setInt(6, updateStudentId);
-            return statement.executeUpdate();
-        }
+            String insertSql = "UPDATE students SET firstName = ?, lastName = ?, age = ?, field = ?, averageGrade = ? WHERE id = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                statement.setString(1, updateFirstName);
+                statement.setString(2, updateLastName);
+                statement.setInt(3, updateAge);
+                statement.setString(4, updateField);
+                statement.setDouble(5, updateAverageGrade);
+                statement.setInt(6, updateStudentId);
+                return statement.executeUpdate();
+            }
 
         }
     }
 
-     public String getStudentById(int studentId) {
+    public String getStudentById(int studentId) {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
 
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, studentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -98,7 +101,8 @@ public class PlateformeTracker {
     // Method to update the first name of a student
     public int updateFirstName(int studentId, String newFirstName) {
         String updateSql = "UPDATE student SET firstName = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newFirstName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -111,7 +115,8 @@ public class PlateformeTracker {
     // Method to update the last name of a student
     public int updateLastName(int studentId, String newLastName) {
         String updateSql = "UPDATE student SET lastName = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newLastName);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -124,7 +129,8 @@ public class PlateformeTracker {
     // Method to update the age of a student
     public int updateAge(int studentId, int newAge) {
         String updateSql = "UPDATE student SET age = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setInt(1, newAge);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -137,7 +143,8 @@ public class PlateformeTracker {
     // Method to update the field of study of a student
     public int updateField(int studentId, String newField) {
         String updateSql = "UPDATE student SET field = ? WHERE id = ?";
-        try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(updateSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
             statement.setString(1, newField);
             statement.setInt(2, studentId);
             return statement.executeUpdate();
@@ -147,27 +154,29 @@ public class PlateformeTracker {
         }
     }
 
-    // Method to delete a student 
+    // Method to delete a student
     public int deleteStudent(int studentId) {
-    String deleteSql = "DELETE FROM student WHERE id = ?";
-    try (Connection connection = database.connect(); PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-        statement.setInt(1, studentId);
-        return statement.executeUpdate();
-    } catch (SQLException exception) {
-        System.out.println("Error deleting student: " + exception.getMessage());
-        return 0;
-    }}
+        String deleteSql = "DELETE FROM student WHERE id = ?";
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+            statement.setInt(1, studentId);
+            return statement.executeUpdate();
+        } catch (SQLException exception) {
+            System.out.println("Error deleting student: " + exception.getMessage());
+            return 0;
+        }
+    }
 
     public String authenticateUser(String userLogin, String userPassword) {
         String sql = "SELECT email, password FROM login WHERE email = ?";
         try (Connection connection = database.connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+                PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, userLogin);
-            try (ResultSet resultSet = statement.executeQuery()) {                
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     String email = resultSet.getString("email");
                     String passwordFromDB = resultSet.getString("password");
-                    return passwordFromDB; 
+                    return passwordFromDB;
                 } else {
                     return null;
                 }
@@ -176,6 +185,21 @@ public class PlateformeTracker {
             System.out.println("ERROR " + exception.getMessage());
             return null;
         }
-    
+    }
 
-}}
+    // Method to register a new user
+     public boolean registerUser(String email, String hashedPassword) {
+        String sql = "INSERT INTO login (email, password) VALUES (?, ?)";
+        try (Connection connection = database.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setString(2, hashedPassword);
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
+        } catch (SQLException exception) {
+            System.out.println("ERROR: " + exception.getMessage());
+            return false;
+        }
+    }
+
+}
