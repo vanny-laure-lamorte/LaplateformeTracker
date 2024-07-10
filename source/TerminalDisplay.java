@@ -39,8 +39,11 @@ public class TerminalDisplay {
             userPassword = input.nextLine();
             int studentID = 0;
 
+            // Hash the user's password 
+            String hashedNewPassword = Login.hashPassword(userPassword); 
+
             // Register the new user using the method in Login class
-            boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, userPassword);
+            boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
 
             if (registrationSuccessful) {
                 System.out.println("Registration successful!");

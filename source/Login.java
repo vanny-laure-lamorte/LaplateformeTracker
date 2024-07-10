@@ -3,6 +3,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Login {
 
+    // Method to hash a password
     public static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -20,8 +21,6 @@ public class Login {
             throw new RuntimeException(e);
         }
     }
-
-
     
     public static boolean checkLoginCredentials(String userLogin, String userPassword) {
 
