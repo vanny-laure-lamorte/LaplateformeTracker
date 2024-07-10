@@ -4,43 +4,33 @@ public class TerminalDisplay {
 
     private static final PlateformeTracker tracker = new PlateformeTracker();
     private static final Scanner input = new Scanner(System.in);
-    
 
-    public void userAccount(){
+    public void userAccount() {
 
         // Ask the user if he has an account
         System.out.print("Do you have an account with us (Y/N) ? ");
         input.nextLine();
-        String inputAccount = input.nextLine();        
+        String inputAccount = input.nextLine();
 
         // Get the user Password and Email
-        String userPassword ="";
+        String userPassword = "";
         String userLogin = "";
-        
-        if (inputAccount.equals("Y")){
+
+        if (inputAccount.equals("Y")) {
             System.out.print("Please enter your email: ");
-            userLogin = input.nextLine(); 
+            userLogin = input.nextLine();
             System.out.print("Please enter your password: ");
-            userPassword = input.nextLine();            
-        }       
-
-        // Asher Password
-        String hashedPassword = Login.hashPassword(userPassword);
-
-        // DEBUG
-        System.out.println("Initial Password: " +userPassword);
-        System.out.println("Password hashed: " + hashedPassword);
+            userPassword = input.nextLine();
+        }
 
         // Check login credentials
+        boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
 
-        String storedHashedPassword = tracker.authenticateUser(userLogin, hashedPassword);
-
-        if (storedHashedPassword != null && storedHashedPassword.equals(hashedPassword)) {
+        if (loginSuccessful) {
             System.out.println("Login successful!");
         } else {
             System.out.println("Invalid email or password.");
-        }        
-    
+        }
     }
 
     public void homeDisplay() {
@@ -84,12 +74,12 @@ public class TerminalDisplay {
                 case 4:
                     displayDeleteStudent();
                     break;
-                case 5: 
-                displaySearchStudent(); 
+                case 5:
+                    displaySearchStudent();
                     break;
                 case 6:
-                userAccount(); 
-                break;
+                    userAccount();
+                    break;
                 case 0:
                     System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
                     break;
@@ -258,16 +248,16 @@ public class TerminalDisplay {
     public void displaySearchStudent() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n");
+                        "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");
 
         // Ask the user to choose the id of a student
         System.out.print("> Please enter the student's ID: ");
-        int searchStudentID = input.nextInt(); 
+        int searchStudentID = input.nextInt();
         input.nextLine();
 
         // Display the student's information according to the id given
         System.out.println("\nDetails of the student with ID: " + searchStudentID);
-        
+
     }
 }

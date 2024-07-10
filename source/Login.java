@@ -21,8 +21,21 @@ public class Login {
         }
     }
 
-  
 
     
+    public static boolean checkLoginCredentials(String userLogin, String userPassword) {
+
+        PlateformeTracker PTracker = new PlateformeTracker();
+        
+        // Hash the user password
+        String hashedPassword = hashPassword(userPassword);
+
+        // Get the stored hashed password from the database
+        String storedHashedPassword = PTracker.authenticateUser(userLogin, hashedPassword);
+
+        // Check if the stored hashed password matches the input hashed password
+        return storedHashedPassword != null && storedHashedPassword.equals(hashedPassword);
+    }
 }
+
 
