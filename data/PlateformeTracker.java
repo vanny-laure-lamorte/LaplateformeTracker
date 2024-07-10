@@ -156,6 +156,26 @@ public class PlateformeTracker {
     } catch (SQLException exception) {
         System.out.println("Error deleting student: " + exception.getMessage());
         return 0;
-    }
+    }}
+
+    public String authenticateUser(String userLogin, String userPassword) {
+        String sql = "SELECT email, password FROM login WHERE email = ?";
+        try (Connection connection = database.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, userLogin);
+            try (ResultSet resultSet = statement.executeQuery()) {                
+                if (resultSet.next()) {
+                    String email = resultSet.getString("email");
+                    String passwordFromDB = resultSet.getString("password");
+                    return passwordFromDB; 
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException exception) {
+            System.out.println("ERROR " + exception.getMessage());
+            return null;
+        }
+    
 
 }}

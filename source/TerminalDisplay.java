@@ -4,27 +4,43 @@ public class TerminalDisplay {
 
     private static final PlateformeTracker tracker = new PlateformeTracker();
     private static final Scanner input = new Scanner(System.in);
+    
 
     public void userAccount(){
 
         // Ask the user if he has an account
         System.out.print("Do you have an account with us (Y/N) ? ");
-        String inputAccount = input.nextLine();
+        input.nextLine();
+        String inputAccount = input.nextLine();        
+
+        // Get the user Password and Email
+        String userPassword ="";
+        String userLogin = "";
         
         if (inputAccount.equals("Y")){
             System.out.print("Please enter your email: ");
-            String userLogin = input.nextLine(); 
+            userLogin = input.nextLine(); 
             System.out.print("Please enter your password: ");
-            String userPassword = input.nextLine();            
+            userPassword = input.nextLine();            
+        }       
 
-            // debug
-            System.out.println("Debug:" + userLogin);
-            System.out.println("Debug:" + userPassword);
-        }
+        // Asher Password
+        String hashedPassword = Login.hashPassword(userPassword);
 
-        // 
+        // DEBUG
+        System.out.println("Initial Password: " +userPassword);
+        System.out.println("Password hashed: " + hashedPassword);
 
+        // Check login credentials
 
+        String storedHashedPassword = tracker.authenticateUser(userLogin, hashedPassword);
+
+        if (storedHashedPassword != null && storedHashedPassword.equals(hashedPassword)) {
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Invalid email or password.");
+        }        
+    
     }
 
     public void homeDisplay() {
@@ -44,14 +60,14 @@ public class TerminalDisplay {
             do {
                 System.out.print("> Chose a menu option : ");
                 String inputString = input.next();
-                if (inputString.matches("[0-6]")) {
+                if (inputString.matches("[0-7]")) {
                     choice = Integer.parseInt(inputString);
                 } else {
                     choice = -1;
                     System.out.print("Please enter a number between 0 et 6 \n");
                 }
 
-            } while (choice < 0 || choice > 6);
+            } while (choice < 0 || choice > 7);
 
             switch (choice) {
                 case 1:
@@ -71,6 +87,9 @@ public class TerminalDisplay {
                 case 5: 
                 displaySearchStudent(); 
                     break;
+                case 6:
+                userAccount(); 
+                break;
                 case 0:
                     System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
                     break;

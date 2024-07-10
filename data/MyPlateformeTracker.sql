@@ -12,11 +12,11 @@ CREATE TABLE login (
 );
 
 INSERT INTO login(studentID, email, password ) VALUES
-(1,'Lucas','lucasM@gmail.com','009d7b6c160458832d80582fb8132d9f259bccd8e5b7ca3051732b3187bcb44e'),
-(2, 'Thanh','thanhL@gmail.com', '6b16fe348f3f9a5da3912b0eb0f76333e3099105443787396280867fbb33de30'),
-(3,'Vanny','vannyL@gmail.com', '4551bf0b433c1aa310fb34420a640c825eca79969117c95f32b8bddbe0c15d72'),
-(4,'Lucy','lucyM@gmail.com','c2fd916be68a5de81748dbfea16ae3b42a02a7c33b6e85d7ab0e8c514ba89cd2'),
-(5,'Alicia','aliciaC@gmail.com', '3bd44b4351597dfb632ff7617e95d5d9d00c0ce84761decf06bd3ecc44157312');
+(1,'lucasM@gmail.com','009d7b6c160458832d80582fb8132d9f259bccd8e5b7ca3051732b3187bcb44e'),
+(2,'thanhL@gmail.com', '6b16fe348f3f9a5da3912b0eb0f76333e3099105443787396280867fbb33de30'),
+(3,'vannyL@gmail.com', '4551bf0b433c1aa310fb34420a640c825eca79969117c95f32b8bddbe0c15d72'),
+(4,'lucyM@gmail.com','c2fd916be68a5de81748dbfea16ae3b42a02a7c33b6e85d7ab0e8c514ba89cd2'),
+(5,'aliciaC@gmail.com', '3bd44b4351597dfb632ff7617e95d5d9d00c0ce84761decf06bd3ecc44157312');
 
 -- Lucas: lucasL@gmail.com, lucasM123!
 -- Thanh: thanhL@gmail.com, thanhL123!
