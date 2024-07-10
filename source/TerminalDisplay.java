@@ -7,68 +7,127 @@ public class TerminalDisplay {
     private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
 
-    public void testDisplay(){
+    public void testDisplay() {
         List<Integer> ids = new ArrayList<>();
         ids = tracker.getAllId();
-        for(int id : ids){
+        for (int id : ids) {
             System.out.println(id);
         }
-
     }
 
     public void homeDisplay() {
+        int pageNumber = 1;
         int choice = -1;
+
         do {
-            System.out.print("\n" +
-                    "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
-                    "       ║                                                      ║\n" +
-                    "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
-                    "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
-                    "       ║ [5] Search student by ID ║  [6]                      ║\n" +
-                    "       ║                                                      ║\n" +
-                    "       ║                                                      ║\n" +
-                    "       ║ [0]  Quit                                            ║\n" +
-                    "       ╚══════════════════════════════════════════════════════╝\n");
 
-            do {
-                System.out.print("> Chose a menu option : ");
-                String inputString = input.next();
-                if (inputString.matches("[0-6]")) {
-                    choice = Integer.parseInt(inputString);
-                } else {
-                    choice = -1;
-                    System.out.print("Please enter a number between 0 et 6 \n");
+            if (pageNumber == 1) {
+                System.out.print(
+                        "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
+                                "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
+                                "       ║ [5] Search student by ID ║  [6]                      ║\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║ [0]  Quit                   [9] Next page       1/2  ║\n" +
+                                "       ╚══════════════════════════════════════════════════════╝\n");
+
+                choice = getUserChoice();
+
+                switch (choice) {
+                    case 1:
+                        displayTitleStudentInfo();
+                        tracker.displayStudent();
+                        break;
+                    case 2:
+                        displayAddStudent();
+                        break;
+                    case 3:
+                        displayModifyStudent();
+                        break;
+                    case 4:
+                        displayDeleteStudent();
+                        break;
+                    case 5:
+                        displaySearchStudent();
+                        break;
+                    case 9:
+                        pageNumber = 2;
+                        clearScreen();
+                        break;
+                    case 0:
+                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
+                        break;
+                    default:
+                        System.out.println("ERROR. Option not available.");
+                        break;
                 }
+            } else if (pageNumber == 2) {
+                System.out.print(
+                                "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
+                                "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
+                                "       ║ [5] Search student by ID ║  [6]                      ║\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║                                                      ║\n" +
+                                "       ║ [0]  Quit                   [9] Next page       2/2  ║\n" +
+                                "       ╚══════════════════════════════════════════════════════╝\n");
 
-            } while (choice < 0 || choice > 6);
+                choice = getUserChoice();
 
-            switch (choice) {
-                case 1:
-                    displayTitleStudentInfo();
-                    tracker.displayStudent();
-                    break;
-                case 2:
-                    displayAddStudent();
-                    break;
-                case 3:
-                    displayModifyStudent();
-                    break;
-
-                case 4:
-                    displayDeleteStudent();
-                    break;
-                case 5: 
-                displaySearchStudent(); 
-                    break;
-                case 0:
-                    System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
-                    break;
-                default:
-                    System.out.println("ERROR. Option not available.");
-                    break;
+                switch (choice) {
+                    case 1:
+                        displayTitleStudentInfo();
+                        tracker.displayStudent();
+                        break;
+                    case 2:
+                        displayAddStudent();
+                        break;
+                    case 3:
+                        displayModifyStudent();
+                        break;
+                    case 4:
+                        displayDeleteStudent();
+                        break;
+                    case 5:
+                        displaySearchStudent();
+                        break;
+                    case 9:
+                        pageNumber = 1;
+                        clearScreen();
+                        break;
+                    case 0:
+                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
+                        break;
+                    default:
+                        System.out.println("ERROR. Option not available.");
+                        break;
+                }
             }
         } while (choice != 0);
         input.close();
+    }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    private int getUserChoice() {
+        int choice;
+        do {
+            System.out.print("> Choose a menu option: ");
+            String inputString = input.next();
+            if (inputString.matches("[0-9]")) {
+                choice = Integer.parseInt(inputString);
+            } else {
+                choice = -1;
+                System.out.print("Please enter a number between 0 and 9 \n");
+            }
+        } while (choice < 0 || choice > 9);
+        return choice;
     }
 
     public void displayTitleStudentInfo() {
@@ -195,7 +254,6 @@ public class TerminalDisplay {
     }
 
     public static void displayDeleteStudent() {
-
         // Display title
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
@@ -223,22 +281,20 @@ public class TerminalDisplay {
             tracker.deleteStudent(deleteStudentId);
             System.out.println("Student deleted successfully! ");
         }
-
     }
 
     public void displaySearchStudent() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n");
+                        "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");
 
         // Ask the user to choose the id of a student
         System.out.print("> Please enter the student's ID: ");
-        int searchStudentID = input.nextInt(); 
+        int searchStudentID = input.nextInt();
         input.nextLine();
 
         // Display the student's information according to the id given
         System.out.println("\nDetails of the student with ID: " + searchStudentID);
-        
     }
 }
