@@ -32,6 +32,8 @@ public class HomeDisplay {
                     case 5:
                         StudentDisplay.displaySearchStudent();
                         break;
+                    case 6:
+                        FilterDisplay.displayFilters();
                     case 9:
                         pageNumber = 2;
                         clearScreen();
@@ -69,11 +71,11 @@ public class HomeDisplay {
 
     private void displayPageOneMenu() {
         System.out.print(
-                        "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
+                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
                         "║                                                     ║\n" +
                         "║ [1] Display Student       ║  [2] Add a new student  ║\n" +
                         "║ [3] Update student info   ║  [4] Delete student     ║\n" +
-                        "║ [5] Search student by ID  ║  [6]                    ║\n" +
+                        "║ [5] Search student by ID  ║  [6] Test               ║\n" +
                         "║                                                     ║\n" +
                         "║                                                     ║\n" +
                         "║ [0] Quit                  [9] Next page      1/2    ║\n" +
@@ -82,7 +84,7 @@ public class HomeDisplay {
 
     private void displayPageTwoMenu() {
         System.out.print(
-                        "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
+                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
                         "║                                                     ║\n" +
                         "║ [1] Display Student Grade  ║  [2]                   ║\n" +
                         "║ [3]                        ║  [4]                   ║\n" +
