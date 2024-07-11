@@ -6,22 +6,28 @@ public class StudentDisplay {
     private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
 
-    public static void displayTitleStudentInfo() {
-        Frame.displayInFrame("STUDENT INFO");
+    public static String displayTitleStudentInfo() {
+        String StudentInfo = "  ════> STUDENT INFO       \n\n";
+        return StudentInfo;
     }
 
     public static void displayAllStudents() {
         List<Student> students = tracker.getAllStudents();
         StringBuilder studentDisplay = new StringBuilder();
-
+        String inputChoice = "";
+        studentDisplay.append(displayTitleStudentInfo());
         for (Student student : students) {
             studentDisplay.append("Name: ").append(student.getFirstName()).append(" ").append(student.getLastName())
                     .append(" | Field: ").append(student.getField())
                     .append(" | Age : ").append(student.getAge())
                     .append("\n");
         }
+        do {
+            studentDisplay.append("\n [R] Back to Menu");
+            Frame.displayInFrame(studentDisplay.toString());
+            inputChoice = input.nextLine();
+        } while (!inputChoice.equalsIgnoreCase("R"));
 
-        Frame.displayInFrame(studentDisplay.toString());
     }
 
     public static void displayAddStudent() {

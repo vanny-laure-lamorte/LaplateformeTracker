@@ -12,13 +12,14 @@ public class HomeDisplay {
 
         do {
             if (pageNumber == 1) {
+                Frame.clearScreen();
                 displayPageOneMenu();
                 choice = Frame.getUserChoice(input, 9);
 
                 switch (choice) {
                     case 1:
-                        StudentDisplay.displayTitleStudentInfo();
-                        StudentDisplay.displayAllStudents();
+                    Frame.clearScreen();
+                    StudentDisplay.displayAllStudents();    
                         break;
                     case 2:
                         StudentDisplay.displayAddStudent();
