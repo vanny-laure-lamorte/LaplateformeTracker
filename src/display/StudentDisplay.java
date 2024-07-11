@@ -175,8 +175,6 @@ public class StudentDisplay {
                     "Name: " + student.getFirstName() + " " + student.getLastName() +
                     " | Age: " + student.getAge() +
                     " | Field: " + student.getField() + "\n");
-        } else {
-            System.out.println("Student with ID " + searchStudentID + " not found.\n");
         }
     }
 }

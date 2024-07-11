@@ -33,7 +33,9 @@ public class HomeDisplay {
                         StudentDisplay.displaySearchStudent();
                         break;
                     case 6:
-                        FilterDisplay.displayFilters();
+                    LoginDisplay.userAccount();
+                    case 7:
+                    FilterDisplay.displayFilters();
                     case 9:
                         pageNumber = 2;
                         clearScreen();
