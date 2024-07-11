@@ -6,6 +6,7 @@ public class HomeDisplay {
     private static final Scanner input = new Scanner(System.in);
 
     public void homeDisplay() {
+        clearScreen();
         int pageNumber = 1;
         int choice = -1;
 
