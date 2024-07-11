@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class TerminalDisplay {
@@ -33,15 +32,15 @@ public class TerminalDisplay {
             }
         } else if (inputAccount.equalsIgnoreCase("N")) {
 
-            // Ask the user to enter his account details       
+            // Ask the user to enter his account details
             System.out.print("Please enter your email: ");
             userLogin = input.nextLine();
             System.out.print("Please enter your password: ");
             userPassword = input.nextLine();
             int studentID = 0;
 
-            // Hash the user's password 
-            String hashedNewPassword = Login.hashPassword(userPassword); 
+            // Hash the user's password
+            String hashedNewPassword = Login.hashPassword(userPassword);
 
             // Register the new user using the method in Login class
             boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
@@ -51,21 +50,21 @@ public class TerminalDisplay {
             } else {
                 System.out.println("Registration failed. Try again.");
             }
-        }
-        else {
+        } else {
             System.out.println("Invalid input. Please enter 'Y' or 'N'.");
         }
     }
 
     public void homeDisplay() {
         int choice = -1;
+
         do {
             System.out.print("\n" +
                     "       ╔══════════════ LA PLATEFORME TRACKER ═════════════════╗\n" +
                     "       ║                                                      ║\n" +
                     "       ║ [1] Display Student      ║  [2] Add a new student    ║\n" +
                     "       ║ [3] Update student info  ║  [4] Delete student       ║\n" +
-                    "       ║ [5] Search student by ID ║  [6] Test Account         ║\n" +
+                    "       ║ [5] Search student by ID ║  [6] Choose a filter      ║\n" +
                     "       ║                                                      ║\n" +
                     "       ║                                                      ║\n" +
                     "       ║ [0]  Quit                                            ║\n" +
@@ -102,7 +101,7 @@ public class TerminalDisplay {
                     displaySearchStudent();
                     break;
                 case 6:
-                    filterDisplay(); // Section to test methods
+                    displayFilters(); // Section to test methods
                     break;
                 case 0:
                     System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -285,11 +284,10 @@ public class TerminalDisplay {
 
     }
 
+    // --- FILTER ---//
 
-    //--- FILTER ---//
-
-    public void filterDisplay() {
-        int choice = -1;
+    public void displayFilters() {
+        int choice = -2;
         do {
             System.out.print("\n" +
                     "       ╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
@@ -307,18 +305,32 @@ public class TerminalDisplay {
                 String inputString = input.next();
                 if (inputString.matches("[0-6]")) {
                     choice = Integer.parseInt(inputString);
+                    input.nextLine();
                 } else {
                     choice = -1;
                     System.out.print("Please enter a number between 0 et 6 \n");
                 }
 
-            } while (choice < 0 || choice > 7);
+            } while (choice < 0 || choice > 6);
 
             switch (choice) {
-                case 1: 
-                filterStudentsByFirstName();                  
-                    break;
-                case 2:                   
+
+                case 1:
+                    int choiceSortingStudent = filterSortingStudents();
+                    switch (choiceSortingStudent) {
+                        case 1:
+                            filterStudentsByFirstName(); // sort by first name
+                            break;
+                        case 2: 
+                            filterStudentsByLastName();  // sort by last name
+                            break;
+                        case 3: 
+                            filterStudentsByAge(); // sort by age
+                        case 4: 
+                            filterStudentsByField(); // sort by field
+                        }
+
+                case 2:
                     break;
                 case 3:
                     break;
@@ -336,16 +348,88 @@ public class TerminalDisplay {
                     break;
             }
         } while (choice != 0);
-        input.close();
     }
-    
-    public void filterStudentsByFirstName(){
-        System.out.println(
+
+    public int filterSortingStudents() {
+
+        // Display header for filtering by first name
+        System.out.print(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                      SORTING STUDENTS                 ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n" +
+                        "\n[1] Sort by first Name\n" +
+                        "[2] Sort by last Name \n" +
+                        "[3] Sort by age \n" +
+                        "[4] Sort by field \n" +
+                        "> Please your filter option: ");
+        int filterSortingStudents = input.nextInt();
+        input.nextLine();
+
+        return filterSortingStudents;
+    }
+
+    // Method to filter by first name
+    public void filterStudentsByFirstName() {
+
+        System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                 "║                 FILTER STUDENTS BY FIRST NAME         ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n"+
-                "Enter the first name to filter students:");                
-        String filterName = input.nextLine();  
+                "╚═══════════════════════════════════════════════════════╝\n" +
+                "> Enter the first name to filter students:");
+
+        String filterName = input.nextLine();
+
+        System.out.println("Students with the first name: " + filterName);
 
     }
+
+    // Method to filter by last name
+    public void filterStudentsByLastName() {
+          System.out.print(
+            "╔═══════════════════════════════════════════════════════╗\n" +
+            "║                 FILTER STUDENTS BY LAST NAME          ║\n" +
+            "╚═══════════════════════════════════════════════════════╝\n" +
+            "> Enter the last name to filter students: ");
+
+    }
+
+
+    // Method to filter by age
+    public void filterStudentsByAge() {
+
+        System.out.print(
+          "╔═══════════════════════════════════════════════════════╗\n" +
+          "║                 FILTER STUDENTS BY AGE                ║\n" +
+          "╚═══════════════════════════════════════════════════════╝\n" +
+          "> Do you want to sort the students by ascending [1] or descending age [2] ?");
+          int choiceAscDesc = input.nextInt(); 
+          input.nextLine(); 
+
+        // ! debug
+        System.out.println("Your choice is: " + choiceAscDesc );
+    }
+
+  // Method to filter by field
+  public void filterStudentsByField() {
+
+    // Display header for filtering by last name
+    System.out.print(
+      "╔═══════════════════════════════════════════════════════╗\n" +
+      "║                FILTER STUDENTS BY FIELD               ║\n" +
+      "╚═══════════════════════════════════════════════════════╝\n" +      
+      "> Which specialty's student list do you want ? \n"+
+      "[1] Software \n"+
+      "[2] Cyber \n"+
+      "[3] IA \n"+
+      "[4] Web \n"+
+      "[5] DPO \n");
+
+      int choiceField = input.nextInt(); 
+      input.nextLine(); 
+
+    // ! debug 
+    System.out.println("Your choice is: " + choiceField );
+
+    }
+
 }
