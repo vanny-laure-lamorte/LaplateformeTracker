@@ -1,21 +1,31 @@
+import java.util.List;
 import java.util.Scanner;
+import java.sql.*;
 
 public class StudentDisplay {
     private static final StudentRepository tracker = new StudentRepository();
     private static final Scanner input = new Scanner(System.in);
 
     public static void displayTitleStudentInfo() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                       STUDENT INFO                    ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        Frame.displayInFrame("STUDENT INFO");
+    }
+
+    public static void displayAllStudents() {
+        List<Student> students = tracker.getAllStudents();
+        StringBuilder studentDisplay = new StringBuilder();
+
+        for (Student student : students) {
+            studentDisplay.append("Name: ").append(student.getFirstName()).append(" ").append(student.getLastName())
+                    .append(" | Field: ").append(student.getField())
+                    .append(" | Age : ").append(student.getAge())
+                    .append("\n");
+        }
+
+        Frame.displayInFrame(studentDisplay.toString());
     }
 
     public static void displayAddStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                    ADD A NEW STUDENT                  ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        Frame.displayInFrame("ADD A NEW STUDENT");
 
         input.nextLine(); // Consume the newline left-over
         System.out.print("> Enter student's first name: ");
@@ -32,29 +42,26 @@ public class StudentDisplay {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
 
             if (result != 0) {
-                System.out.println(
+                Frame.displayInFrame(
                         "First Name: " + newFirstName +
                                 " | Last Name: " + newLastName +
                                 " | Field: " + newField +
                                 " | Age : " + newAge +
-                                " | Average Grade: " + newAverageGrade + "\n");
+                                " | Average Grade: " + newAverageGrade);
             } else {
-                System.out.println("ERROR: No student added.");
+                Frame.displayInFrame("ERROR: No student added.");
             }
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred: " + e.getMessage());
+            Frame.displayInFrame("Unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     public static void displayModifyStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                   UPDATE STUDENT INFO                 ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        Frame.displayInFrame("UPDATE STUDENT INFO");
 
         // Display options the user can modify
-        tracker.displayStudent();
+        displayAllStudents();
 
         // Ask the user to select a student by their Id
         System.out.print("> Please choose the student Id: ");
@@ -63,7 +70,7 @@ public class StudentDisplay {
 
         // Display the user choice
         String studentSelected = tracker.getStudentNameById(studentId);
-        System.out.println("Selected student: " + studentSelected + "\n");
+        Frame.displayInFrame("Selected student: " + studentSelected);
 
         String inputStudentUpdate;
         do {
@@ -72,7 +79,6 @@ public class StudentDisplay {
             inputStudentUpdate = input.nextLine();
 
             if (inputStudentUpdate.equalsIgnoreCase("Y")) {
-
                 int infoToModify = 0;
 
                 // Check if the user input is valid
@@ -87,7 +93,7 @@ public class StudentDisplay {
                     input.nextLine();
 
                     if (infoToModify < 1 || infoToModify > 4) {
-                        System.out.print("Invalid input! Please enter 1, 2, 3, or 4 \n");
+                        Frame.displayInFrame("Invalid input! Please enter 1, 2, 3, or 4");
                     }
                 }
 
@@ -97,29 +103,29 @@ public class StudentDisplay {
                         System.out.print("> Enter new first name: ");
                         String updateFirstName = input.nextLine();
                         tracker.updateFirstName(studentId, updateFirstName);
-                        System.out.println("First name updated successfully! \n");
+                        Frame.displayInFrame("First name updated successfully!");
                         break;
                     case 2:
                         System.out.print("> Enter new last name: ");
                         String updateLastName = input.nextLine();
                         tracker.updateLastName(studentId, updateLastName);
-                        System.out.println("Last name updated successfully! \n");
+                        Frame.displayInFrame("Last name updated successfully!");
                         break;
                     case 3:
                         System.out.print("> Enter new age: ");
                         int updateAge = input.nextInt();
                         tracker.updateAge(studentId, updateAge);
-                        System.out.println("Age updated successfully! \n");
+                        Frame.displayInFrame("Age updated successfully!");
                         input.nextLine();
                         break;
                     case 4:
                         System.out.print("> Enter new field: ");
                         String updateField = input.nextLine();
                         tracker.updateField(studentId, updateField);
-                        System.out.println("Field updated successfully! \n");
+                        Frame.displayInFrame("Field updated successfully!");
                         break;
                     default:
-                        System.out.println("Invalid choice. Please try again.");
+                        Frame.displayInFrame("Invalid choice. Please try again.");
                         break;
                 }
             }
@@ -127,14 +133,10 @@ public class StudentDisplay {
     }
 
     public static void displayDeleteStudent() {
-        // Display title
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║ DELETE STUDENT ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        Frame.displayInFrame("DELETE STUDENT");
 
         // Display all students the user can delete
-        tracker.displayStudent();
+        displayAllStudents();
 
         // Ask the user to select a student to delete by their Id
         System.out.print("> Please choose the student Id: ");
@@ -143,40 +145,49 @@ public class StudentDisplay {
 
         // Display the user choice
         String deleteStudentSelected = tracker.getStudentNameById(deleteStudentId);
-        System.out.println("Selected student: " + deleteStudentSelected + "\n");
+        Frame.displayInFrame("Selected student: " + deleteStudentSelected);
 
         // Ask confirmation before deleting the student
-        String inputStudentDelete;
         System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? \n");
-        inputStudentDelete = input.nextLine();
+        String inputStudentDelete = input.nextLine();
 
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
             tracker.deleteStudent(deleteStudentId);
-            System.out.println("Student deleted successfully! ");
+            Frame.displayInFrame("Student deleted successfully!");
         }
     }
 
     public static void displaySearchStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        Frame.displayInFrame("SEARCH A STUDENT BY THEIR ID");
+
         // Ask the user to choose the ID of a student
         System.out.print("> Please enter the student's ID: ");
         int searchStudentID = input.nextInt();
         input.nextLine();
 
-        // Retrieve student information by ID
-        Student student = new Student(searchStudentID);
+        // Get the student with the given ID
+        String studentFound = tracker.getStudentNameById(searchStudentID);
+        Frame.displayInFrame("Found student: " + studentFound);
+    }
 
-        // Display the student's information if found
+    public static void displayStudentById() {
+        Frame.displayInFrame("SEARCH STUDENT");
+
+        System.out.print("> Enter the student ID: ");
+        int studentId = input.nextInt();
+        input.nextLine();
+
+        // Retrieve the student with the given ID
+        Student student = new Student(studentId);
+
         if (student != null) {
-            System.out.println("Student found:\n" +
-                    "Name: " + student.getFirstName() + " " + student.getLastName() +
-                    " | Age: " + student.getAge() +
-                    " | Field: " + student.getField() + "\n");
+            Frame.displayInFrame(
+                    " | First Name: " + student.getFirstName() +
+                            " | Last Name: " + student.getLastName() +
+                            " | Age: " + student.getAge() +
+                            " | Field: " + student.getField());
         } else {
-            System.out.println("Student with ID " + searchStudentID + " not found.\n");
+            Frame.displayInFrame("No student found with ID: " + studentId);
         }
     }
 }

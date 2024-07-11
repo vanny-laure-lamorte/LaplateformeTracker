@@ -6,19 +6,19 @@ public class HomeDisplay {
     private static final Scanner input = new Scanner(System.in);
 
     public void homeDisplay() {
-        clearScreen();
+        Frame.clearScreen();
         int pageNumber = 1;
         int choice = -1;
 
         do {
             if (pageNumber == 1) {
                 displayPageOneMenu();
-                choice = getUserChoice();
+                choice = Frame.getUserChoice(input, 9);
 
                 switch (choice) {
                     case 1:
                         StudentDisplay.displayTitleStudentInfo();
-                        tracker.displayStudent();
+                        StudentDisplay.displayAllStudents();
                         break;
                     case 2:
                         StudentDisplay.displayAddStudent();
@@ -34,7 +34,7 @@ public class HomeDisplay {
                         break;
                     case 9:
                         pageNumber = 2;
-                        clearScreen();
+                        Frame.clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -45,7 +45,7 @@ public class HomeDisplay {
                 }
             } else if (pageNumber == 2) {
                 displayPageTwoMenu();
-                choice = getUserChoice();
+                choice = Frame.getUserChoice(input, 9);
 
                 switch (choice) {
                     case 1:
@@ -53,7 +53,7 @@ public class HomeDisplay {
                         break;
                     case 9:
                         pageNumber = 1;
-                        clearScreen();
+                        Frame.clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -69,7 +69,7 @@ public class HomeDisplay {
 
     private void displayPageOneMenu() {
         System.out.print(
-                        "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
+                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
                         "║                                                     ║\n" +
                         "║ [1] Display Student       ║  [2] Add a new student  ║\n" +
                         "║ [3] Update student info   ║  [4] Delete student     ║\n" +
@@ -82,7 +82,7 @@ public class HomeDisplay {
 
     private void displayPageTwoMenu() {
         System.out.print(
-                        "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
+                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
                         "║                                                     ║\n" +
                         "║ [1] Display Student Grade  ║  [2]                   ║\n" +
                         "║ [3]                        ║  [4]                   ║\n" +

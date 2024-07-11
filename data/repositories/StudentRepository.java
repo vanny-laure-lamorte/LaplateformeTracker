@@ -8,29 +8,26 @@ public class StudentRepository {
 
     };
 
-    public ResultSet displayStudent() {
-        ResultSet resultSet = null;
+    public List<Student> getAllStudents() {
+        List<Student> students = new ArrayList<>();
+        List<Integer> ids = getAllId(); // Fetch all student IDs from the database
+        String query = "SELECT * FROM student";
 
-        try (Connection connection = database.connect()) {
-            Statement statement;
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from student");
+        try (Connection connection = database.connect();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                System.out.println(
-                        "Id: " + resultSet.getString("id") +
-                                " | First Name: " + resultSet.getString("firstName") +
-                                " | Last Name: " + resultSet.getString("lastName") +
-                                " | Field: " + resultSet.getString("field") +
-                                " | Age : " + resultSet.getInt("age") +
-                                " | Average Grade : " + resultSet.getDouble("averageGrade"));
+                int id = resultSet.getInt("id");
+                Student student = new Student(id);
+                students.add(student);
             }
-            System.out.println();
 
         } catch (SQLException exception) {
-            System.err.println("Error displaying students: " + exception.getMessage());
+            System.err.println("Error fetching students: " + exception.getMessage());
         }
-        return resultSet;
+
+        return students;
     }
 
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
@@ -100,14 +97,20 @@ public class StudentRepository {
         return studentInfo;
     }
 
-    public ResultSet getStudentById(int studentId) throws SQLException {
+    public ResultSet getStudentById(int studentId) {
         String query = "SELECT * FROM student WHERE id = ?";
+        ResultSet resultSet = null;
 
-        Connection connection = database.connect();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, studentId);
+        try {
+            Connection connection = database.connect();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, studentId);
+            resultSet = statement.executeQuery();
+        } catch (SQLException exception) {
+            System.out.println("Error fetching student: " + exception.getMessage());
+        }
 
-        return statement.executeQuery();
+        return resultSet;
     }
 
     // Method to update the first name of a student
