@@ -18,10 +18,11 @@ public class Student {
             if (resultSet.next()) {
                 this.firstName = resultSet.getString("firstName");
                 this.lastName = resultSet.getString("lastName");
-                this.age = resultSet.getInt("age");
                 this.field = resultSet.getString("field");
+                this.age = resultSet.getInt("age");
                 this.grade = resultSet.getString("averageGrade");
             }
+            System.out.println(age);
         } catch (SQLException e) {
             System.err.println("Error fetching student data: " + e.getMessage());
         }

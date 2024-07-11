@@ -101,7 +101,7 @@ public class StudentRepository {
     }
 
     public ResultSet getStudentById(int studentId) throws SQLException {
-        String query = "SELECT firstName, lastName FROM student WHERE id = ?";
+        String query = "SELECT * FROM student WHERE id = ?";
 
         Connection connection = database.connect();
         PreparedStatement statement = connection.prepareStatement(query);
