@@ -65,10 +65,11 @@ public class FilterDisplay {
                                     break;
                                 case 5: 
                                 filterRepository.getStudentsOrderedField("DPO");                                  
-                                break;   
-                                           
-                                    
-                                    
+                                break;  
+                                case 6: 
+                                filterRepository.getStudentsOrderedField("Immersive Systems");
+                                break;                         
+ 
                                 default:
                                     break;
                             }
@@ -94,6 +95,8 @@ public class FilterDisplay {
             }
         } while (choice != 0);
     }
+
+    // --- SORTING STUDENTS ---// 
 
     public static int filterSortingStudents() {
 
@@ -149,7 +152,7 @@ public class FilterDisplay {
     public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age) {    
         System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | " + " ID: " + id   );    
     }
-
+    
 
     // Method to filter by field
     public static int filterFieldOptions() {
@@ -165,16 +168,14 @@ public class FilterDisplay {
                         "[3] IA \n" +
                         "[4] Web \n" +
                         "[5] DPO \n" +
-                        "> Which specialty's student list do you want ? \n");
+                        "[6] Immersive Systems \n" +
+                        "> Which specialty's student list do you want ? ");
 
         int choiceField = input.nextInt();
         input.nextLine();
-
-        // ! debug
-        System.out.println("Your choice is: " + choiceField);
+        System.out.println();
 
         return choiceField;
-
     }
 
 
