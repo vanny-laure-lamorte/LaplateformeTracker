@@ -17,17 +17,16 @@ public class StudentDisplay {
                         "║                    ADD A NEW STUDENT                  ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
 
-        input.nextLine(); // Consume the newline left-over
         System.out.print("> Enter student's first name: ");
         String newFirstName = input.nextLine();
         System.out.print("> Enter student's last name: ");
         String newLastName = input.nextLine();
         System.out.print("> Enter student's age: ");
         int newAge = input.nextInt();
-        input.nextLine(); // Consume the newline
+        input.nextLine(); 
         System.out.print("> Enter student's field: ");
         String newField = input.nextLine();
-        double newAverageGrade = 0; // Assuming this is set later or not needed in addStudent
+        double newAverageGrade = 0; 
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
 
@@ -147,7 +146,7 @@ public class StudentDisplay {
 
         // Ask confirmation before deleting the student
         String inputStudentDelete;
-        System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? \n");
+        System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)?");
         inputStudentDelete = input.nextLine();
 
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
@@ -177,4 +176,5 @@ public class StudentDisplay {
                     " | Field: " + student.getField() + "\n");
         }
     }
+    
 }

@@ -1,9 +1,11 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class FilterDisplay {
-        private static final Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
+    private static FilterRepository filterRepository = new FilterRepository();
 
-    // --- FILTER ---//
 
     public static void displayFilters() {
         int choice = -2;
@@ -40,14 +42,15 @@ public class FilterDisplay {
                         case 1:
                             filterStudentsByFirstName(); // sort by first name
                             break;
-                        case 2: 
-                            filterStudentsByLastName();  // sort by last name
+                        case 2:
+                            //filterStudentsByLastName(); // sort by last 
+                            filterRepository.getStudentsOrderedByLastName();
                             break;
-                        case 3: 
+                        case 3:
                             filterStudentsByAge(); // sort by age
-                        case 4: 
+                        case 4:
                             filterStudentsByField(); // sort by field
-                        }
+                    }
 
                 case 2:
                     break;
@@ -87,69 +90,76 @@ public class FilterDisplay {
         return filterSortingStudents;
     }
 
-    // Method to filter by first name
-    public static void filterStudentsByFirstName() {
+    // Method to display students from a ResultSet
+    public static void displayStudent(ResultSet resultSet) {
+        try {
+            while (resultSet.next()) {
+                System.out.println(
+                        "Id: " + resultSet.getString("id") +
+                                " | First Name: " + resultSet.getString("firstName") +
+                                " | Last Name: " + resultSet.getString("lastName") +
+                                " | Field: " + resultSet.getString("field") +
+                                " | Age: " + resultSet.getInt("age") +
+                                " | Average Grade: " + resultSet.getDouble("averageGrade"));
+            }
+            System.out.println();
+        } catch (SQLException exception) {
+            System.err.println("Error displaying students: " + exception.getMessage());
+        }
+    }
 
+    // Method to filter students by last name
+    public static void filterStudentsByFirstName() {
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                "║                 FILTER STUDENTS BY FIRST NAME         ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n" +
-                "> Enter the first name to filter students:");
+                        "║                 FILTER STUDENTS BY LAST NAME          ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");}
 
-        String filterName = input.nextLine();
+        
 
-        System.out.println("Students with the first name: " + filterName);
-
+  
+                        
+    // Method to filter students by last name
+    public static void filterStudentsByLastName(int id, String firstName, String lastName) {    
+        System.out.println("Nom: " + lastName + " |" +" Prénom: " + firstName + " |" + " ID: " + id  );    
     }
-
-    // Method to filter by last name
-    public static void filterStudentsByLastName() {
-          System.out.print(
-            "╔═══════════════════════════════════════════════════════╗\n" +
-            "║                 FILTER STUDENTS BY LAST NAME          ║\n" +
-            "╚═══════════════════════════════════════════════════════╝\n" +
-            "> Enter the last name to filter students: ");
-
-    }
-
 
     // Method to filter by age
     public static void filterStudentsByAge() {
 
         System.out.print(
-          "╔═══════════════════════════════════════════════════════╗\n" +
-          "║                 FILTER STUDENTS BY AGE                ║\n" +
-          "╚═══════════════════════════════════════════════════════╝\n" +
-          "> Do you want to sort the students by ascending [1] or descending age [2] ?");
-          int choiceAscDesc = input.nextInt(); 
-          input.nextLine(); 
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                 FILTER STUDENTS BY AGE                ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n" +
+                        "> Do you want to sort the students by ascending [1] or descending age [2] ?");
+        int choiceAscDesc = input.nextInt();
+        input.nextLine();
 
         // ! debug
-        System.out.println("Your choice is: " + choiceAscDesc );
+        System.out.println("Your choice is: " + choiceAscDesc);
     }
 
-  // Method to filter by field
-  public static void filterStudentsByField() {
+    // Method to filter by field
+    public static void filterStudentsByField() {
 
-    // Display header for filtering by last name
-    System.out.print(
-      "╔═══════════════════════════════════════════════════════╗\n" +
-      "║                FILTER STUDENTS BY FIELD               ║\n" +
-      "╚═══════════════════════════════════════════════════════╝\n" +      
-      "> Which specialty's student list do you want ? \n"+
-      "[1] Software \n"+
-      "[2] Cyber \n"+
-      "[3] IA \n"+
-      "[4] Web \n"+
-      "[5] DPO \n");
+        // Display header for filtering by last name
+        System.out.print(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                FILTER STUDENTS BY FIELD               ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n" +
+                        "> Which specialty's student list do you want ? \n" +
+                        "[1] Software \n" +
+                        "[2] Cyber \n" +
+                        "[3] IA \n" +
+                        "[4] Web \n" +
+                        "[5] DPO \n");
 
-      int choiceField = input.nextInt(); 
-      input.nextLine(); 
+        int choiceField = input.nextInt();
+        input.nextLine();
 
-    // ! debug 
-    System.out.println("Your choice is: " + choiceField );
+        // ! debug
+        System.out.println("Your choice is: " + choiceField);
 
     }
 
 }
-

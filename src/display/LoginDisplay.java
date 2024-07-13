@@ -9,16 +9,16 @@ public class LoginDisplay {
         String userLogin = "";
         
         // Ask the user if he has an account
-        System.out.print("Do you have an account with us (Y/N)? ");
+        System.out.print("> Do you have an account with us (Y/N)? ");
         String inputAccount = input.nextLine();
         
         // System.out.print("Hello: ");
         
         // Get the user Password and Email
         if (inputAccount.equals("Y")) {
-            System.out.print("Please enter your email: ");
+            System.out.print("> Please enter your email: ");
             userLogin = input.nextLine();
-            System.out.print("Please enter your password: ");
+            System.out.print("> Please enter your password: ");
             userPassword = input.nextLine();
 
             // Check login credentials
@@ -32,9 +32,9 @@ public class LoginDisplay {
         } else if (inputAccount.equalsIgnoreCase("N")) {
 
             // Ask the user to enter his account details
-            System.out.print("Please enter your email: ");
+            System.out.print("> Please enter your email: ");
             userLogin = input.nextLine();
-            System.out.print("Please enter your password: ");
+            System.out.print("> Please enter your password: ");
             userPassword = input.nextLine();
             int studentID = 0;
 

@@ -7,7 +7,7 @@ public class GradeDisplay {
     private GradeRepository gradeRepository = new GradeRepository();
 
     public void displayGrades() {
-        System.out.print("Enter student ID: ");
+        System.out.print("> Enter student ID: ");
         int studentID = gradeInput.nextInt();
         gradeInput.nextLine(); // Consume newline character
         List<Grade> grades = gradeRepository.getGradesByStudentId(studentID);
@@ -22,7 +22,7 @@ public class GradeDisplay {
     }
 
     public void sortAndDisplayGrades() {
-        System.out.print("Enter student ID: ");
+        System.out.print("> Enter student ID: ");
         int studentID = gradeInput.nextInt();
         gradeInput.nextLine(); // Consume newline character
         List<Grade> grades = gradeRepository.getGradesByStudentId(studentID);

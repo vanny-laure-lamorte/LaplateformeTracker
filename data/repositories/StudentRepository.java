@@ -8,6 +8,7 @@ public class StudentRepository {
 
     };
 
+    // Method to display all the students in the database
     public ResultSet displayStudent() {
         ResultSet resultSet = null;
 
@@ -33,6 +34,9 @@ public class StudentRepository {
         return resultSet;
     }
 
+   
+    
+    // Method to add a new student to the database
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
             double newAverageGrade) {
         String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
@@ -60,6 +64,8 @@ public class StudentRepository {
         }
     }
 
+
+    // Method to update an existing student's info
     public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge,
             String updateField, double updateAverageGrade) throws SQLException {
 
@@ -80,6 +86,7 @@ public class StudentRepository {
         }
     }
 
+    // Method to get a student's name by their ID
     public String getStudentNameById(int studentId) {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
@@ -99,6 +106,7 @@ public class StudentRepository {
         }
         return studentInfo;
     }
+
 
     public ResultSet getStudentById(int studentId) throws SQLException {
         String query = "SELECT * FROM student WHERE id = ?";
@@ -197,4 +205,6 @@ public class StudentRepository {
         return ids;
     }
 
+ 
+  
 }

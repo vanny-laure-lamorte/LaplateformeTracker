@@ -6,6 +6,7 @@ import java.sql.SQLException;
 public class LoginRepository {
     private Database database = new Database();
 
+    // Method to authenticate a user based on login credentials
     public String authenticateUser(String userLogin, String userPassword) {
         String sql = "SELECT email, password FROM login WHERE email = ?";
         try (Connection connection = database.connect();

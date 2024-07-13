@@ -35,7 +35,7 @@ public class HomeDisplay {
                     case 6:
                     LoginDisplay.userAccount();
                     case 7:
-                    FilterDisplay.displayFilters();
+                
                     case 9:
                         pageNumber = 2;
                         clearScreen();
@@ -52,7 +52,10 @@ public class HomeDisplay {
                 choice = getUserChoice();
 
                 switch (choice) {
-                    case 1:
+                    case 1: 
+                        FilterDisplay.displayFilters();
+                        break;
+                    case 6:
                         gradeDisplay.displayGrades();
                         break;
                     case 9:
@@ -86,15 +89,15 @@ public class HomeDisplay {
 
     private void displayPageTwoMenu() {
         System.out.print(
-                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
-                        "║                                                     ║\n" +
-                        "║ [1] Display Student Grade  ║  [2]                   ║\n" +
-                        "║ [3]                        ║  [4]                   ║\n" +
-                        "║ [5]                        ║  [6]                   ║\n" +
-                        "║                                                     ║\n" +
-                        "║                                                     ║\n" +
-                        "║ [0] Quit                  [9] Next page      2/2    ║\n" +
-                        "╚═════════════════════════════════════════════════════╝\n");
+                "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
+                "║                                                        ║\n" +
+                "║ [1] Sorting students   ║  [2] Display Student Grade    ║\n" +
+                "║ [3] Statistics         ║  [4] Data import/export       ║\n" +
+                "║ [5] Display Grades     ║  [6]                          ║\n" +
+                "║                                                        ║\n" +
+                "║                                                        ║\n" +
+                "║ [0] Quit                  [9] Next page      2/2       ║\n" +
+                "╚════════════════════════════════════════════════════════╝\n");
     }
 
     private void clearScreen() {
