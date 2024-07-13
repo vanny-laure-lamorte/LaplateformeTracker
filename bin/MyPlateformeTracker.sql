@@ -1,4 +1,4 @@
--- Active: 1707919785972@@localhost@3306@plateformetracker
+-- Active: 1720430402366@@127.0.0.1@3306@plateformetracker
 CREATE DATABASE PlateformeTracker;
 -- DROP DATABASE PlateformeTracker;
 
@@ -33,12 +33,23 @@ CREATE TABLE student (
     averageGrade DOUBLE DEFAULT 0
 );
 
+
 INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Lucas','Martinie', '28', 'Software'),
+('Elise','Maisonneuve', '22', 'Software'),
+('Camille','Noe', '31', 'Software'),
 ('Thanh','Lemelle', '30', 'Cyber'),
+('Noah','Lemelle', '18', 'Cyber'),
 ('Vanny','Lamorte', '18', 'IA'),
+('Claire','Guediguian', '33', 'IA'),
+('Lucille','Caron', '29', 'IA'),
 ('Lucy','Madec', '21', 'Web'),
-('Alicia','Cordial', '22', 'Software');
+('Lucas','Iribaren', '20', 'Web'),
+('Hugo','Esquer', '33', 'Web'),
+('Alicia','Cordial', '28', 'DPO'),
+('Celine','Dubois', '32', 'DPO'),
+('Marie','Martin', '50', 'DPO'),
+('Jean','Michelle', '40', 'DPO');
 
 CREATE TABLE grade (
     studentId VARCHAR(255),
