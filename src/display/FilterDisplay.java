@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class FilterDisplay {
     private static final Scanner input = new Scanner(System.in);
-    private static FilterRepository filterRepository = new FilterRepository();
+    public static FilterRepository filterRepository = new FilterRepository();
 
 
     public static void displayFilters() {
@@ -15,7 +15,7 @@ public class FilterDisplay {
                     "       ║                                                        ║\n" +
                     "       ║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
                     "       ║ [3] Statistics             ║  [4] Data import/export   ║\n" +
-                    "       ║ [5] Pagination             ║  [6]  Export results      ║\n" +
+                    "       ║ [5] Pagination             ║  [6] Export results      ║\n" +
                     "       ║                                                        ║\n" +
                     "       ║                                                        ║\n" +
                     "       ║ [0]  Quit                                              ║\n" +
@@ -36,6 +36,7 @@ public class FilterDisplay {
 
             switch (choice) {
 
+                // Sorting Students
                 case 1:
                     int choiceSortingStudent = filterSortingStudents();
                     switch (choiceSortingStudent) {
@@ -68,6 +69,7 @@ public class FilterDisplay {
                                 break;  
                                 case 6: 
                                 filterRepository.getStudentsOrderedField("Immersive Systems");
+                                
                                 break;                         
  
                                 default:
@@ -77,7 +79,8 @@ public class FilterDisplay {
                     }
 
                 case 2:
-                    break;
+                break;
+
                 case 3:
                     break;
                 case 4:
@@ -137,7 +140,6 @@ public class FilterDisplay {
         }
     }
 
-
     // Method to filter students by first name
     public static void filterStudentsByFirstName(int id, String firstName, String lastName, String field, int age) {    
         System.out.println( "Prénom: " + firstName + " | " + "Nom: " + lastName +  " | " + "Field: " + field + " | " + "Age: " + age + " | " + " ID: " + id   );    
@@ -153,8 +155,7 @@ public class FilterDisplay {
         System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | " + " ID: " + id   );    
     }
     
-
-    // Method to filter by field
+    // Method to allow the user to sort by field
     public static int filterFieldOptions() {
 
         // Display header for filtering by last name
@@ -178,11 +179,54 @@ public class FilterDisplay {
         return choiceField;
     }
 
-
+    // Display students according to their field
     public static void filterStudentsByField(int id, String firstName, String lastName, int age) {        
         System.out.println("Prénom: " + firstName + " | " + "Nom: " + lastName +  " | " + "Age: " + age + " | " + " ID: " + id );    
+    }  
+    
+    // --- ADVANCED SEARCH ---// 
+
+    public static int AdvancedSearchOptions() {
+
+        // Display header for filtering by last name
+        System.out.print(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                "║                         ADVANCED SEARCH               ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n" +
+                    
+                        "[1] First Name \n" +
+                        "[2] Last Name \n" +
+                        "[3] Age \n" +
+                        "> Please choose the advanced search type ? ");
+
+        int choiceAdvancedSearch = input.nextInt();
+        input.nextLine();
+        System.out.println();
+
+        return choiceAdvancedSearch;
     }
 
-    
+    public static void getAdvancedSearchFirstName () {
+        System.out.print("Please add a first name: ");
+        String filterFirstName = input.nextLine(); 
+        filterRepository.getAdvancedSearchByFirstName(filterFirstName);
+        System.out.println();     
+    }
+
+    public static void getAdvancedSearchLastName () {
+        System.out.print("Please add a last name: ");
+        String filterLastName = input.nextLine(); 
+        filterRepository.getAdvancedSearchByLastName(filterLastName);
+        System.out.println();     
+    }
+
+    public static void getAdvancedSearchAge () {
+        System.out.print("Please add an age: ");
+        int filterAge = input.nextInt(); 
+        input.nextLine(); 
+        filterRepository.getAdvancedSearchByAge(filterAge);
+        System.out.println();     
+    }
+
 
 }

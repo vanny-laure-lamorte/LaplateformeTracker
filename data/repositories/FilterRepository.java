@@ -62,7 +62,7 @@ public class FilterRepository {
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM student ORDER BY age")) {
 
             ResultSet resultSet = statement.executeQuery();
-     
+
             // Iterate through the result set and display each student
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -80,13 +80,14 @@ public class FilterRepository {
         }
     }
 
-     // Method to retrieve and display students filtered by a specific field and ordered by last name
+    // Method to retrieve and display students filtered by a specific field and
+    // ordered by last name
     public void getStudentsOrderedField(String field) {
         String fieldToFilter = field; // Student Field
 
         try (Connection connection = database.connect();
                 PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM student WHERE field = ? ORDER BY lastName")) {            
+                        "SELECT * FROM student WHERE field = ? ORDER BY lastName")) {
             statement.setString(1, fieldToFilter);
 
             ResultSet resultSet = statement.executeQuery();
@@ -110,6 +111,81 @@ public class FilterRepository {
 
         } catch (SQLException exception) {
             System.err.println("No students found for the field: " + fieldToFilter);
+        }
+    }
+
+    // --- ADVANCED SEARCH ---//
+
+    // Method to retrieve and display students by first name
+    public void  getAdvancedSearchByFirstName(String firstName) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection
+                        .prepareStatement("SELECT * FROM student WHERE firstName = ?")) {
+
+            statement.setString(1, firstName);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and display each student
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String lastName = resultSet.getString("lastName");
+                String field = resultSet.getString("field");
+                int age = resultSet.getInt("age");
+
+                // Display students
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age);
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("ERROR " + exception.getMessage());
+        }
+    }
+
+    public void getAdvancedSearchByLastName(String lastName) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection
+                        .prepareStatement("SELECT * FROM student WHERE lastName = ?")) {
+
+            statement.setString(1, lastName);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and display each student
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("firstName");
+                String field = resultSet.getString("field");
+                int age = resultSet.getInt("age");
+
+                // Display students
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age);
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("ERROR " + exception.getMessage());
+        }
+    }
+
+    public void getAdvancedSearchByAge(int age) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection
+                        .prepareStatement("SELECT * FROM student WHERE age = ?")) {
+
+            statement.setInt(1, age);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and display each student
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String field = resultSet.getString("field");
+
+                // Display students
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age); 
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("ERROR " + exception.getMessage());
         }
     }
 

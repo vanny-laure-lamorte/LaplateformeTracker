@@ -36,20 +36,25 @@ CREATE TABLE student (
 
 INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Lucas','Martinie', '28', 'Software'),
-('Elise','Maisonneuve', '22', 'Software'),
-('Camille','Noe', '31', 'Software'),
+('Elise','Martinie', '22', 'Software'),
+('Clément','Martinie', '22', 'Software'),
+('Camille','Noe', '28', 'Software'),
 ('Thanh','Lemelle', '30', 'Cyber'),
 ('Noah','Lemelle', '18', 'Cyber'),
 ('Vanny','Lamorte', '18', 'IA'),
-('Claire','Guediguian', '33', 'IA'),
+('Gerard','Lamorte', '33', 'IA'),
+('Claire','Lamorte', '33', 'IA'),
+('Christine','Guediguian','33', 'IA'),
 ('Lucille','Caron', '29', 'IA'),
+('Thibault','Caron', '21', 'IA'),
 ('Lucy','Madec', '21', 'Web'),
+('Loan','Madec', '22', 'Web'),
 ('Lucas','Iribaren', '20', 'Web'),
 ('Hugo','Esquer', '33', 'Web'),
 ('Alicia','Cordial', '28', 'DPO'),
 ('Celine','Dubois', '32', 'DPO'),
-('Marie','Martin', '50', 'DPO'),
-('Jean','Michelle', '40', 'DPO');
+('Marie','Dubois', '40', 'DPO'),
+('Jean','Dubois', '40', 'DPO');
 
 CREATE TABLE grade (
     studentId VARCHAR(255),

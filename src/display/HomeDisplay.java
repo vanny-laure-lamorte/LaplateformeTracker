@@ -50,11 +50,32 @@ public class HomeDisplay {
             } else if (pageNumber == 2) {
                 displayPageTwoMenu();
                 choice = getUserChoice();
-
+                
                 switch (choice) {
                     case 1: 
-                        FilterDisplay.displayFilters();
+                    FilterDisplay.displayFilters();
                         break;
+                    
+                    case 2: 
+                    int choiceAdvancedSearch = FilterDisplay.AdvancedSearchOptions();
+                        switch (choiceAdvancedSearch){
+                            case 1:
+                            FilterDisplay.getAdvancedSearchFirstName();
+                            break;
+                            case 2: 
+                            FilterDisplay.getAdvancedSearchLastName();
+                            break;
+                            case 3:
+                            FilterDisplay.getAdvancedSearchAge();
+                            break; 
+                        }
+
+
+                    case 3: 
+                   
+
+                    break; 
+
                     case 6:
                         gradeDisplay.displayGrades();
                         break;
@@ -91,7 +112,7 @@ public class HomeDisplay {
         System.out.print(
                 "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
                 "║                                                        ║\n" +
-                "║ [1] Sorting students   ║  [2] Display Student Grade    ║\n" +
+                "║ [1] Sorting students   ║  [2] Avanced Search           ║\n" +
                 "║ [3] Statistics         ║  [4] Data import/export       ║\n" +
                 "║ [5] Display Grades     ║  [6]                          ║\n" +
                 "║                                                        ║\n" +
