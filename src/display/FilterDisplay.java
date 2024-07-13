@@ -40,11 +40,10 @@ public class FilterDisplay {
                     int choiceSortingStudent = filterSortingStudents();
                     switch (choiceSortingStudent) {
                         case 1:
-                            filterStudentsByFirstName(); // sort by first name
+                        filterRepository.getStudentsOrderedByFirstName(); // sort by first name
                             break;
                         case 2:
-                            //filterStudentsByLastName(); // sort by last 
-                            filterRepository.getStudentsOrderedByLastName();
+                            filterRepository.getStudentsOrderedByLastName(); // sort by last name
                             break;
                         case 3:
                             filterStudentsByAge(); // sort by age
@@ -82,10 +81,11 @@ public class FilterDisplay {
                         "\n[1] Sort by first Name\n" +
                         "[2] Sort by last Name \n" +
                         "[3] Sort by age \n" +
-                        "[4] Sort by field \n" +
+                        "[4] Sort by field \n \n" +
                         "> Please your filter option: ");
         int filterSortingStudents = input.nextInt();
         input.nextLine();
+        System.out.println();
 
         return filterSortingStudents;
     }
@@ -108,20 +108,15 @@ public class FilterDisplay {
         }
     }
 
-    // Method to filter students by last name
-    public static void filterStudentsByFirstName() {
-        System.out.print(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                 FILTER STUDENTS BY LAST NAME          ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");}
 
-        
-
-  
+    // Method to filter students by first name
+    public static void filterStudentsByFirstName(int id, String firstName, String lastName, String field, int age) {    
+        System.out.println( "Prénom: " + firstName + " | " + "Nom: " + lastName +  " | " + "Field: " + field + " | " + "Age: " + age + " | " + " ID: " + id   );    
+    }
                         
     // Method to filter students by last name
-    public static void filterStudentsByLastName(int id, String firstName, String lastName) {    
-        System.out.println("Nom: " + lastName + " |" +" Prénom: " + firstName + " |" + " ID: " + id  );    
+    public static void filterStudentsByLastName(int id, String firstName, String lastName, String field, int age) {    
+        System.out.println("Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | " + "Age: " + age + " | " + " ID: " + id   );    
     }
 
     // Method to filter by age
