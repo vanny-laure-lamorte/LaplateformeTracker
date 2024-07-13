@@ -46,9 +46,33 @@ public class FilterDisplay {
                             filterRepository.getStudentsOrderedByLastName(); // sort by last name
                             break;
                         case 3:
-                            filterStudentsByAge(); // sort by age
+                        filterRepository.getStudentsOrderedByAge(); // sort by age
                         case 4:
-                            filterStudentsByField(); // sort by field
+                            int choiceField = filterFieldOptions(); // sort by field
+                            switch (choiceField) {
+                                case 1:
+                                filterRepository.getStudentsOrderedField("Software");                                   
+                                break;
+                                case 2:
+                                    filterRepository.getStudentsOrderedField("Cyber");                                    
+                                    break; 
+                                case 3:
+                                filterRepository.getStudentsOrderedField("IA");                                    
+ 
+                                    break;
+                                case 4: 
+                                filterRepository.getStudentsOrderedField("Web");                                  
+                                    break;
+                                case 5: 
+                                filterRepository.getStudentsOrderedField("DPO");                                  
+                                break;   
+                                           
+                                    
+                                    
+                                default:
+                                    break;
+                            }
+
                     }
 
                 case 2:
@@ -85,7 +109,9 @@ public class FilterDisplay {
                         "> Please your filter option: ");
         int filterSortingStudents = input.nextInt();
         input.nextLine();
-        System.out.println();
+        
+        // To modify
+        System.out.print("═════ SORTING by"  + filterSortingStudents + "  ══════" +"\n");
 
         return filterSortingStudents;
     }
@@ -120,34 +146,26 @@ public class FilterDisplay {
     }
 
     // Method to filter by age
-    public static void filterStudentsByAge() {
-
-        System.out.print(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                 FILTER STUDENTS BY AGE                ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n" +
-                        "> Do you want to sort the students by ascending [1] or descending age [2] ?");
-        int choiceAscDesc = input.nextInt();
-        input.nextLine();
-
-        // ! debug
-        System.out.println("Your choice is: " + choiceAscDesc);
+    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age) {    
+        System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | " + " ID: " + id   );    
     }
 
+
     // Method to filter by field
-    public static void filterStudentsByField() {
+    public static int filterFieldOptions() {
 
         // Display header for filtering by last name
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                FILTER STUDENTS BY FIELD               ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n" +
-                        "> Which specialty's student list do you want ? \n" +
+                    
                         "[1] Software \n" +
                         "[2] Cyber \n" +
                         "[3] IA \n" +
                         "[4] Web \n" +
-                        "[5] DPO \n");
+                        "[5] DPO \n" +
+                        "> Which specialty's student list do you want ? \n");
 
         int choiceField = input.nextInt();
         input.nextLine();
@@ -155,6 +173,15 @@ public class FilterDisplay {
         // ! debug
         System.out.println("Your choice is: " + choiceField);
 
+        return choiceField;
+
     }
+
+
+    public static void filterStudentsByField(int id, String firstName, String lastName, int age) {        
+        System.out.println("Prénom: " + firstName + " | " + "Nom: " + lastName +  " | " + "Age: " + age + " | " + " ID: " + id );    
+    }
+
+    
 
 }
