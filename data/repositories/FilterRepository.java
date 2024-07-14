@@ -2,11 +2,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilterRepository {
 
     // Initialize the database object to manage connections
     private Database database = new Database();
+
+    //--- SORTING STUDENTS ---//
 
     // Method to retrieve and display students ordered by first name
     public void getStudentsOrderedByFirstName() {
@@ -46,9 +50,11 @@ public class FilterRepository {
                 String lastName = resultSet.getString("lastName");
                 String field = resultSet.getString("field");
                 int age = resultSet.getInt("age");
+                int grade = resultSet.getInt("averageGrade");
+
 
                 // Display students
-                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age);
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age, grade);
             }
 
         } catch (SQLException exception) {
@@ -113,6 +119,31 @@ public class FilterRepository {
             System.err.println("No students found for the field: " + fieldToFilter);
         }
     }
+    
+    // Method to retrieve and display students filtered by grade   
+    public void getStudentsOrderedGrade() {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM student ORDER BY averageGrade")) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            // Iterate through the result set and display each student
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String field = resultSet.getString("field");
+                int age = resultSet.getInt("age");
+                double grade = resultSet.getDouble("averageGrade");
+
+                // Display students
+                FilterDisplay.filterStudentsByGrade(id, firstName, lastName, field, age, grade);
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("Erreur lors de la récupération des étudiants : " + exception.getMessage());
+        }
+    } 
 
     // --- ADVANCED SEARCH ---//
 
@@ -131,9 +162,10 @@ public class FilterRepository {
                 String lastName = resultSet.getString("lastName");
                 String field = resultSet.getString("field");
                 int age = resultSet.getInt("age");
+                double grade = resultSet.getDouble("averageGrade");
 
                 // Display students
-                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age);
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age, grade);
             }
 
         } catch (SQLException exception) {
@@ -155,9 +187,11 @@ public class FilterRepository {
                 String firstName = resultSet.getString("firstName");
                 String field = resultSet.getString("field");
                 int age = resultSet.getInt("age");
+                double grade = resultSet.getDouble("averageGrade");
+
 
                 // Display students
-                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age);
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age, grade);
             }
 
         } catch (SQLException exception) {
@@ -179,9 +213,11 @@ public class FilterRepository {
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
                 String field = resultSet.getString("field");
+                double grade = resultSet.getDouble("averageGrade");
+
 
                 // Display students
-                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age); 
+                FilterDisplay.filterStudentsByLastName(id, firstName, lastName, field, age, grade); 
             }
 
         } catch (SQLException exception) {
@@ -189,4 +225,8 @@ public class FilterRepository {
         }
     }
 
+    //--- STATISTICS ---// 
+
 }
+
+    

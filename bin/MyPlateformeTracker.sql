@@ -2,7 +2,6 @@
 CREATE DATABASE PlateformeTracker;
 -- DROP DATABASE PlateformeTracker;
 
-
 USE PlateformeTracker;
 
 CREATE TABLE login (
@@ -56,28 +55,29 @@ INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Marie','Dubois', '40', 'DPO'),
 ('Jean','Dubois', '40', 'DPO');
 
+DROP TABLE grade;
 CREATE TABLE grade (
     studentId VARCHAR(255),
-    grade VARCHAR(255),
+    grade DOUBLE,
     date DATE,
     subjectName VARCHAR(255)
 );
 
 INSERT INTO grade(studentId, grade, date, subjectName) VALUES
-('1','15','2024-07-05', "Anglais" ),
-('1','18','2024-07-06', "Python" ),
-('1','19','2024-07-04', "JavaScript" ),
-('2','15','2024-07-02',"Anglais" ),
-('2','15','2024-07-02',"VM" ),
-('2','15','2024-07-02',"SQL" ),
-('3','15', '2024-07-02', "Anglais"),
-('3','19', '2024-07-03', "SQL"),
-('3','15', '2024-07-02', "Python"),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Python" ),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Python" ),
-('5','20','2024-07-05', "JavaScript");
+('1',15,'2024-07-05', "Anglais" ),
+('1',18,'2024-07-06', "Python" ),
+('1',19,'2024-07-04', "JavaScript" ),
+('2',15,'2024-07-02',"Anglais" ),
+('2',15,'2024-07-02',"VM" ),
+('2',15,'2024-07-02',"SQL" ),
+('3',15, '2024-07-02', "Anglais"),
+('3',19, '2024-07-03', "SQL"),
+('3',15, '2024-07-02', "Python"),
+('4',9, '2024-07-04',"Anglais" ),
+('4',12, '2024-07-04',"Python" ),
+('4',14, '2024-07-04',"Anglais" ),
+('4',13, '2024-07-04',"Anglais" ),
+('4',10, '2024-07-04',"Python" ),
+('5',5,'2024-07-05', "JavaScript");
 
 
