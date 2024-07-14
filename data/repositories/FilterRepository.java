@@ -225,6 +225,34 @@ public class FilterRepository {
 
     //--- STATISTICS ---// 
 
+
+    public void getStatisticsByAge() {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement("SELECT id, firstName, lastName, field, age, averageGrade FROM student WHERE age < 18")) {
+    
+            ResultSet resultSet = statement.executeQuery();
+    
+            // Iterate through the result set and display each student
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String firstName = resultSet.getString("firstName");
+                String lastName = resultSet.getString("lastName");
+                String field = resultSet.getString("field");
+                int age = resultSet.getInt("age");
+                double grade = resultSet.getDouble("averageGrade");
+    
+                // Display students
+                FilterDisplay.statisticsByAge(id, firstName, lastName, field, age, grade);
+            }
+    
+        } catch (SQLException exception) {
+            System.err.println("Erreur lors de la récupération des étudiants : " + exception.getMessage());
+        }
+    }
+    
+    
+
+
 }
 
     

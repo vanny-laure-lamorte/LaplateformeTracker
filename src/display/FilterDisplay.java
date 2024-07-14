@@ -2,7 +2,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class FilterDisplay extends HomeDisplay{
+public class FilterDisplay extends HomeDisplay {
     public FilterDisplay(Scanner input) {
         super(input);
     }
@@ -50,6 +50,7 @@ public class FilterDisplay extends HomeDisplay{
                             break;
                         case 3:
                             filterRepository.getStudentsOrderedByAge(); // sort by age
+                            break;
                         case 4:
                             int choiceField = filterFieldOptions(); // sort by field
                             switch (choiceField) {
@@ -71,13 +72,16 @@ public class FilterDisplay extends HomeDisplay{
                                     break;
                                 case 6:
                                     filterRepository.getStudentsOrderedField("Immersive Systems");
-
                                     break;
                                 default:
                                     break;
                             }
+                            break;
                         case 5:
                             filterRepository.getStudentsOrderedGrade(); // sort by grade
+                            break;
+                        default:
+                            System.out.println("ERROR. Filter option not available.");
                             break;
 
                     }
@@ -247,21 +251,31 @@ public class FilterDisplay extends HomeDisplay{
     }
 
     // --- STATISTICS ---//
-    public static void statisticsMenu() {
+    public static int statisticsMenu() {
 
         // Display a menu to select the type of statistics
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
-                "║                          STATISTICS                   ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n" +
-                "[1] Student age range \n" +
-                "[2] Number of students per specialty \n" +
-                "[3] Students passing or failing \n \n" +
-                "> Please choose an option: ");
+                        "║                          STATISTICS                   ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n" +
+                        "[1] Student age range \n" +
+                        "[2] Number of students per specialty \n" +
+                        "[3] Students passing or failing \n \n" +
+                        "> Please choose an option: ");
 
-        int choiceStatisticSearch = input.nextInt();
+        int choiceStatistic = input.nextInt();
         input.nextLine();
         System.out.println();
+
+        return choiceStatistic;
+
+    }
+
+    // Method to display statistics by age
+    public static void statisticsByAge(int id, String firstName, String lastName, String field, int age,
+            double grade) {
+        System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
+                + " | " + "Field: " + field + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
 
     }
 

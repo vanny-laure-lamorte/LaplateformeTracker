@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class HomeDisplay {
     private static final StudentRepository tracker = new StudentRepository();
+    public static final FilterRepository filter = new FilterRepository();
     protected static Scanner input;
 
     public HomeDisplay(Scanner input){
@@ -75,12 +76,22 @@ public class HomeDisplay {
 
 
                     case 3: 
+                    int choiceStatistic = FilterDisplay.statisticsMenu();
+                    switch (choiceStatistic){
+                        case 1:
+                        filter.getStatisticsByAge();
+                        break; 
+                        case 2: 
+                        break;
+                        case 3:
+                        break; 
+                    }
+
                    
 
                     break; 
 
                     case 6:
-                        GradeDisplay.displayGrades();
                         break;
                     case 9:
                         pageNumber = 1;
