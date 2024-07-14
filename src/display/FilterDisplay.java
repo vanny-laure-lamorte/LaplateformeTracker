@@ -1,13 +1,12 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
-public class FilterDisplay {
-    private static final Scanner input = new Scanner(System.in);
+public class FilterDisplay extends HomeDisplay{
+    public FilterDisplay(Scanner input) {
+        super(input);
+    }
+
     public static FilterRepository filterRepository = new FilterRepository();
 
     public static void displayFilters() {

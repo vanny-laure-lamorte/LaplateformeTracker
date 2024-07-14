@@ -1,19 +1,19 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class GradeDisplay {
+public class GradeDisplay extends HomeDisplay{
 
-    private static final Scanner gradeInput = new Scanner(System.in);
-    private GradeRepository gradeRepository = new GradeRepository();
+    public GradeDisplay(Scanner input) {
+        super(input);
+    }
 
-    public void displayGrades() {
+    private static GradeRepository gradeRepository = new GradeRepository();
+
+    public static void displayGrades() {
         System.out.print("> Enter student ID: ");
-        int studentID = gradeInput.nextInt();
-        gradeInput.nextLine(); // Consume newline character
+        int studentID = input.nextInt();
+        input.nextLine(); // Consume newline character
         List<Grade> grades = gradeRepository.getGradesByStudentId(studentID);
         if (grades.isEmpty()) {
             System.out.println("No grades found for student ID: " + studentID);
@@ -27,8 +27,8 @@ public class GradeDisplay {
 
     public void sortAndDisplayGrades() {
         System.out.print("> Enter student ID: ");
-        int studentID = gradeInput.nextInt();
-        gradeInput.nextLine(); // Consume newline character
+        int studentID = input.nextInt();
+        input.nextLine(); // Consume newline character
         List<Grade> grades = gradeRepository.getGradesByStudentId(studentID);
 
         // Sort grades by subject name
