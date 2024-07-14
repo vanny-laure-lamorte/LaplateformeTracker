@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
-public class StudentDisplay {
+public class StudentDisplay extends HomeDisplay{
     private static final StudentRepository tracker = new StudentRepository();
-    private static final Scanner input = new Scanner(System.in);
-
+    
+    public StudentDisplay(Scanner input){
+        super(input);
+    }
     public static void displayTitleStudentInfo() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +

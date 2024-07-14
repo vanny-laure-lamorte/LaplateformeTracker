@@ -2,8 +2,11 @@ import java.util.Scanner;
 
 public class HomeDisplay {
     private static final StudentRepository tracker = new StudentRepository();
-    private static final GradeDisplay gradeDisplay = new GradeDisplay();
-    private static final Scanner input = new Scanner(System.in);
+    protected static Scanner input;
+
+    public HomeDisplay(Scanner input){
+        HomeDisplay.input = input;
+    }
 
     public void homeDisplay() {
         clearScreen();
@@ -77,7 +80,7 @@ public class HomeDisplay {
                     break; 
 
                     case 6:
-                        gradeDisplay.displayGrades();
+                        GradeDisplay.displayGrades();
                         break;
                     case 9:
                         pageNumber = 1;
@@ -92,7 +95,6 @@ public class HomeDisplay {
                 }
             }
         } while (choice != 0);
-        input.close();
     }
 
     private void displayPageOneMenu() {

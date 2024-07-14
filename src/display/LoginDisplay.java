@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
-public class LoginDisplay {
-    private static final Scanner input = new Scanner(System.in);
+public class LoginDisplay extends HomeDisplay{
+    public LoginDisplay(Scanner input) {
+        super(input);
+    }
+
     private static final LoginRepository tracker = new LoginRepository();
 
     public static void userAccount() {
