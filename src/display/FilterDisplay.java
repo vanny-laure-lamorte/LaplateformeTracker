@@ -247,4 +247,23 @@ public class FilterDisplay {
         System.out.println();
     }
 
+    // --- STATISTICS ---//
+    public static void statisticsMenu() {
+
+        // Display a menu to select the type of statistics
+        System.out.print(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                "║                          STATISTICS                   ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n" +
+                "[1] Student age range \n" +
+                "[2] Number of students per specialty \n" +
+                "[3] Students passing or failing \n \n" +
+                "> Please choose an option: ");
+
+        int choiceStatisticSearch = input.nextInt();
+        input.nextLine();
+        System.out.println();
+
+    }
+
 }
