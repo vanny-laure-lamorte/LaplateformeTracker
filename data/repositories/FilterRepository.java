@@ -222,7 +222,6 @@ public class FilterRepository {
             System.err.println("ERROR " + exception.getMessage());
         }
     }
-
     //--- STATISTICS ---// 
 
 }
