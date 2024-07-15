@@ -36,7 +36,9 @@ public class HomeDisplay {
                         StudentDisplay.displaySearchStudent();
                         break;
                     case 6:
-                        LoginDisplay.userAccount();
+                        StudentRepository.updateAverageGrades();
+                        // LoginDisplay.userAccount();
+                        break;
                     case 7:
 
                     case 9:
