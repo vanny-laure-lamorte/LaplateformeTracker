@@ -1,7 +1,11 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 
+public class FilterDisplay extends HomeDisplay {
 public class FilterDisplay extends HomeDisplay {
     public FilterDisplay(Scanner input) {
         super(input);
@@ -10,120 +14,55 @@ public class FilterDisplay extends HomeDisplay {
     public static FilterRepository filterRepository = new FilterRepository();
 
     public static void displayFilters() {
-        int choice = -2;
-        do {
-            System.out.print("\n" +
-                    "       ╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
-                    "       ║                                                        ║\n" +
-                    "       ║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
-                    "       ║ [3] Statistics             ║  [4] Data import/export   ║\n" +
-                    "       ║ [5] Pagination             ║  [6] Export results      ║\n" +
-                    "       ║                                                        ║\n" +
-                    "       ║                                                        ║\n" +
-                    "       ║ [0]  Quit                                              ║\n" +
-                    "       ╚════════════════════════════════════════════════════════╝\n");
 
-            do {
-                System.out.print("> Chose a filter option : ");
-                String inputString = input.next();
-                if (inputString.matches("[0-6]")) {
-                    choice = Integer.parseInt(inputString);
-                    input.nextLine();
-                } else {
-                    choice = -1;
-                    System.out.print("Please enter a number between 0 et 6 \n");
+        int choiceSortingStudent = filterSortingStudents();
+        switch (choiceSortingStudent) {
+            case 1:
+                filterRepository.getStudentsOrderedByFirstName(); // sort by first name
+                break;
+            case 2:
+                filterRepository.getStudentsOrderedByLastName(); // sort by last name
+                break;
+            case 3:
+                filterRepository.getStudentsOrderedByAge(); // sort by age
+                break;
+            case 4:
+                int choiceField = filterFieldOptions();
+                if (choiceField != -1) {
+                    ArrayList<String> array = new ArrayList<>(
+                            Arrays.asList("Software", "Cyber", "IA", "Web", "DPO", "Immersive Systems"));
+                    String selectedField = array.get(choiceField - 1);
+                    filterRepository.getStudentsOrderedField(selectedField);
                 }
+                break;
+            case 5:
+                filterRepository.getStudentsOrderedGrade(); // sort by grade
+                break;
+        }
 
-            } while (choice < 0 || choice > 6);
-
-            switch (choice) {
-
-                // Sorting Students
-                case 1:
-                    int choiceSortingStudent = filterSortingStudents();
-                    switch (choiceSortingStudent) {
-                        case 1:
-                            filterRepository.getStudentsOrderedByFirstName(); // sort by first name
-                            break;
-                        case 2:
-                            filterRepository.getStudentsOrderedByLastName(); // sort by last name
-                            break;
-                        case 3:
-                            filterRepository.getStudentsOrderedByAge(); // sort by age
-                            break;
-                        case 4:
-                            int choiceField = filterFieldOptions(); // sort by field
-                            switch (choiceField) {
-                                case 1:
-                                    filterRepository.getStudentsOrderedField("Software");
-                                    break;
-                                case 2:
-                                    filterRepository.getStudentsOrderedField("Cyber");
-                                    break;
-                                case 3:
-                                    filterRepository.getStudentsOrderedField("IA");
-
-                                    break;
-                                case 4:
-                                    filterRepository.getStudentsOrderedField("Web");
-                                    break;
-                                case 5:
-                                    filterRepository.getStudentsOrderedField("DPO");
-                                    break;
-                                case 6:
-                                    filterRepository.getStudentsOrderedField("Immersive Systems");
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case 5:
-                            filterRepository.getStudentsOrderedGrade(); // sort by grade
-                            break;
-                        default:
-                            System.out.println("ERROR. Filter option not available.");
-                            break;
-                    }
-
-                case 2:
-                    break;
-
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 0:
-                    System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
-                    break;
-                default:
-                    System.out.println("ERROR. Filter option not available.");
-                    break;
-            }
-        } while (choice != 0);
     }
 
     // --- SORTING STUDENTS ---//
 
     public static int filterSortingStudents() {
-
+        ArrayList<String> array = new ArrayList<>(
+        Arrays.asList("FIRST NAME", "LAST NAME", "AGE", "FIELD", "GRADE"));
+        
         // Display header for filtering by first name
         System.out.print(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                      SORTING STUDENTS                 ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n" +
-                        "\n[1] Sort by first Name\n" +
-                        "[2] Sort by last Name \n" +
-                        "[3] Sort by age \n" +
-                        "[4] Sort by field \n" +
-                        "[5] Sort by grade \n \n" +
-                        "> Please your filter option: ");
-        int filterSortingStudents = input.nextInt();
-        input.nextLine();
-
+            "╔═══════════════════════════════════════════════════════╗\n" +
+            "║                      SORTING STUDENTS                 ║\n" +
+            "╚═══════════════════════════════════════════════════════╝\n" +
+            "\n[1] Sort by first Name\n" +
+            "[2] Sort by last Name \n" +
+            "[3] Sort by age \n" +
+            "[4] Sort by field \n" +
+            "[5] Sort by grade \n \n" +
+            "> Please your filter option: ");
+            int filterSortingStudents = input.nextInt();
+            input.nextLine();
+            
+            String selectedChoice = array.get(filterSortingStudents - 1);
         // To modify
         System.out.print("═════ SORTING by" + filterSortingStudents + "  ══════" + "\n");
         return filterSortingStudents;
@@ -174,7 +113,6 @@ public class FilterDisplay extends HomeDisplay {
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                FILTER STUDENTS BY FIELD               ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n" +
-
                         "[1] Software \n" +
                         "[2] Cyber \n" +
                         "[3] IA \n" +

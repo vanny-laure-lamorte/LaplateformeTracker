@@ -5,7 +5,7 @@ public class HomeDisplay {
     public static final FilterRepository filter = new FilterRepository();
     protected static Scanner input;
 
-    public HomeDisplay(Scanner input){
+    public HomeDisplay(Scanner input) {
         HomeDisplay.input = input;
     }
 
@@ -37,9 +37,11 @@ public class HomeDisplay {
                         StudentDisplay.displaySearchStudent();
                         break;
                     case 6:
-                    LoginDisplay.userAccount();
+                        StudentRepository.updateAverageGrades();
+                        // LoginDisplay.userAccount();
+                        break;
                     case 7:
-                
+
                     case 9:
                         pageNumber = 2;
                         clearScreen();
@@ -54,24 +56,24 @@ public class HomeDisplay {
             } else if (pageNumber == 2) {
                 displayPageTwoMenu();
                 choice = getUserChoice();
-                
+
                 switch (choice) {
-                    case 1: 
-                    FilterDisplay.displayFilters();
+                    case 1:
+                        FilterDisplay.displayFilters();
                         break;
-                    
-                    case 2: 
-                    int choiceAdvancedSearch = FilterDisplay.AdvancedSearchOptions();
-                        switch (choiceAdvancedSearch){
+
+                    case 2:
+                        int choiceAdvancedSearch = FilterDisplay.AdvancedSearchOptions();
+                        switch (choiceAdvancedSearch) {
                             case 1:
-                            FilterDisplay.getAdvancedSearchFirstName();
-                            break;
-                            case 2: 
-                            FilterDisplay.getAdvancedSearchLastName();
-                            break;
+                                FilterDisplay.getAdvancedSearchFirstName();
+                                break;
+                            case 2:
+                                FilterDisplay.getAdvancedSearchLastName();
+                                break;
                             case 3:
-                            FilterDisplay.getAdvancedSearchAge();
-                            break; 
+                                FilterDisplay.getAdvancedSearchAge();
+                                break;
                         }
                     case 3: 
                     int choiceStatistic = FilterDisplay.statisticsMenu();
@@ -89,7 +91,7 @@ public class HomeDisplay {
 
                    
 
-                    break; 
+                        break;
 
                     case 6:
                         break;
@@ -122,15 +124,15 @@ public class HomeDisplay {
     }
 
     private void displayPageTwoMenu() {
-        System.out.print(
-                "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
+        System.out.print("\n" +
+                "╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
                 "║                                                        ║\n" +
-                "║ [1] Sorting students   ║  [2] Avanced Search           ║\n" +
-                "║ [3] Statistics         ║  [4] Data import/export       ║\n" +
-                "║ [5] Display Grades     ║  [6]                          ║\n" +
+                "║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
+                "║ [3] Statistics             ║  [4] Data import/export   ║\n" +
+                "║ [5] Pagination             ║  [6] Export results       ║\n" +
                 "║                                                        ║\n" +
                 "║                                                        ║\n" +
-                "║ [0] Quit                  [9] Next page      2/2       ║\n" +
+                "║ [0] Quit                  [9] Previous page      2/2   ║\n" +
                 "╚════════════════════════════════════════════════════════╝\n");
     }
 

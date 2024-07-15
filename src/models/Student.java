@@ -22,7 +22,6 @@ public class Student {
                 this.age = resultSet.getInt("age");
                 this.grade = resultSet.getString("averageGrade");
             }
-            System.out.println(age);
         } catch (SQLException e) {
             System.err.println("Error fetching student data: " + e.getMessage());
         }

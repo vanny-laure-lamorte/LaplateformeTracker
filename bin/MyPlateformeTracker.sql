@@ -1,4 +1,4 @@
--- Active: 1720430402366@@127.0.0.1@3306@plateformetracker
+-- Active: 1707919785972@@localhost@3306@plateformetracker
 CREATE DATABASE PlateformeTracker;
 -- DROP DATABASE PlateformeTracker;
 
@@ -55,28 +55,28 @@ INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Marie','Dubois', '40', 'DPO'),
 ('Jean','Dubois', '40', 'DPO');
 
-DROP TABLE grade;
-CREATE TABLE grade (
+DROP TABLE grades;
+CREATE TABLE grades (
     studentId VARCHAR(255),
     grade DOUBLE,
     date DATE,
     subjectName VARCHAR(255)
 );
 
-INSERT INTO grade(studentId, grade, date, subjectName) VALUES
-('1',15,'2024-07-05', "Anglais" ),
+INSERT INTO grades(studentId, grade, date, subjectName) VALUES
+('1',15,'2024-07-05', "English" ),
 ('1',18,'2024-07-06', "Python" ),
 ('1',19,'2024-07-04', "JavaScript" ),
-('2',15,'2024-07-02',"Anglais" ),
+('2',15,'2024-07-02',"English" ),
 ('2',15,'2024-07-02',"VM" ),
 ('2',15,'2024-07-02',"SQL" ),
-('3',15, '2024-07-02', "Anglais"),
+('3',15, '2024-07-02', "English"),
 ('3',19, '2024-07-03', "SQL"),
 ('3',15, '2024-07-02', "Python"),
-('4',9, '2024-07-04',"Anglais" ),
+('4',9, '2024-07-04',"English" ),
 ('4',12, '2024-07-04',"Python" ),
-('4',14, '2024-07-04',"Anglais" ),
-('4',13, '2024-07-04',"Anglais" ),
+('4',14, '2024-07-04',"English" ),
+('4',13, '2024-07-04',"English" ),
 ('4',10, '2024-07-04',"Python" ),
 ('5',5,'2024-07-05', "JavaScript")
 ('5',15, '2024-07-02', "Anglais"),

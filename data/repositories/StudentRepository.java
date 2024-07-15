@@ -1,10 +1,8 @@
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StudentRepository {
 
-    private Database database = new Database() {
+    private static Database database = new Database() {
 
     };
 
@@ -34,8 +32,6 @@ public class StudentRepository {
         return resultSet;
     }
 
-   
-    
     // Method to add a new student to the database
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
             double newAverageGrade) {
@@ -63,7 +59,6 @@ public class StudentRepository {
             return 0;
         }
     }
-
 
     // Method to update an existing student's info
     public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge,
@@ -106,7 +101,6 @@ public class StudentRepository {
         }
         return studentInfo;
     }
-
 
     public ResultSet getStudentById(int studentId) throws SQLException {
         String query = "SELECT * FROM student WHERE id = ?";
@@ -188,23 +182,20 @@ public class StudentRepository {
 
     }
 
-    public List<Integer> getAllId() {
-        List<Integer> ids = new ArrayList<>();
+    public static void updateAverageGrades() {
         String query = "SELECT id FROM student";
+
         try (Connection connection = database.connect();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query)) {
+
             while (resultSet.next()) {
-                ids.add(resultSet.getInt("id"));
+                GradeRepository.setAverageGrades(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exception or rethrow it
             throw new RuntimeException("Error fetching IDs", e);
         }
-        return ids;
     }
 
- 
-  
 }

@@ -29,7 +29,6 @@ public class Database {
                     connection = DriverManager.getConnection(DB_URL, DB_USER, password);
                     break;
                 } catch (SQLException exception) {
-                    System.err.println("Connection failed with password: " + password);
                 }
             }
 
