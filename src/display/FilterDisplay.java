@@ -266,7 +266,6 @@ public class FilterDisplay extends HomeDisplay {
         int choiceStatistic = input.nextInt();
         input.nextLine();
         System.out.println();
-
         return choiceStatistic;
 
     }
@@ -276,7 +275,40 @@ public class FilterDisplay extends HomeDisplay {
             double grade) {
         System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
                 + " | " + "Field: " + field + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
+    }
+
+    public static void staticsAllAgeDisplay () {
+
+        try {
+
+            // Student under 18
+            System.out.println("-----------------\n" +
+                                "STUDENT UNDER 18 \n" +
+                                "-----------------");
+            filterRepository.getStatisticsByAge(10, 17);
+            System.out.println();
+
+            // Student between 18 and 50
+            System.out.println("--------------------------\n" +
+                                "STUDENT BETWEEN 18 AND 50  \n" +
+                                 "--------------------------");       
+            filterRepository.getStatisticsByAge(18, 50);
+            System.out.println();
+
+            // Student above 50
+            System.out.println("-----------------\n" +
+                            "STUDENT ABOVE 50\n" +
+            "-----------------");       
+            filterRepository.getStatisticsByAge(51, 100);
+            System.out.println();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }         
+       
 
     }
+
+
 
 }

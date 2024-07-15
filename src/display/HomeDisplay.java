@@ -73,13 +73,11 @@ public class HomeDisplay {
                             FilterDisplay.getAdvancedSearchAge();
                             break; 
                         }
-
-
                     case 3: 
                     int choiceStatistic = FilterDisplay.statisticsMenu();
                     switch (choiceStatistic){
                         case 1:
-                        filter.getStatisticsByAge();
+                        FilterDisplay.staticsAllAgeDisplay(); 
                         break; 
                         case 2: 
                         break;
