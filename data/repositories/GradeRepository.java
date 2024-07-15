@@ -48,7 +48,8 @@ public class GradeRepository {
                 }
             }
 
-            double averageGrade = gradeCount == 0 ? 0.0 : totalGrades / gradeCount;
+            double averageGrade = Math.round(gradeCount == 0 ? 0.0 : totalGrades / gradeCount * 100.0) / 100.0;
+            ;
 
             updateStatement.setDouble(1, averageGrade);
             updateStatement.setInt(2, studentID);
