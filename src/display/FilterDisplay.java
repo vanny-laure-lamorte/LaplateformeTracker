@@ -3,9 +3,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.InputMismatchException;
-
-public class FilterDisplay extends HomeDisplay {
 public class FilterDisplay extends HomeDisplay {
     public FilterDisplay(Scanner input) {
         super(input);
@@ -64,7 +61,7 @@ public class FilterDisplay extends HomeDisplay {
             
             String selectedChoice = array.get(filterSortingStudents - 1);
         // To modify
-        System.out.print("═════ SORTING by" + filterSortingStudents + "  ══════" + "\n");
+        System.out.print("═════ SORTING by" + selectedChoice + "  ══════" + "\n");
         return filterSortingStudents;
     }
 
