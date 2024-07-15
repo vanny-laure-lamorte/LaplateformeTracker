@@ -1,8 +1,11 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 
-public class FilterDisplay extends HomeDisplay{
+public class FilterDisplay extends HomeDisplay {
     public FilterDisplay(Scanner input) {
         super(input);
     }
@@ -50,32 +53,16 @@ public class FilterDisplay extends HomeDisplay{
                             break;
                         case 3:
                             filterRepository.getStudentsOrderedByAge(); // sort by age
+                            break;
                         case 4:
-                            int choiceField = filterFieldOptions(); // sort by field
-                            switch (choiceField) {
-                                case 1:
-                                    filterRepository.getStudentsOrderedField("Software");
-                                    break;
-                                case 2:
-                                    filterRepository.getStudentsOrderedField("Cyber");
-                                    break;
-                                case 3:
-                                    filterRepository.getStudentsOrderedField("IA");
-
-                                    break;
-                                case 4:
-                                    filterRepository.getStudentsOrderedField("Web");
-                                    break;
-                                case 5:
-                                    filterRepository.getStudentsOrderedField("DPO");
-                                    break;
-                                case 6:
-                                    filterRepository.getStudentsOrderedField("Immersive Systems");
-
-                                    break;
-                                default:
-                                    break;
+                            int choiceField = filterFieldOptions();
+                            if (choiceField != -1) {
+                                ArrayList<String> array = new ArrayList<>(
+                                        Arrays.asList("Software", "Cyber", "IA", "Web", "DPO", "Immersive Systems"));
+                                String selectedField = array.get(choiceField - 1);
+                                filterRepository.getStudentsOrderedField(selectedField);
                             }
+                            break;
                         case 5:
                             filterRepository.getStudentsOrderedGrade(); // sort by grade
                             break;
@@ -166,13 +153,11 @@ public class FilterDisplay extends HomeDisplay{
 
     // Method to allow the user to sort by field
     public static int filterFieldOptions() {
-
         // Display header for filtering by last name
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                FILTER STUDENTS BY FIELD               ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n" +
-
                         "[1] Software \n" +
                         "[2] Cyber \n" +
                         "[3] IA \n" +
@@ -181,17 +166,29 @@ public class FilterDisplay extends HomeDisplay{
                         "[6] Immersive Systems \n" +
                         "> Which specialty's student list do you want ? ");
 
-        int choiceField = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        try {
+            int choiceField = input.nextInt();
+            input.nextLine(); // Consume newline
 
-        return choiceField;
+            if (choiceField < 1 || choiceField > 6) {
+                System.out.println("Invalid choice. Please select a number between 1 and 6.");
+                return -1;
+            }
+
+            System.out.println();
+            return choiceField;
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number between 1 and 6.");
+            input.nextLine(); // Consume invalid input
+            return -1;
+        }
     }
 
     // Display students according to their field
     public static void filterStudentsByField(int id, String firstName, String lastName, int age) {
         System.out.println(
                 "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " + " ID: " + id);
+                System.out.println("Banane");
     }
 
     // Method to filter by average Grade
