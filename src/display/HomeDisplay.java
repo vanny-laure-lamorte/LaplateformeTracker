@@ -81,10 +81,9 @@ public class HomeDisplay {
                         break; 
                         case 2:
                         FilterDisplay.staticsField();
- 
-
                         break;
                         case 3:
+                        FilterDisplay.staticsGrade();                        
                         break; 
                     }
 

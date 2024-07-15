@@ -343,6 +343,28 @@ public class FilterDisplay extends HomeDisplay {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void staticsGrade() {
+        try {
+            // Students passing
+            System.out.println("-----------------\n" +
+                    "STUDENTS PASSING \n" +
+                    "-----------------");
+            filterRepository.getStatisticsByGrade(0, 9);
+            System.out.println();
+
+            // Students falling
+            System.out.println("--------------------------\n" +
+                    "STUDENTS FALLINGS \n" +
+                    "--------------------------");
+            filterRepository.getStatisticsByGrade(10, 20);
+            System.out.println();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

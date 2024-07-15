@@ -287,6 +287,33 @@ public class FilterRepository {
             }
         }
     }
+
+    
+    // Method to sort student by grade
+    public void getStatisticsByGrade(int grade1, int grade2) throws SQLException {
+        try (Connection connection = database.connect()) {
+            String insertSql = "SELECT * FROM student WHERE averageGrade between ? AND ? ORDER BY averageGrade";
+            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                statement.setInt(1, grade1);
+                statement.setInt(2, grade2);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                // Iterate through the result set and display each student
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String firstName = resultSet.getString("firstName");
+                    String lastName = resultSet.getString("lastName");
+                    String field = resultSet.getString("field");
+                    int age = resultSet.getInt("age");
+                    double grade = resultSet.getDouble("averageGrade");
+
+                    // Display students
+                    FilterDisplay.filterStudentsByGrade(id, firstName, lastName, field, age, grade);
+                }
+            }
+        }
+    }
     
 
 }
