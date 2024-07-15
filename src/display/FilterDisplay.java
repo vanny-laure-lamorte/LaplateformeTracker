@@ -83,7 +83,6 @@ public class FilterDisplay extends HomeDisplay {
                         default:
                             System.out.println("ERROR. Filter option not available.");
                             break;
-
                     }
 
                 case 2:
@@ -127,7 +126,6 @@ public class FilterDisplay extends HomeDisplay {
 
         // To modify
         System.out.print("═════ SORTING by" + filterSortingStudents + "  ══════" + "\n");
-
         return filterSortingStudents;
     }
 
@@ -188,7 +186,6 @@ public class FilterDisplay extends HomeDisplay {
         int choiceField = input.nextInt();
         input.nextLine();
         System.out.println();
-
         return choiceField;
     }
 
@@ -204,7 +201,6 @@ public class FilterDisplay extends HomeDisplay {
         System.out.println("Average Grade: " + grade + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
                 + " | " + "Field: " + field + " | "
                 + "Age: " + age + " | " + " ID: " + id);
-
     }
 
     // --- ADVANCED SEARCH ---//
@@ -267,48 +263,87 @@ public class FilterDisplay extends HomeDisplay {
         input.nextLine();
         System.out.println();
         return choiceStatistic;
-
     }
 
-    // Method to display statistics by age
-    public static void statisticsByAge(int id, String firstName, String lastName, String field, int age,
-            double grade) {
-        System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
-                + " | " + "Field: " + field + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
-    }
-
-    public static void staticsAllAgeDisplay () {
+    public static void staticsAge() {
 
         try {
-
             // Student under 18
             System.out.println("-----------------\n" +
-                                "STUDENT UNDER 18 \n" +
-                                "-----------------");
+                    "STUDENT UNDER 18 \n" +
+                    "-----------------");
             filterRepository.getStatisticsByAge(10, 17);
             System.out.println();
 
             // Student between 18 and 50
             System.out.println("--------------------------\n" +
-                                "STUDENT BETWEEN 18 AND 50  \n" +
-                                 "--------------------------");       
+                    "STUDENT BETWEEN 18 AND 50  \n" +
+                    "--------------------------");
             filterRepository.getStatisticsByAge(18, 50);
             System.out.println();
 
             // Student above 50
             System.out.println("-----------------\n" +
-                            "STUDENT ABOVE 50\n" +
-            "-----------------");       
+                    "STUDENT ABOVE 50\n" +
+                    "-----------------");
             filterRepository.getStatisticsByAge(51, 100);
             System.out.println();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }         
-       
+        }
 
     }
 
+    public static void staticsField() {
 
+        try {
+            // Students in Software
+            System.out.println("---------------------\n" +
+                    "STUDENTS IN SOFTWARE \n" +
+                    "---------------------");
+            filterRepository.getStatisticsByField("Software");
+            System.out.println();
+
+            // Students in Cyber
+            System.out.println("-----------------\n" +
+                    "STUDENTS IN CYBER  \n" +
+                    "-----------------");
+            filterRepository.getStatisticsByField("Cyber");
+            System.out.println();
+
+            // Students in IA
+            System.out.println("----------------\n" +
+                    "STUDENTS IN IA\n" +
+                    "----------------");
+            filterRepository.getStatisticsByField("IA");
+            System.out.println();
+
+            // Students in Web
+            System.out.println("----------------\n" +
+                    "STUDENTS IN WEB\n" +
+                    "----------------");
+            filterRepository.getStatisticsByField("Web");
+            System.out.println();
+
+            // Students in DPO
+            System.out.println("----------------\n" +
+                    "STUDENTS IN DPO\n" +
+                    "----------------");
+            filterRepository.getStatisticsByField("DPO");
+            System.out.println();
+
+            // Students in IA
+            System.out.println("------------------------------\n" +
+                    "STUDENTS IN IMMERSIVE SYSTEMS\n" +
+                    "------------------------------");
+            filterRepository.getStatisticsByField("Immersive Systems");
+            System.out.println();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

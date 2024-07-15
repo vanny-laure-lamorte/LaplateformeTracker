@@ -243,12 +243,50 @@ public class FilterRepository {
                     double grade = resultSet.getDouble("averageGrade");
 
                     // Display students
-                    FilterDisplay.statisticsByAge(id, firstName, lastName, field, age, grade);
+                    FilterDisplay.filterStudentsByAge(id, firstName, lastName, field, age);
                 }
             }
-
         }
-
     }
+
+    // Method to sort student by field
+    public void getStatisticsByField(String inputField) throws SQLException {
+        try (Connection connection = database.connect()) {
+            // First query to get the count of students
+            String countSql = "SELECT COUNT(*) AS studentCount FROM student WHERE field = ?";
+            try (PreparedStatement countStatement = connection.prepareStatement(countSql)) {
+                countStatement.setString(1, inputField);
+                ResultSet countResultSet = countStatement.executeQuery();
+    
+                if (countResultSet.next()) {
+                    int studentCount = countResultSet.getInt("studentCount");
+    
+                    // Display the count of students
+                    System.out.println("Number of students in " + inputField + ": " + studentCount);
+                }
+            }
+    
+            // Second query to get the student details
+            String detailsSql = "SELECT * FROM student WHERE field = ? ORDER BY lastName";
+            try (PreparedStatement detailsStatement = connection.prepareStatement(detailsSql)) {
+                detailsStatement.setString(1, inputField);
+                ResultSet detailsResultSet = detailsStatement.executeQuery();
+    
+                // Iterate through the result set and display each student
+                while (detailsResultSet.next()) {
+                    int id = detailsResultSet.getInt("id");
+                    String firstName = detailsResultSet.getString("firstName");
+                    String lastName = detailsResultSet.getString("lastName");
+                    String field = detailsResultSet.getString("field");
+                    int age = detailsResultSet.getInt("age");
+                    double grade = detailsResultSet.getDouble("averageGrade");
+    
+                    // Display students
+                    FilterDisplay.filterStudentsByField(id, firstName, lastName, age);
+                }
+            }
+        }
+    }
+    
 
 }

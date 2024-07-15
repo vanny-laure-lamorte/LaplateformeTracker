@@ -77,9 +77,12 @@ public class HomeDisplay {
                     int choiceStatistic = FilterDisplay.statisticsMenu();
                     switch (choiceStatistic){
                         case 1:
-                        FilterDisplay.staticsAllAgeDisplay(); 
+                        FilterDisplay.staticsAge(); 
                         break; 
-                        case 2: 
+                        case 2:
+                        FilterDisplay.staticsField();
+ 
+
                         break;
                         case 3:
                         break; 
