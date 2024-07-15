@@ -161,15 +161,15 @@ public class FilterDisplay extends HomeDisplay {
     }
 
     // Method to filter by age
-    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age) {
+    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age, double grade) {
         System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | "
-                + "Field: " + field + " | " + " ID: " + id);
+                + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
     }
 
     // Method to allow the user to sort by field
     public static int filterFieldOptions() {
 
-        // Display header for filtering by last name
+        // Display header for filtering by field
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                FILTER STUDENTS BY FIELD               ║\n" +
@@ -190,9 +190,9 @@ public class FilterDisplay extends HomeDisplay {
     }
 
     // Display students according to their field
-    public static void filterStudentsByField(int id, String firstName, String lastName, int age) {
+    public static void filterStudentsByField(int id, String firstName, String lastName, int age, double grade) {
         System.out.println(
-                "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " + " ID: " + id);
+                "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " +"Grade: " + grade + " | "  + " ID: " + id);
     }
 
     // Method to filter by average Grade
@@ -207,7 +207,7 @@ public class FilterDisplay extends HomeDisplay {
 
     public static int AdvancedSearchOptions() {
 
-        // Display header for filtering by last name
+        // Display header for filtering by first name, last name or age
         System.out.print(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                         ADVANCED SEARCH               ║\n" +
@@ -225,21 +225,21 @@ public class FilterDisplay extends HomeDisplay {
     }
 
     public static void getAdvancedSearchFirstName() {
-        System.out.print("Please add a first name: ");
+        System.out.print("> Please add a first name: ");
         String filterFirstName = input.nextLine();
         filterRepository.getAdvancedSearchByFirstName(filterFirstName);
         System.out.println();
     }
 
     public static void getAdvancedSearchLastName() {
-        System.out.print("Please add a last name: ");
+        System.out.print("> Please add a last name: ");
         String filterLastName = input.nextLine();
         filterRepository.getAdvancedSearchByLastName(filterLastName);
         System.out.println();
     }
 
     public static void getAdvancedSearchAge() {
-        System.out.print("Please add an age: ");
+        System.out.print("> Please add an age: ");
         int filterAge = input.nextInt();
         input.nextLine();
         filterRepository.getAdvancedSearchByAge(filterAge);
@@ -270,21 +270,21 @@ public class FilterDisplay extends HomeDisplay {
         try {
             // Student under 18
             System.out.println("-----------------\n" +
-                    "STUDENT UNDER 18 \n" +
+                    "STUDENTS UNDER 18 \n" +
                     "-----------------");
             filterRepository.getStatisticsByAge(10, 17);
             System.out.println();
 
             // Student between 18 and 50
             System.out.println("--------------------------\n" +
-                    "STUDENT BETWEEN 18 AND 50  \n" +
+                    "STUDENTS BETWEEN 18 AND 50  \n" +
                     "--------------------------");
             filterRepository.getStatisticsByAge(18, 50);
             System.out.println();
 
             // Student above 50
             System.out.println("-----------------\n" +
-                    "STUDENT ABOVE 50\n" +
+                    "STUDENTS ABOVE 50\n" +
                     "-----------------");
             filterRepository.getStatisticsByAge(51, 100);
             System.out.println();
@@ -292,7 +292,6 @@ public class FilterDisplay extends HomeDisplay {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void staticsField() {
@@ -345,7 +344,6 @@ public class FilterDisplay extends HomeDisplay {
         }
     }
 
-
     public static void staticsGrade() {
         try {
             // Students passing
@@ -365,7 +363,5 @@ public class FilterDisplay extends HomeDisplay {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
 }
