@@ -37,6 +37,7 @@ public class HomeDisplay {
                         break;
                     case 8:
                         StudentDisplay.displaySearchStudent();
+                        break;
                     case 9:
                         pageNumber = 2;
                         break;

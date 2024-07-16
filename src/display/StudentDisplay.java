@@ -46,7 +46,7 @@ public class StudentDisplay extends HomeDisplay {
                     .append("    [N] Next Page  [P] Previous Page  [R] Return");
 
             Frame.displayInFrame(displayText.toString());
-            System.out.print("Choose an option (N/P/R): ");
+            System.out.print("Your selection: ");
             quit = input.nextLine();
 
             if (quit.equalsIgnoreCase("N")) {
@@ -83,11 +83,19 @@ public class StudentDisplay extends HomeDisplay {
                         .append(" | Field: ").append(newField)
                         .append(" | Age: ").append(newAge)
                         .append(" | Average Grade: ").append(newAverageGrade)
-                        .append("\n");
+                        .append("\n\n")
+                        .append("   Student added successfully!");
             } else {
                 displayText.append("ERROR: No student added.");
             }
-            Frame.displayInFrame(displayText.toString());
+
+            Frame.clearScreen();
+            String choice;
+            do {
+                Frame.displayInFrame(displayText.toString() + "\n\n[R] Return");
+                System.out.print("Press R to return: ");
+                choice = input.nextLine();
+            } while (!choice.equalsIgnoreCase("R"));
         } catch (Exception e) {
             Frame.displayInFrame("Unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
@@ -103,7 +111,7 @@ public class StudentDisplay extends HomeDisplay {
                     "[Y] Yes    [N] No   [R] Return";
 
             Frame.displayInFrame(title);
-            System.out.print("Choose an option (Y/N/R): ");
+            System.out.print("Your selection: ");
             choice = input.nextLine();
 
             if (choice.equalsIgnoreCase("Y")) {
@@ -123,8 +131,6 @@ public class StudentDisplay extends HomeDisplay {
             // Display the user choice
             Student student = new Student(studentId);
             Frame.clearScreen();
-            // Frame.displayInFrame("Selected student: " + student.getFirstName() + " " +
-            // student.getLastName() + "\n");
 
             String inputStudentUpdate;
             do {
@@ -232,16 +238,15 @@ public class StudentDisplay extends HomeDisplay {
                 Frame.displayInFrame(
                         "Student " + deleteStudentSelected + " deleted successfully! \n\n " +
                                 "[R] Return");
-                                System.out.print("Press R to return : ");
-                                choice = input.nextLine();
+                System.out.print("Press R to return : ");
+                choice = input.nextLine();
             } while (!choice.equalsIgnoreCase("R"));
         }
     }
 
     public static void displaySearchStudent() {
-        String title = "╔═══════════════════════════════════════════════════════╗\n" +
-                "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
-                "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.clearScreen();
+        String title = "                SEARCH A STUDENT BY THEIR ID            \n";
         Frame.displayInFrame(title);
 
         // Ask the user to choose the ID of a student
@@ -249,28 +254,28 @@ public class StudentDisplay extends HomeDisplay {
         int searchStudentID = input.nextInt();
         input.nextLine();
 
-        // Get the student with the given ID
-        String studentFound = tracker.getStudentNameById(searchStudentID);
-        Frame.displayInFrame("Found student: " + studentFound);
-    }
+        Student student = new Student(searchStudentID);
 
-    public static void displayStudentById() {
-        Frame.displayInFrame("SEARCH STUDENT");
-
-        System.out.print("> Enter the student ID: ");
-        int studentId = input.nextInt();
-        input.nextLine();
-
-        // Retrieve the student with the given ID
-        Student student = new Student(studentId);
-
+        StringBuilder displayText = new StringBuilder();
         if (student != null) {
-            String displayText = "Student found:\n" +
-                    "Name: " + student.getFirstName() + " " + student.getLastName() +
-                    " | Age: " + student.getAge() +
-                    " | Field: " + student.getField() + "\n";
-            Frame.displayInFrame(displayText);
+            displayText.append("Student found:\n")
+                    .append("ID: ").append(student.getId()).append(" | Name: ").append(student.getFirstName())
+                    .append(" ")
+                    .append(student.getLastName())
+                    .append(" | Age: ").append(student.getAge())
+                    .append(" | Field: ").append(student.getField()).append("\n");
         }
+
+        String choice = "";
+        do {
+            Frame.clearScreen();
+            Frame.displayInFrame(displayText.toString() + "\n\n[R] Return");
+            if (choice != "" && choice != "R") {
+                System.out.println("Error, only R can be selected");
+            }
+            System.out.print("Press R to return: ");
+            choice = input.nextLine();
+        } while (!choice.equalsIgnoreCase("R"));
     }
 
     public static void displayStudentInfo(Student student) {
