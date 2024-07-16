@@ -283,6 +283,13 @@ public class FilterDisplay extends HomeDisplay {
 
     public static void staticsGrade() {
         try {
+
+            double overallAverageGrade = filterRepository.getStatisticsAverageGrade();
+
+            System.out.println("------------------------------\n" +
+                                "STUDENTS AVERAGE GRADE: " + overallAverageGrade + "\n"+
+                                "------------------------------\n");
+
             // Students passing
             System.out.println("-----------------\n" +
                     "STUDENTS PASSING \n" +
