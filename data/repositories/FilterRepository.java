@@ -73,7 +73,7 @@ public class FilterRepository {
                 String lastName = resultSet.getString("lastName");
                 String field = resultSet.getString("field");
                 int age = resultSet.getInt("age");
-                double grade = resultSet.getInt("grade");
+                double grade = resultSet.getInt("averageGrade");
 
                 // Display students
                 FilterDisplay.filterStudentsByAge(id, firstName, lastName, field, age, grade);
@@ -108,7 +108,7 @@ public class FilterRepository {
                 String firstName = resultSet.getString("firstName");
                 String lastName = resultSet.getString("lastName");
                 int age = resultSet.getInt("age");
-                int grade = resultSet.getInt("grade");
+                int grade = resultSet.getInt("averageGrade");
 
                 // Display Students
                 FilterDisplay.filterStudentsByField(id, firstName, lastName, age, grade);

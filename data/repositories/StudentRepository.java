@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentRepository {
 
@@ -7,29 +9,21 @@ public class StudentRepository {
     };
 
     // Method to display all the students in the database
-    public ResultSet displayStudent() {
-        ResultSet resultSet = null;
-
-        try (Connection connection = database.connect()) {
-            Statement statement;
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from student");
-
+    public List<Student> getAllStudents() {
+        List<Student> students = new ArrayList<>();
+        String query = "SELECT * FROM student";
+        try (Connection connection = database.connect();
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                System.out.println(
-                        "Id: " + resultSet.getString("id") +
-                                " | First Name: " + resultSet.getString("firstName") +
-                                " | Last Name: " + resultSet.getString("lastName") +
-                                " | Field: " + resultSet.getString("field") +
-                                " | Age : " + resultSet.getInt("age") +
-                                " | Average Grade : " + resultSet.getDouble("averageGrade"));
+                Student student = new Student(
+                        resultSet.getInt("id"));
+                students.add(student);
             }
-            System.out.println();
-
         } catch (SQLException exception) {
-            System.err.println("Error displaying students: " + exception.getMessage());
+            System.err.println("Error fetching students: " + exception.getMessage());
         }
-        return resultSet;
+        return students;
     }
 
     // Method to add a new student to the database

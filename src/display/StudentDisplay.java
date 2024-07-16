@@ -1,16 +1,37 @@
+import java.util.List;
 import java.util.Scanner;
 
-public class StudentDisplay extends HomeDisplay{
+public class StudentDisplay extends HomeDisplay {
     private static final StudentRepository tracker = new StudentRepository();
     
-    public StudentDisplay(Scanner input){
+    public StudentDisplay(Scanner input) {
         super(input);
     }
+
     public static void displayTitleStudentInfo() {
         System.out.println(
                 "╔═══════════════════════════════════════════════════════╗\n" +
                         "║                       STUDENT INFO                    ║\n" +
                         "╚═══════════════════════════════════════════════════════╝\n");
+    }
+
+    public static void displayAllStudents() {
+        System.out.println(
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                    ALL STUDENTS                       ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n");
+
+        List<Student> students = tracker.getAllStudents();
+        for (Student student : students) {
+            System.out.println(
+                    "Id: " + student.getId() +
+                            " | First Name: " + student.getFirstName() +
+                            " | Last Name: " + student.getLastName() +
+                            " | Field: " + student.getField() +
+                            " | Age : " + student.getAge() +
+                            " | Average Grade : " + student.getAverageGrade());
+        }
+        System.out.println();
     }
 
     public static void displayAddStudent() {
@@ -25,13 +46,13 @@ public class StudentDisplay extends HomeDisplay{
         String newLastName = input.nextLine();
         System.out.print("> Enter student's age: ");
         int newAge = input.nextInt();
-        input.nextLine(); 
+        input.nextLine();
         System.out.print("> Enter student's field: ");
         String newField = input.nextLine();
-        double newAverageGrade = 0; 
+        double newAverageGrade = 0;
+
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
-
             if (result != 0) {
                 System.out.println(
                         "First Name: " + newFirstName +
@@ -55,7 +76,7 @@ public class StudentDisplay extends HomeDisplay{
                         "╚═══════════════════════════════════════════════════════╝\n");
 
         // Display options the user can modify
-        tracker.displayStudent();
+        displayAllStudents();
 
         // Ask the user to select a student by their Id
         System.out.print("> Please choose the student Id: ");
@@ -73,7 +94,6 @@ public class StudentDisplay extends HomeDisplay{
             inputStudentUpdate = input.nextLine();
 
             if (inputStudentUpdate.equalsIgnoreCase("Y")) {
-
                 int infoToModify = 0;
 
                 // Check if the user input is valid
@@ -135,7 +155,7 @@ public class StudentDisplay extends HomeDisplay{
                         "╚═══════════════════════════════════════════════════════╝\n");
 
         // Display all students the user can delete
-        tracker.displayStudent();
+        displayAllStudents();
 
         // Ask the user to select a student to delete by their Id
         System.out.print("> Please choose the student Id: ");
@@ -148,7 +168,7 @@ public class StudentDisplay extends HomeDisplay{
 
         // Ask confirmation before deleting the student
         String inputStudentDelete;
-        System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)?");
+        System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? ");
         inputStudentDelete = input.nextLine();
 
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
@@ -178,5 +198,4 @@ public class StudentDisplay extends HomeDisplay{
                     " | Field: " + student.getField() + "\n");
         }
     }
-    
 }

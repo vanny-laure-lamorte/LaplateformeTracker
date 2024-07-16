@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 public class FilterDisplay extends HomeDisplay {
     public FilterDisplay(Scanner input) {
         super(input);
@@ -36,32 +37,31 @@ public class FilterDisplay extends HomeDisplay {
                 filterRepository.getStudentsOrderedGrade(); // sort by grade
                 break;
         }
-
     }
 
     // --- SORTING STUDENTS ---//
 
     public static int filterSortingStudents() {
         ArrayList<String> array = new ArrayList<>(
-        Arrays.asList("FIRST NAME", "LAST NAME", "AGE", "FIELD", "GRADE"));
-        
+                Arrays.asList("FIRST NAME", "LAST NAME", "AGE", "FIELD", "GRADE"));
+
         // Display header for filtering by first name
         System.out.print(
-            "╔═══════════════════════════════════════════════════════╗\n" +
-            "║                      SORTING STUDENTS                 ║\n" +
-            "╚═══════════════════════════════════════════════════════╝\n" +
-            "\n[1] Sort by first Name\n" +
-            "[2] Sort by last Name \n" +
-            "[3] Sort by age \n" +
-            "[4] Sort by field \n" +
-            "[5] Sort by grade \n \n" +
-            "> Please your filter option: ");
-            int filterSortingStudents = input.nextInt();
-            input.nextLine();
-            
-            String selectedChoice = array.get(filterSortingStudents - 1);
+                "╔═══════════════════════════════════════════════════════╗\n" +
+                        "║                      SORTING STUDENTS                 ║\n" +
+                        "╚═══════════════════════════════════════════════════════╝\n" +
+                        "\n[1] Sort by first Name\n" +
+                        "[2] Sort by last Name \n" +
+                        "[3] Sort by age \n" +
+                        "[4] Sort by field \n" +
+                        "[5] Sort by grade \n \n" +
+                        "> Please your filter option: ");
+        int filterSortingStudents = input.nextInt();
+        input.nextLine();
+
+        String selectedChoice = array.get(filterSortingStudents - 1);
         // To modify
-        System.out.print("═════ SORTING by" + selectedChoice + "  ══════" + "\n");
+        System.out.print("═════ SORTING BY " + selectedChoice + "  ══════" + "\n");
         return filterSortingStudents;
     }
 
@@ -97,7 +97,8 @@ public class FilterDisplay extends HomeDisplay {
     }
 
     // Method to filter by age
-    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age, double grade) {
+    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age,
+            double grade) {
         System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | "
                 + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
     }
@@ -127,7 +128,8 @@ public class FilterDisplay extends HomeDisplay {
     // Display students according to their field
     public static void filterStudentsByField(int id, String firstName, String lastName, int age, double grade) {
         System.out.println(
-                "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " +"Grade: " + grade + " | "  + " ID: " + id);
+                "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " + "Grade: " + grade
+                        + " | " + " ID: " + id);
     }
 
     // Method to filter by average Grade
@@ -285,14 +287,14 @@ public class FilterDisplay extends HomeDisplay {
             System.out.println("-----------------\n" +
                     "STUDENTS PASSING \n" +
                     "-----------------");
-            filterRepository.getStatisticsByGrade(0, 9);
+            filterRepository.getStatisticsByGrade(10, 20);
             System.out.println();
 
             // Students falling
             System.out.println("--------------------------\n" +
                     "STUDENTS FALLINGS \n" +
                     "--------------------------");
-            filterRepository.getStatisticsByGrade(10, 20);
+            filterRepository.getStatisticsByGrade(0, 9);
             System.out.println();
 
         } catch (SQLException e) {

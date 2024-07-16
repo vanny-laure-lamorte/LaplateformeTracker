@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class HomeDisplay {
-    private static final StudentRepository tracker = new StudentRepository();
     public static final FilterRepository filter = new FilterRepository();
     protected static Scanner input;
 
@@ -22,7 +21,7 @@ public class HomeDisplay {
                 switch (choice) {
                     case 1:
                         StudentDisplay.displayTitleStudentInfo();
-                        tracker.displayStudent();
+                        StudentDisplay.displayAllStudents();
                         break;
                     case 2:
                         StudentDisplay.displayAddStudent();
@@ -75,21 +74,20 @@ public class HomeDisplay {
                                 FilterDisplay.getAdvancedSearchAge();
                                 break;
                         }
-                    case 3: 
-                    int choiceStatistic = FilterDisplay.statisticsMenu();
-                    switch (choiceStatistic){
-                        case 1:
-                        FilterDisplay.staticsAge(); 
-                        break; 
-                        case 2:
-                        FilterDisplay.staticsField();
                         break;
-                        case 3:
-                        FilterDisplay.staticsGrade();                        
-                        break; 
-                    }
-
-                   
+                    case 3:
+                        int choiceStatistic = FilterDisplay.statisticsMenu();
+                        switch (choiceStatistic) {
+                            case 1:
+                                FilterDisplay.staticsAge();
+                                break;
+                            case 2:
+                                FilterDisplay.staticsField();
+                                break;
+                            case 3:
+                                FilterDisplay.staticsGrade();
+                                break;
+                        }
 
                         break;
 
