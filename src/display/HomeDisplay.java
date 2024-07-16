@@ -20,7 +20,7 @@ public class HomeDisplay {
 
                 switch (choice) {
                     case 1:
-                        StudentDisplay.displayTitleStudentInfo();
+                       // StudentDisplay.displayTitleStudentInfo();
                         StudentDisplay.displayAllStudents();
                         break;
                     case 2:
