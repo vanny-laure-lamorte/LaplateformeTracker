@@ -18,6 +18,7 @@ public class HomeDisplay {
                 Frame.clearScreen();
                 displayPageOneMenu();
                 choice = Frame.getUserChoice(input, 9);
+                input.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -25,26 +26,21 @@ public class HomeDisplay {
                         StudentDisplay.displayAllStudents();
                         break;
                     case 2:
-                        StudentDisplay.displayAddStudent();
+                        StudentDisplay.displayModifyStudent();
                         break;
                     case 3:
-                        StudentDisplay.displayModifyStudent();
+                        StudentDisplay.displayAddStudent();
                         break;
                     case 4:
                         StudentDisplay.displayDeleteStudent();
                         break;
-                    case 5:
-                        StudentDisplay.displaySearchStudent();
-                        break;
-                    case 6:
-                        StudentRepository.updateAverageGrades();
-                        // LoginDisplay.userAccount();
-                        break;
                     case 7:
-
+                        StudentRepository.updateAverageGrades();
+                        break;
+                    case 8:
+                        StudentDisplay.displaySearchStudent();
                     case 9:
                         pageNumber = 2;
-                        Frame.clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -54,8 +50,10 @@ public class HomeDisplay {
                         break;
                 }
             } else if (pageNumber == 2) {
+                Frame.clearScreen();
                 displayPageTwoMenu();
                 choice = Frame.getUserChoice(input, 9);
+                input.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -96,7 +94,6 @@ public class HomeDisplay {
                         break;
                     case 9:
                         pageNumber = 1;
-                        Frame.clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");

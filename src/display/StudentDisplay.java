@@ -16,30 +16,30 @@ public class StudentDisplay extends HomeDisplay {
     }
 
     public static void displayAllStudents() {
-        int quit;
+        String quit = "";
         StringBuilder displayText = new StringBuilder();
         displayText.append("╔═══════════════════════════════════════════════════════╗\n")
-                   .append("║                    ALL STUDENTS                       ║\n")
-                   .append("╚═══════════════════════════════════════════════════════╝\n\n");
+                .append("║                    ALL STUDENTS                       ║\n")
+                .append("╚═══════════════════════════════════════════════════════╝\n\n");
 
         List<Student> students = tracker.getAllStudents();
         for (Student student : students) {
             displayText.append("Id: ").append(student.getId())
-                       .append(" | First Name: ").append(student.getFirstName())
-                       .append(" | Last Name: ").append(student.getLastName())
-                       .append(" | Field: ").append(student.getField())
-                       .append(" | Age: ").append(student.getAge())
-                       .append(" | Average Grade: ").append(student.getAverageGrade())
-                       .append("\n");
+                    .append(" | First Name: ").append(student.getFirstName())
+                    .append(" | Last Name: ").append(student.getLastName())
+                    .append(" | Field: ").append(student.getField())
+                    .append(" | Age: ").append(student.getAge())
+                    .append(" | Average Grade: ").append(student.getAverageGrade())
+                    .append("\n");
         }
         displayText.append("\n");
         displayText.append("    [0] to return");
 
-        Frame.displayInFrame(displayText.toString());
-        do{
-        quit = input.nextInt();
+        do {
+            Frame.displayInFrame(displayText.toString());
+            quit = input.nextLine();
             break;
-        }while (quit != 0);
+        } while (quit != "0");
     }
 
     public static void displayAddStudent() {

@@ -78,7 +78,7 @@ INSERT INTO grades(studentId, grade, date, subjectName) VALUES
 ('4',14, '2024-07-04',"English" ),
 ('4',13, '2024-07-04',"English" ),
 ('4',10, '2024-07-04',"Python" ),
-('5',5,'2024-07-05', "JavaScript")
+('5',5,'2024-07-05', "JavaScript"),
 ('5',15, '2024-07-02', "English"),
 ('5',19, '2024-07-03', "SQL"),
 ('6',5, '2024-07-02', "Python"),
