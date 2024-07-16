@@ -17,10 +17,11 @@ public class HomeDisplay {
             if (pageNumber == 1) {
                 displayPageOneMenu();
                 choice = getUserChoice();
+                input.nextLine();
 
                 switch (choice) {
                     case 1:
-                        StudentDisplay.displayTitleStudentInfo();
+                       // StudentDisplay.displayTitleStudentInfo();
                         StudentDisplay.displayAllStudents();
                         break;
                     case 2:

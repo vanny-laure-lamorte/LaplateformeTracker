@@ -9,36 +9,38 @@ public class StudentDisplay extends HomeDisplay {
     }
 
     public static void displayTitleStudentInfo() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                       STUDENT INFO                    ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                       "║                       STUDENT INFO                    ║\n" +
+                       "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
     }
 
     public static void displayAllStudents() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                    ALL STUDENTS                       ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        StringBuilder displayText = new StringBuilder();
+        displayText.append("╔═══════════════════════════════════════════════════════╗\n")
+                   .append("║                    ALL STUDENTS                       ║\n")
+                   .append("╚═══════════════════════════════════════════════════════╝\n\n");
 
         List<Student> students = tracker.getAllStudents();
         for (Student student : students) {
-            System.out.println(
-                    "Id: " + student.getId() +
-                            " | First Name: " + student.getFirstName() +
-                            " | Last Name: " + student.getLastName() +
-                            " | Field: " + student.getField() +
-                            " | Age : " + student.getAge() +
-                            " | Average Grade : " + student.getAverageGrade());
+            displayText.append("Id: ").append(student.getId())
+                       .append(" | First Name: ").append(student.getFirstName())
+                       .append(" | Last Name: ").append(student.getLastName())
+                       .append(" | Field: ").append(student.getField())
+                       .append(" | Age: ").append(student.getAge())
+                       .append(" | Average Grade: ").append(student.getAverageGrade())
+                       .append("\n");
         }
-        System.out.println();
+        displayText.append("\n");
+
+        Frame.displayInFrame(displayText.toString());
     }
 
     public static void displayAddStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                    ADD A NEW STUDENT                  ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                       "║                    ADD A NEW STUDENT                  ║\n" +
+                       "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
 
         System.out.print("> Enter student's first name: ");
         String newFirstName = input.nextLine();
@@ -53,16 +55,18 @@ public class StudentDisplay extends HomeDisplay {
 
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
+            StringBuilder displayText = new StringBuilder();
             if (result != 0) {
-                System.out.println(
-                        "First Name: " + newFirstName +
-                                " | Last Name: " + newLastName +
-                                " | Field: " + newField +
-                                " | Age : " + newAge +
-                                " | Average Grade: " + newAverageGrade + "\n");
+                displayText.append("First Name: ").append(newFirstName)
+                           .append(" | Last Name: ").append(newLastName)
+                           .append(" | Field: ").append(newField)
+                           .append(" | Age: ").append(newAge)
+                           .append(" | Average Grade: ").append(newAverageGrade)
+                           .append("\n");
             } else {
-                System.out.println("ERROR: No student added.");
+                displayText.append("ERROR: No student added.");
             }
+            Frame.displayInFrame(displayText.toString());
         } catch (Exception e) {
             System.err.println("Unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
@@ -70,10 +74,10 @@ public class StudentDisplay extends HomeDisplay {
     }
 
     public static void displayModifyStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                   UPDATE STUDENT INFO                 ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                       "║                   UPDATE STUDENT INFO                 ║\n" +
+                       "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
 
         // Display options the user can modify
         displayAllStudents();
@@ -85,7 +89,7 @@ public class StudentDisplay extends HomeDisplay {
 
         // Display the user choice
         String studentSelected = tracker.getStudentNameById(studentId);
-        System.out.println("Selected student: " + studentSelected + "\n");
+        Frame.displayInFrame("Selected student: " + studentSelected + "\n");
 
         String inputStudentUpdate;
         do {
@@ -100,10 +104,10 @@ public class StudentDisplay extends HomeDisplay {
                 while (!InputValidator.isValidUpdateStudentInfo(String.valueOf(infoToModify))) {
                     System.out.print(
                             "\n[1] First Name\n" +
-                                    "[2] Last Name \n" +
-                                    "[3] Age \n" +
-                                    "[4] Field \n" +
-                                    "> Please choose the information you wish to modify: ");
+                            "[2] Last Name \n" +
+                            "[3] Age \n" +
+                            "[4] Field \n" +
+                            "> Please choose the information you wish to modify: ");
                     infoToModify = input.nextInt();
                     input.nextLine();
 
@@ -118,29 +122,29 @@ public class StudentDisplay extends HomeDisplay {
                         System.out.print("> Enter new first name: ");
                         String updateFirstName = input.nextLine();
                         tracker.updateFirstName(studentId, updateFirstName);
-                        System.out.println("First name updated successfully! \n");
+                        Frame.displayInFrame("First name updated successfully! \n");
                         break;
                     case 2:
                         System.out.print("> Enter new last name: ");
                         String updateLastName = input.nextLine();
                         tracker.updateLastName(studentId, updateLastName);
-                        System.out.println("Last name updated successfully! \n");
+                        Frame.displayInFrame("Last name updated successfully! \n");
                         break;
                     case 3:
                         System.out.print("> Enter new age: ");
                         int updateAge = input.nextInt();
                         tracker.updateAge(studentId, updateAge);
-                        System.out.println("Age updated successfully! \n");
+                        Frame.displayInFrame("Age updated successfully! \n");
                         input.nextLine();
                         break;
                     case 4:
                         System.out.print("> Enter new field: ");
                         String updateField = input.nextLine();
                         tracker.updateField(studentId, updateField);
-                        System.out.println("Field updated successfully! \n");
+                        Frame.displayInFrame("Field updated successfully! \n");
                         break;
                     default:
-                        System.out.println("Invalid choice. Please try again.");
+                        Frame.displayInFrame("Invalid choice. Please try again.");
                         break;
                 }
             }
@@ -149,10 +153,10 @@ public class StudentDisplay extends HomeDisplay {
 
     public static void displayDeleteStudent() {
         // Display title
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║ DELETE STUDENT ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                       "║ DELETE STUDENT ║\n" +
+                       "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
 
         // Display all students the user can delete
         displayAllStudents();
@@ -164,24 +168,24 @@ public class StudentDisplay extends HomeDisplay {
 
         // Display the user choice
         String deleteStudentSelected = tracker.getStudentNameById(deleteStudentId);
-        System.out.println("Selected student: " + deleteStudentSelected + "\n");
+        Frame.displayInFrame("Selected student: " + deleteStudentSelected + "\n");
 
         // Ask confirmation before deleting the student
-        String inputStudentDelete;
         System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? ");
-        inputStudentDelete = input.nextLine();
+        String inputStudentDelete = input.nextLine();
 
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
             tracker.deleteStudent(deleteStudentId);
-            System.out.println("Student deleted successfully! ");
+            Frame.displayInFrame("Student deleted successfully!");
         }
     }
 
     public static void displaySearchStudent() {
-        System.out.println(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n");
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                       "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
+                       "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
+
         // Ask the user to choose the ID of a student
         System.out.print("> Please enter the student's ID: ");
         int searchStudentID = input.nextInt();
@@ -192,10 +196,11 @@ public class StudentDisplay extends HomeDisplay {
 
         // Display the student's information if found
         if (student != null) {
-            System.out.println("Student found:\n" +
-                    "Name: " + student.getFirstName() + " " + student.getLastName() +
-                    " | Age: " + student.getAge() +
-                    " | Field: " + student.getField() + "\n");
+            String displayText = "Student found:\n" +
+                                 "Name: " + student.getFirstName() + " " + student.getLastName() +
+                                 " | Age: " + student.getAge() +
+                                 " | Field: " + student.getField() + "\n";
+            Frame.displayInFrame(displayText);
         }
     }
 }
