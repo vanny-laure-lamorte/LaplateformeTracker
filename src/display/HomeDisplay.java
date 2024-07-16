@@ -22,7 +22,6 @@ public class HomeDisplay {
 
                 switch (choice) {
                     case 1:
-                        Frame.clearScreen();
                         StudentDisplay.displayAllStudents();
                         break;
                     case 2:
