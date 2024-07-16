@@ -2,7 +2,6 @@
 CREATE DATABASE PlateformeTracker;
 -- DROP DATABASE PlateformeTracker;
 
-
 USE PlateformeTracker;
 
 CREATE TABLE login (
@@ -33,35 +32,60 @@ CREATE TABLE student (
     averageGrade DOUBLE DEFAULT 0
 );
 
+
 INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Lucas','Martinie', '28', 'Software'),
+('Elise','Martinie', '22', 'Software'),
+('Clément','Martinie', '22', 'Software'),
+('Camille','Noe', '28', 'Software'),
 ('Thanh','Lemelle', '30', 'Cyber'),
+('Noah','Lemelle', '18', 'Cyber'),
 ('Vanny','Lamorte', '18', 'IA'),
+('Gerard','Lamorte', '33', 'IA'),
+('Claire','Lamorte', '33', 'IA'),
+('Christine','Guediguian','33', 'IA'),
+('Lucille','Caron', '29', 'IA'),
+('Thibault','Caron', '21', 'IA'),
 ('Lucy','Madec', '21', 'Web'),
-('Alicia','Cordial', '22', 'Software');
+('Loan','Madec', '22', 'Web'),
+('Lucas','Iribaren', '20', 'Web'),
+('Hugo','Esquer', '33', 'Web'),
+('Alicia','Cordial', '28', 'DPO'),
+('Celine','Dubois', '32', 'DPO'),
+('Marie','Dubois', '40', 'DPO'),
+('Jean','Dubois', '40', 'DPO');
 
-CREATE TABLE grade (
+DROP TABLE grades;
+CREATE TABLE grades (
     studentId VARCHAR(255),
-    grade VARCHAR(255),
+    grade DOUBLE,
     date DATE,
     subjectName VARCHAR(255)
 );
 
-INSERT INTO grade(studentId, grade, date, subjectName) VALUES
-('1','15','2024-07-05', "Anglais" ),
-('1','18','2024-07-06', "Python" ),
-('1','19','2024-07-04', "JavaScript" ),
-('2','15','2024-07-02',"Anglais" ),
-('2','15','2024-07-02',"VM" ),
-('2','15','2024-07-02',"SQL" ),
-('3','15', '2024-07-02', "Anglais"),
-('3','19', '2024-07-03', "SQL"),
-('3','15', '2024-07-02', "Python"),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Python" ),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Anglais" ),
-('4','9', '2024-07-04',"Python" ),
-('5','20','2024-07-05', "JavaScript");
+INSERT INTO grades(studentId, grade, date, subjectName) VALUES
+('1',15,'2024-07-05', "English" ),
+('1',18,'2024-07-06', "Python" ),
+('1',19,'2024-07-04', "JavaScript" ),
+('2',15,'2024-07-02',"English" ),
+('2',15,'2024-07-02',"VM" ),
+('2',15,'2024-07-02',"SQL" ),
+('3',15, '2024-07-02', "English"),
+('3',19, '2024-07-03', "SQL"),
+('3',15, '2024-07-02', "Python"),
+('4',9, '2024-07-04',"English" ),
+('4',12, '2024-07-04',"Python" ),
+('4',14, '2024-07-04',"English" ),
+('4',13, '2024-07-04',"English" ),
+('4',10, '2024-07-04',"Python" ),
+('5',5,'2024-07-05', "JavaScript")
+('5',15, '2024-07-02', "English"),
+('5',19, '2024-07-03', "SQL"),
+('6',5, '2024-07-02', "Python"),
+('6',9, '2024-07-04',"English" ),
+('6', 10, '2024-07-04',"Python" ),
+('7',10, '2024-07-04',"English" ),
+('7',4, '2024-07-04',"English" ),
+('7',5, '2024-07-04',"Python" );
 
 

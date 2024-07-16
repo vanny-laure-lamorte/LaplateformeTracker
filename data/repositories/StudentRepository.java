@@ -4,32 +4,29 @@ import java.util.List;
 
 public class StudentRepository {
 
-    private Database database = new Database() {
+    private static Database database = new Database() {
 
     };
 
+    // Method to display all the students in the database
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
-        List<Integer> ids = getAllId(); // Fetch all student IDs from the database
         String query = "SELECT * FROM student";
-
         try (Connection connection = database.connect();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query)) {
-
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                Student student = new Student(id);
+                Student student = new Student(
+                        resultSet.getInt("id"));
                 students.add(student);
             }
-
         } catch (SQLException exception) {
             System.err.println("Error fetching students: " + exception.getMessage());
         }
-
         return students;
     }
 
+    // Method to add a new student to the database
     public int addStudent(String newFirstName, String newLastName, int newAge, String newField,
             double newAverageGrade) {
         String insertSql = "INSERT INTO student (firstName, lastName, age, field, averageGrade) VALUES (?, ?, ?, ?, ?)";
@@ -57,6 +54,7 @@ public class StudentRepository {
         }
     }
 
+    // Method to update an existing student's info
     public int updateStudent(int updateStudentId, String updateFirstName, String updateLastName, int updateAge,
             String updateField, double updateAverageGrade) throws SQLException {
 
@@ -77,6 +75,7 @@ public class StudentRepository {
         }
     }
 
+    // Method to get a student's name by their ID
     public String getStudentNameById(int studentId) {
         String studentInfo = "";
         String query = "SELECT firstName, lastName FROM student WHERE id = ?";
@@ -183,21 +182,20 @@ public class StudentRepository {
 
     }
 
-    public List<Integer> getAllId() {
-        List<Integer> ids = new ArrayList<>();
+    public static void updateAverageGrades() {
         String query = "SELECT id FROM student";
+
         try (Connection connection = database.connect();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query)) {
+
             while (resultSet.next()) {
-                ids.add(resultSet.getInt("id"));
+                GradeRepository.setAverageGrades(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle exception or rethrow it
             throw new RuntimeException("Error fetching IDs", e);
         }
-        return ids;
     }
 
 }

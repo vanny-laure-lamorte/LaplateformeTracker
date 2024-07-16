@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
 public class HomeDisplay {
-    private static final StudentRepository tracker = new StudentRepository();
-    private static final GradeDisplay gradeDisplay = new GradeDisplay();
-    private static final Scanner input = new Scanner(System.in);
+    public static final FilterRepository filter = new FilterRepository();
+    protected static Scanner input;
+
+    public HomeDisplay(Scanner input) {
+        HomeDisplay.input = input;
+    }
 
     public void homeDisplay() {
         Frame.clearScreen();
@@ -18,8 +21,8 @@ public class HomeDisplay {
 
                 switch (choice) {
                     case 1:
-                    Frame.clearScreen();
-                    StudentDisplay.displayAllStudents();    
+                       // StudentDisplay.displayTitleStudentInfo();
+                        StudentDisplay.displayAllStudents();
                         break;
                     case 2:
                         StudentDisplay.displayAddStudent();
@@ -33,6 +36,12 @@ public class HomeDisplay {
                     case 5:
                         StudentDisplay.displaySearchStudent();
                         break;
+                    case 6:
+                        StudentRepository.updateAverageGrades();
+                        // LoginDisplay.userAccount();
+                        break;
+                    case 7:
+
                     case 9:
                         pageNumber = 2;
                         Frame.clearScreen();
@@ -50,7 +59,40 @@ public class HomeDisplay {
 
                 switch (choice) {
                     case 1:
-                        gradeDisplay.displayGrades();
+                        FilterDisplay.displayFilters();
+                        break;
+
+                    case 2:
+                        int choiceAdvancedSearch = FilterDisplay.AdvancedSearchOptions();
+                        switch (choiceAdvancedSearch) {
+                            case 1:
+                                FilterDisplay.getAdvancedSearchFirstName();
+                                break;
+                            case 2:
+                                FilterDisplay.getAdvancedSearchLastName();
+                                break;
+                            case 3:
+                                FilterDisplay.getAdvancedSearchAge();
+                                break;
+                        }
+                        break;
+                    case 3:
+                        int choiceStatistic = FilterDisplay.statisticsMenu();
+                        switch (choiceStatistic) {
+                            case 1:
+                                FilterDisplay.staticsAge();
+                                break;
+                            case 2:
+                                FilterDisplay.staticsField();
+                                break;
+                            case 3:
+                                FilterDisplay.staticsGrade();
+                                break;
+                        }
+
+                        break;
+
+                    case 6:
                         break;
                     case 9:
                         pageNumber = 1;
@@ -65,7 +107,6 @@ public class HomeDisplay {
                 }
             }
         } while (choice != 0);
-        input.close();
     }
 
     private void displayPageOneMenu() {
@@ -74,7 +115,7 @@ public class HomeDisplay {
                         "║                                                     ║\n" +
                         "║ [1] Display Student       ║  [2] Add a new student  ║\n" +
                         "║ [3] Update student info   ║  [4] Delete student     ║\n" +
-                        "║ [5] Search student by ID  ║  [6]                    ║\n" +
+                        "║ [5] Search student by ID  ║  [6] Test               ║\n" +
                         "║                                                     ║\n" +
                         "║                                                     ║\n" +
                         "║ [0] Quit                  [9] Next page      1/2    ║\n" +
@@ -82,16 +123,16 @@ public class HomeDisplay {
     }
 
     private void displayPageTwoMenu() {
-        System.out.print(
-                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
-                        "║                                                     ║\n" +
-                        "║ [1] Display Student Grade  ║  [2]                   ║\n" +
-                        "║ [3]                        ║  [4]                   ║\n" +
-                        "║ [5]                        ║  [6]                   ║\n" +
-                        "║                                                     ║\n" +
-                        "║                                                     ║\n" +
-                        "║ [0] Quit                  [9] Next page      2/2    ║\n" +
-                        "╚═════════════════════════════════════════════════════╝\n");
+        System.out.print("\n" +
+                "╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
+                "║                                                        ║\n" +
+                "║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
+                "║ [3] Statistics             ║  [4] Data import/export   ║\n" +
+                "║ [5] Pagination             ║  [6] Export results       ║\n" +
+                "║                                                        ║\n" +
+                "║                                                        ║\n" +
+                "║ [0] Quit                  [9] Previous page      2/2   ║\n" +
+                "╚════════════════════════════════════════════════════════╝\n");
     }
 
     private void clearScreen() {

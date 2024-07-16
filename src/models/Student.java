@@ -10,8 +10,10 @@ public class Student {
     private String field;
     private String grade;
     private List<Grade> grades;
+    private int studentID;
 
     public Student(int studentID) {
+        this.studentID = studentID;
         try {
             ResultSet resultSet = studentRepo.getStudentById(studentID);
 
@@ -30,6 +32,10 @@ public class Student {
     public String getFirstName() {
         return firstName;
     }
+    
+    public int getId() {
+        return studentID;
+    }
 
     public String getLastName() {
         return lastName;
@@ -43,7 +49,7 @@ public class Student {
         return field;
     }
 
-    public String getGrade() {
+    public String getAverageGrade() {
         return grade;
     }
 
