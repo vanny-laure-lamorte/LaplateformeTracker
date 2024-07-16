@@ -17,6 +17,7 @@ public class HomeDisplay {
             if (pageNumber == 1) {
                 displayPageOneMenu();
                 choice = getUserChoice();
+                input.nextLine();
 
                 switch (choice) {
                     case 1:

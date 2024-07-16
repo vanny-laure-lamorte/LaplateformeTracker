@@ -61,7 +61,9 @@ public class FilterDisplay extends HomeDisplay {
 
         String selectedChoice = array.get(filterSortingStudents - 1);
         // To modify
-        System.out.print("═════ SORTING BY " + selectedChoice + "  ══════" + "\n");
+        System.out.print("\n---------------------------\n"+
+                        "SORTING BY " + selectedChoice + " \n" +
+        "---------------------------\n \n");
         return filterSortingStudents;
     }
 
