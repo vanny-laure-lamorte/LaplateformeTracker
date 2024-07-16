@@ -43,10 +43,10 @@ public class StudentDisplay extends HomeDisplay {
             }
 
             displayText.append("\n")
-                    .append("    [N] Next Page  [P] Previous Page  [0] Return");
+                    .append("    [N] Next Page  [P] Previous Page  [R] Return");
 
             Frame.displayInFrame(displayText.toString());
-
+            System.out.print("Choose an option (N/P/R): ");
             quit = input.nextLine();
 
             if (quit.equalsIgnoreCase("N")) {
@@ -55,10 +55,11 @@ public class StudentDisplay extends HomeDisplay {
                 currentPage = Math.max(1, currentPage - 1);
             }
 
-        } while (!quit.equalsIgnoreCase("0"));
+        } while (!quit.equalsIgnoreCase("R"));
     }
 
     public static void displayAddStudent() {
+        Frame.clearScreen();
         String title = "                    ADD A NEW STUDENT                  ";
         Frame.displayInFrame(title);
 
@@ -99,21 +100,20 @@ public class StudentDisplay extends HomeDisplay {
             Frame.clearScreen();
             String title = "                   UPDATE STUDENT INFO                 \n\n" +
                     "   Do you want to display students before updating ? \n\n" +
-                    "[Y] Yes    [N] No   [Q] Quit";
-            System.out.print(" --> ");
+                    "[Y] Yes    [N] No   [R] Return";
 
             Frame.displayInFrame(title);
+            System.out.print("Choose an option (Y/N/R): ");
             choice = input.nextLine();
 
             if (choice.equalsIgnoreCase("Y")) {
                 displayAllStudents();
-            } else if (choice.equalsIgnoreCase("Q")) {
-                break; 
+            } else if (choice.equalsIgnoreCase("R")) {
+                break;
             } else if (!choice.equalsIgnoreCase("N")) {
-                Frame.displayInFrame("Invalid choice. Please enter Y, N, or Q.");
-                continue; 
+                Frame.displayInFrame("Invalid choice. Please enter Y, N, or R.");
+                continue;
             }
-
 
             // Ask the user to select a student by their Id
             System.out.print("> Please choose the student Id: ");
@@ -121,13 +121,16 @@ public class StudentDisplay extends HomeDisplay {
             input.nextLine();
 
             // Display the user choice
-            String studentSelected = tracker.getStudentNameById(studentId);
+            Student student = new Student(studentId);
             Frame.clearScreen();
-            Frame.displayInFrame("Selected student: " + studentSelected + "\n");
+            // Frame.displayInFrame("Selected student: " + student.getFirstName() + " " +
+            // student.getLastName() + "\n");
 
             String inputStudentUpdate;
             do {
-                System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
+                displayStudentInfo(student);
+                System.out.print("> Do you want to modify " + student.getFirstName() + " " + student.getLastName()
+                        + "'s information (Y/N) ? ");
                 inputStudentUpdate = input.nextLine();
 
                 if (inputStudentUpdate.equalsIgnoreCase("Y")) {
@@ -136,8 +139,9 @@ public class StudentDisplay extends HomeDisplay {
                     // Check if the user input is valid
                     while (!InputValidator.isValidUpdateStudentInfo(String.valueOf(infoToModify))) {
                         Frame.clearScreen();
+                        displayStudentInfo(student);
                         Frame.displayInFrame(
-                                "Selected student: " + studentSelected + "\n\n" +
+                                "Selected student: " + student.getFirstName() + " " + student.getLastName() + "\n\n" +
                                         "\n[1] First Name\n" +
                                         "[2] Last Name \n" +
                                         "[3] Age \n" +
@@ -157,25 +161,33 @@ public class StudentDisplay extends HomeDisplay {
                             System.out.print("> Enter new first name: ");
                             String updateFirstName = input.nextLine();
                             tracker.updateFirstName(studentId, updateFirstName);
+                            Frame.clearScreen();
+                            student = new Student(studentId);
                             Frame.displayInFrame("First name updated successfully! \n");
                             break;
                         case 2:
                             System.out.print("> Enter new last name: ");
                             String updateLastName = input.nextLine();
                             tracker.updateLastName(studentId, updateLastName);
+                            Frame.clearScreen();
+                            student = new Student(studentId);
                             Frame.displayInFrame("Last name updated successfully! \n");
                             break;
                         case 3:
                             System.out.print("> Enter new age: ");
                             int updateAge = input.nextInt();
                             tracker.updateAge(studentId, updateAge);
-                            Frame.displayInFrame("Age updated successfully! \n");
                             input.nextLine();
+                            Frame.clearScreen();
+                            student = new Student(studentId);
+                            Frame.displayInFrame("Age updated successfully! \n");
                             break;
                         case 4:
                             System.out.print("> Enter new field: ");
                             String updateField = input.nextLine();
                             tracker.updateField(studentId, updateField);
+                            Frame.clearScreen();
+                            student = new Student(studentId);
                             Frame.displayInFrame("Field updated successfully! \n");
                             break;
                         default:
@@ -185,7 +197,7 @@ public class StudentDisplay extends HomeDisplay {
                 }
             } while (inputStudentUpdate.equalsIgnoreCase("Y"));
 
-        } while (!choice.equalsIgnoreCase("Q"));
+        } while (!choice.equalsIgnoreCase("R"));
     }
 
     public static void displayDeleteStudent() {
@@ -204,6 +216,7 @@ public class StudentDisplay extends HomeDisplay {
         input.nextLine();
 
         // Display the user choice
+        Frame.clearScreen();
         String deleteStudentSelected = tracker.getStudentNameById(deleteStudentId);
         Frame.displayInFrame("Selected student: " + deleteStudentSelected + "\n");
 
@@ -211,9 +224,17 @@ public class StudentDisplay extends HomeDisplay {
         System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? ");
         String inputStudentDelete = input.nextLine();
 
+        String choice = "";
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
             tracker.deleteStudent(deleteStudentId);
-            Frame.displayInFrame("Student deleted successfully!");
+            Frame.clearScreen();
+            do {
+                Frame.displayInFrame(
+                        "Student " + deleteStudentSelected + " deleted successfully! \n\n " +
+                                "[R] Return");
+                                System.out.print("Press R to return : ");
+                                choice = input.nextLine();
+            } while (!choice.equalsIgnoreCase("R"));
         }
     }
 
@@ -250,5 +271,13 @@ public class StudentDisplay extends HomeDisplay {
                     " | Field: " + student.getField() + "\n";
             Frame.displayInFrame(displayText);
         }
+    }
+
+    public static void displayStudentInfo(Student student) {
+        String displayText = "First name: " + student.getFirstName() +
+                " | Last name: " + student.getLastName() +
+                " | Age: " + student.getAge() +
+                " | Field: " + student.getField() + "\n";
+        Frame.displayInFrame(displayText);
     }
 }

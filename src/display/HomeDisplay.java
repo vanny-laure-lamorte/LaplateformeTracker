@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class HomeDisplay {
-    public static final FilterRepository filter = new FilterRepository();
     protected static Scanner input;
 
     public HomeDisplay(Scanner input) {
