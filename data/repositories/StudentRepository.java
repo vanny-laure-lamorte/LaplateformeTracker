@@ -96,14 +96,20 @@ public class StudentRepository {
         return studentInfo;
     }
 
-    public ResultSet getStudentById(int studentId) throws SQLException {
+    public ResultSet getStudentById(int studentId) {
         String query = "SELECT * FROM student WHERE id = ?";
+        ResultSet resultSet = null;
 
-        Connection connection = database.connect();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, studentId);
+        try {
+            Connection connection = database.connect();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, studentId);
+            resultSet = statement.executeQuery();
+        } catch (SQLException exception) {
+            System.out.println("Error fetching student: " + exception.getMessage());
+        }
 
-        return statement.executeQuery();
+        return resultSet;
     }
 
     // Method to update the first name of a student

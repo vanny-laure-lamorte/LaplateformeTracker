@@ -9,42 +9,37 @@ public class HomeDisplay {
     }
 
     public void homeDisplay() {
-        clearScreen();
+        Frame.clearScreen();
         int pageNumber = 1;
         int choice = -1;
 
         do {
             if (pageNumber == 1) {
+                Frame.clearScreen();
                 displayPageOneMenu();
-                choice = getUserChoice();
+                choice = Frame.getUserChoice(input, 9);
                 input.nextLine();
 
                 switch (choice) {
                     case 1:
-                       // StudentDisplay.displayTitleStudentInfo();
                         StudentDisplay.displayAllStudents();
                         break;
                     case 2:
-                        StudentDisplay.displayAddStudent();
+                        StudentDisplay.displayModifyStudent();
                         break;
                     case 3:
-                        StudentDisplay.displayModifyStudent();
+                        StudentDisplay.displayAddStudent();
                         break;
                     case 4:
                         StudentDisplay.displayDeleteStudent();
                         break;
-                    case 5:
-                        StudentDisplay.displaySearchStudent();
-                        break;
-                    case 6:
-                        StudentRepository.updateAverageGrades();
-                        // LoginDisplay.userAccount();
-                        break;
                     case 7:
-
+                        StudentRepository.updateAverageGrades();
+                        break;
+                    case 8:
+                        StudentDisplay.displaySearchStudent();
                     case 9:
                         pageNumber = 2;
-                        clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -54,8 +49,10 @@ public class HomeDisplay {
                         break;
                 }
             } else if (pageNumber == 2) {
+                Frame.clearScreen();
                 displayPageTwoMenu();
-                choice = getUserChoice();
+                choice = Frame.getUserChoice(input, 9);
+                input.nextLine();
 
                 switch (choice) {
                     case 1:
@@ -96,7 +93,6 @@ public class HomeDisplay {
                         break;
                     case 9:
                         pageNumber = 1;
-                        clearScreen();
                         break;
                     case 0:
                         System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
@@ -112,14 +108,14 @@ public class HomeDisplay {
     private void displayPageOneMenu() {
         System.out.print(
                 "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
-                "║                                                        ║\n" +
-                "║  [1] Display Student       ║  [5] Add grade            ║\n" +
-                "║  [2] Update Student Info   ║  [6] Delete grade         ║\n" +
-                "║  [3] Add a New Student     ║  [7] Update grade         ║\n" +
-                "║  [4] Delete a new student  ║  [8] Search Student by ID ║\n" +
-                "║                                                        ║\n" +
-                "║  [0] Quit                   [9] Next page      1/2     ║\n" +
-                "╚════════════════════════════════════════════════════════╝\n");
+                        "║                                                        ║\n" +
+                        "║  [1] Display Student       ║  [5] Add grade            ║\n" +
+                        "║  [2] Update Student Info   ║  [6] Delete grade         ║\n" +
+                        "║  [3] Add a New Student     ║  [7] Update grade         ║\n" +
+                        "║  [4] Delete a new student  ║  [8] Search Student by ID ║\n" +
+                        "║                                                        ║\n" +
+                        "║  [0] Quit                   [9] Next page      1/2     ║\n" +
+                        "╚════════════════════════════════════════════════════════╝\n");
     }
 
     private void displayPageTwoMenu() {
@@ -135,23 +131,4 @@ public class HomeDisplay {
                 "╚════════════════════════════════════════════════════════╝\n");
     }
 
-    private void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private int getUserChoice() {
-        int choice;
-        do {
-            System.out.print("> Choose a menu option: ");
-            String inputString = input.next();
-            if (inputString.matches("[0-9]")) {
-                choice = Integer.parseInt(inputString);
-            } else {
-                choice = -1;
-                System.out.println("Please enter a number between 0 and 9.");
-            }
-        } while (choice < 0 || choice > 9);
-        return choice;
-    }
 }
