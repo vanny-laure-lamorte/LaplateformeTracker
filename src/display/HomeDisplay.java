@@ -110,24 +110,24 @@ public class HomeDisplay {
 
     private void displayPageOneMenu() {
         System.out.print(
-                "╔═══════════════ LA PLATEFORME TRACKER ═══════════════╗\n" +
-                        "║                                                     ║\n" +
-                        "║ [1] Display Student       ║  [2] Add a new student  ║\n" +
-                        "║ [3] Update student info   ║  [4] Delete student     ║\n" +
-                        "║ [5] Search student by ID  ║  [6] Test               ║\n" +
-                        "║                                                     ║\n" +
-                        "║                                                     ║\n" +
-                        "║ [0] Quit                  [9] Next page      1/2    ║\n" +
-                        "╚═════════════════════════════════════════════════════╝\n");
+                "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
+                "║                                                        ║\n" +
+                "║  [1] Display Student       ║  [5] Add grade            ║\n" +
+                "║  [2] Update Student Info   ║  [6] Delete grade         ║\n" +
+                "║  [3] Add a New Student     ║  [7] Update grade         ║\n" +
+                "║  [4] Delete a new student  ║  [8] Search Student by ID ║\n" +
+                "║                                                        ║\n" +
+                "║  [0] Quit                   [9] Next page      1/2     ║\n" +
+                "╚════════════════════════════════════════════════════════╝\n");
     }
 
     private void displayPageTwoMenu() {
         System.out.print("\n" +
-                "╔═════════════════════ FILTER SECTION ═══════════════════╗\n" +
+                "╔═══════════════ LA PLATEFORME TRACKER ══════════════════╗\n" +
                 "║                                                        ║\n" +
-                "║ [1] Sorting students       ║  [2] Advanced search      ║\n" +
-                "║ [3] Statistics             ║  [4] Data import/export   ║\n" +
-                "║ [5] Pagination             ║  [6] Export results       ║\n" +
+                "║ [1] Sorting students      ║  [4] Export results        ║\n" +
+                "║ [2] Advanced search       ║  [5] Data import/export    ║\n" +
+                "║ [3] Statistics            ║  [6] Log Out               ║\n" +
                 "║                                                        ║\n" +
                 "║                                                        ║\n" +
                 "║ [0] Quit                  [9] Previous page      2/2   ║\n" +
