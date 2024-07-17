@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -384,28 +385,40 @@ public class StudentDisplay extends HomeDisplay {
         // Get the student with the given ID
         String studentFound = tracker.getStudentNameById(searchStudentID);
         Frame.displayInFrame("Found student: " + studentFound);
+
     }
 
     // Method to display student by ID
     public static void displayStudentById() {
         StringBuilder displayText = new StringBuilder();
-        Frame.displayInFrame("SEARCH STUDENT");
-
-        // Verify if the input user is only digit
-        String studentIdStr;
-        while (true) {
-            System.out.print("> Enter student ID: ");
-            studentIdStr = input.nextLine();
-            if (InputValidator.isValidDigit(studentIdStr)) {
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter only digits.");
+        Student student = null;
+        String studentIdStr = "";
+        int studentId = 0;
+            
+            // Verify if the input user is only digit
+            while (true) {
+                // Title display
+                Frame.clearScreen();
+                String title = "                SEARCH STUDENT BY ID                ";
+                Frame.displayInFrame(title);
+                if (studentId == -1)
+                    System.out.println("Invalid input. Please enter only digits.");
+                System.out.print("> Enter student ID: ");
+                studentIdStr = input.nextLine();
+                if (InputValidator.isValidDigit(studentIdStr)) {
+                    studentId = Integer.parseInt(studentIdStr);
+                    break;
+                } else {
+                    studentId = -1;
+                }
             }
-        }
 
-        int studentId = Integer.parseInt(studentIdStr);
         // Retrieve the student with the given ID
-        Student student = new Student(studentId);
+        List<Integer> studentIds = new ArrayList<>();
+        studentIds = tracker.getAllStudentIds();
+        if (studentIds.contains(studentId)) {
+            student = new Student(studentId);
+        }
 
         if (student != null) {
             displayText.append("Student found:\n")
@@ -414,6 +427,8 @@ public class StudentDisplay extends HomeDisplay {
                     .append(student.getLastName())
                     .append(" | Age: ").append(student.getAge())
                     .append(" | Field: ").append(student.getField()).append("\n");
+        } else {
+            displayText.append("No student found with id " + studentIdStr);
         }
 
         String choice = "";

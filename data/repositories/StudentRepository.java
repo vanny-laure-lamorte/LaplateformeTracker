@@ -198,4 +198,24 @@ public class StudentRepository {
         }
     }
 
+    public List<Integer> getAllStudentIds() {
+        List<Integer> studentIds = new ArrayList<>();
+        String query = "SELECT id FROM student";
+
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                studentIds.add(id);
+            }
+
+        } catch (SQLException exception) {
+            System.err.println("Error fetching student IDs: " + exception.getMessage());
+        }
+
+        return studentIds;
+    }
+
 }
