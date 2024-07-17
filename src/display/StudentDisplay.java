@@ -15,6 +15,7 @@ public class StudentDisplay extends HomeDisplay {
         Frame.displayInFrame(title);
     }
 
+    // Method to display all students
     public static void displayAllStudents() {
         int currentPage = 1;
         int pageSize = 5;
@@ -58,6 +59,7 @@ public class StudentDisplay extends HomeDisplay {
         } while (!quit.equalsIgnoreCase("0"));
     }
 
+    // Method to add a new student
     public static void displayAddStudent() {
 
         
@@ -137,6 +139,7 @@ public class StudentDisplay extends HomeDisplay {
         }
     }
 
+    // Method to modify a student information
     public static void displayModifyStudent() {
         String choice;
         do {
@@ -170,9 +173,19 @@ public class StudentDisplay extends HomeDisplay {
             Frame.displayInFrame("Selected student: " + studentSelected + "\n");
 
             String inputStudentUpdate;
+
             do {
-                System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
-                inputStudentUpdate = input.nextLine();
+
+                // Veryfy if the input user is correct
+                while (true) {
+                    System.out.print("> Do you want to modify " + studentSelected + "'s information (Y/N) ? ");
+                    inputStudentUpdate = input.nextLine();
+                    if (InputValidator.isValidYesNo(inputStudentUpdate)) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter only Y or N.");
+                    }
+                }         
 
                 if (inputStudentUpdate.equalsIgnoreCase("Y")) {
                     int infoToModify = 0;
@@ -260,6 +273,8 @@ public class StudentDisplay extends HomeDisplay {
         } while (!choice.equalsIgnoreCase("Q"));
     }
 
+
+    // Method to delete a student
     public static void displayDeleteStudent() {
         // Display title
         String title = "╔═══════════════════════════════════════════════════════╗\n" +
@@ -270,18 +285,38 @@ public class StudentDisplay extends HomeDisplay {
         // Display all students the user can delete
         displayAllStudents();
 
-        // Ask the user to select a student to delete by their Id
-        System.out.print("> Please choose the student Id: ");
-        int deleteStudentId = input.nextInt();
-        input.nextLine();
+        // Ask the user to select a student by id and verify the user input
+        String inputUserStr; 
+        while (true){
+            System.out.print("> Please choose the student Id: ");
+            inputUserStr = input.nextLine();
+            if (InputValidator.isValidDigit(inputUserStr)){
+                break; 
+            }
+            else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+
+        // Convert the user input from string to int
+        int deleteStudentId = Integer.parseInt(inputUserStr);
+
 
         // Display the user choice
         String deleteStudentSelected = tracker.getStudentNameById(deleteStudentId);
         Frame.displayInFrame("Selected student: " + deleteStudentSelected + "\n");
 
-        // Ask confirmation before deleting the student
-        System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? ");
-        String inputStudentDelete = input.nextLine();
+        // Ask confirmation before deleting the student and verify if the input user is correct
+        String inputStudentDelete;          
+           while (true) {
+            System.out.print("> Delete " + deleteStudentSelected + "'s information permanently (Y/N)? ");
+            inputStudentDelete = input.nextLine();
+            if (InputValidator.isValidYesNo(inputStudentDelete)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only Y or N.");
+            }
+        }
 
         if (inputStudentDelete.equalsIgnoreCase("Y")) {
             tracker.deleteStudent(deleteStudentId);
@@ -289,6 +324,7 @@ public class StudentDisplay extends HomeDisplay {
         }
     }
 
+    // Method to search student by ID
     public static void displaySearchStudent() {
         String title = "╔═══════════════════════════════════════════════════════╗\n" +
                 "║               SEARCH A STUDENT BY THEIR ID            ║\n" +
@@ -296,21 +332,46 @@ public class StudentDisplay extends HomeDisplay {
         Frame.displayInFrame(title);
 
         // Ask the user to choose the ID of a student
-        System.out.print("> Please enter the student's ID: ");
-        int searchStudentID = input.nextInt();
-        input.nextLine();
+        System.out.print("> Please enter the student's ID: ");  
+
+        // Verify if the input user is only digit
+        String studentIdStr;
+        while (true) {
+            System.out.print("> Enter student ID: ");
+            studentIdStr = input.nextLine();
+            if (InputValidator.isValidDigit(studentIdStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+
+        // Convert the input user from sting to integer
+        int searchStudentID = Integer.parseInt(studentIdStr);
 
         // Get the student with the given ID
         String studentFound = tracker.getStudentNameById(searchStudentID);
         Frame.displayInFrame("Found student: " + studentFound);
     }
 
-    public static void displayStudentById() {
-        Frame.displayInFrame("SEARCH STUDENT");
 
-        System.out.print("> Enter the student ID: ");
-        int studentId = input.nextInt();
-        input.nextLine();
+    // Method to display student by ID
+    public static void displayStudentById() {
+        Frame.displayInFrame("SEARCH STUDENT");    
+
+        // Verify if the input user is only digit
+        String studentIdStr;
+        while (true) {
+            System.out.print("> Enter student ID: ");
+            studentIdStr = input.nextLine();
+            if (InputValidator.isValidDigit(studentIdStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+
+        int studentId = Integer.parseInt(studentIdStr); 
 
         // Retrieve the student with the given ID
         Student student = new Student(studentId);
