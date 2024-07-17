@@ -10,7 +10,7 @@ public class GradeRepository {
 
     public List<Grade> getGradesByStudentId(int studentID) {
         List<Grade> grades = new ArrayList<>();
-        String selectSql = "SELECT * FROM grade WHERE studentId = ?";
+        String selectSql = "SELECT * FROM grades WHERE studentId = ?";
 
         try (Connection connection = database.connect();
                 PreparedStatement statement = connection.prepareStatement(selectSql)) {

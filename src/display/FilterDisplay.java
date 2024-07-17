@@ -16,13 +16,14 @@ public class FilterDisplay extends HomeDisplay {
         int choiceSortingStudent = filterSortingStudents();
         switch (choiceSortingStudent) {
             case 1:
-                filterRepository.getStudentsOrderedByFirstName(); // sort by first name
+
+                filterRepository.getStudentsOrdered("firstName"); // sort by first name
                 break;
             case 2:
-                filterRepository.getStudentsOrderedByLastName(); // sort by last name
+                filterRepository.getStudentsOrdered("lastName"); // sort by last name
                 break;
             case 3:
-                filterRepository.getStudentsOrderedByAge(); // sort by age
+                filterRepository.getStudentsOrdered("age"); // sort by age
                 break;
             case 4:
                 int choiceField = filterFieldOptions();
@@ -34,7 +35,7 @@ public class FilterDisplay extends HomeDisplay {
                 }
                 break;
             case 5:
-                filterRepository.getStudentsOrderedGrade(); // sort by grade
+                filterRepository.getStudentsOrdered("averageGrade"); // sort by grade
                 break;
         }
     }
@@ -100,24 +101,34 @@ public class FilterDisplay extends HomeDisplay {
         }
     }
 
-    // Method to filter students by first name
-    public static void filterStudentsByFirstName(int id, String firstName, String lastName, String field, int age) {
-        System.out.println("Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Field: " + field + " | "
-                + "Age: " + age + " | " + " ID: " + id);
-    }
+    public static void filterStudents(String filterType, int id, String firstName, String lastName, String field,
+            int age, double grade) {
+        switch (filterType.toLowerCase()) {
+            case "firstname":
+                String student = "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Field: " + field + " | "
+                        + "Age: " + age + " | " + " ID: " + id;
+                Frame.displayInFrame(student);
+                break;
+            case "lastname":
 
-    // Method to filter students by last name
-    public static void filterStudentsByLastName(int id, String firstName, String lastName, String field, int age,
-            double grade) {
-        System.out.println("Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | "
-                + "Age: " + age + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
-    }
-
-    // Method to filter by age
-    public static void filterStudentsByAge(int id, String firstName, String lastName, String field, int age,
-            double grade) {
-        System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | "
-                + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
+                System.out
+                        .println("Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | "
+                                + "Age: " + age + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
+                break;
+            case "age":
+                System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | "
+                        + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
+                break;
+            case "grade":
+                System.out
+                        .println("Average Grade: " + grade + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
+                                + " | " + "Field: " + field + " | "
+                                + "Age: " + age + " | " + " ID: " + id);
+                break;
+            default:
+                System.out.println("Unknown filter type");
+                break;
+        }
     }
 
     // Method to allow the user to sort by field
@@ -158,14 +169,6 @@ public class FilterDisplay extends HomeDisplay {
         System.out.println(
                 "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " + "Grade: " + grade
                         + " | " + " ID: " + id);
-    }
-
-    // Method to filter by average Grade
-    public static void filterStudentsByGrade(int id, String firstName, String lastName, String field, int age,
-            double grade) {
-        System.out.println("Average Grade: " + grade + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
-                + " | " + "Field: " + field + " | "
-                + "Age: " + age + " | " + " ID: " + id);
     }
 
     // --- ADVANCED SEARCH ---//
