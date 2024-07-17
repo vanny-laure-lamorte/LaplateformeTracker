@@ -201,9 +201,6 @@ public class FilterDisplay extends HomeDisplay {
         return choiceAdvancedSearch;
     }
 
-
-
-
     public static void getAdvancedSearchFirstName() {
         System.out.print("> Please add a first name: ");
         String filterFirstName = input.nextLine();
@@ -239,9 +236,21 @@ public class FilterDisplay extends HomeDisplay {
                         "[3] Students passing or failing \n \n" +
                         "> Please choose an option: ");
 
-        int choiceStatistic = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        int choiceStatistic = 0;
+        while (true) {
+            String userInput = input.nextLine();
+            
+            if (InputValidator.isValidDigit(userInput)) {
+                choiceStatistic = Integer.parseInt(userInput);
+                if (choiceStatistic >= 1 && choiceStatistic <= 3) {
+                    break;
+                } else {
+                    System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter digits only: ");
+            }
+        }
         return choiceStatistic;
     }
 
