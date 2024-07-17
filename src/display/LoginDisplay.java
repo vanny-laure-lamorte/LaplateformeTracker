@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class LoginDisplay extends HomeDisplay{
+public class LoginDisplay extends HomeDisplay {
     public LoginDisplay(Scanner input) {
         super(input);
     }
@@ -10,13 +10,20 @@ public class LoginDisplay extends HomeDisplay{
     public static void userAccount() {
         String userPassword = "";
         String userLogin = "";
-        
+
         // Ask the user if he has an account
-        System.out.print("> Do you have an account with us (Y/N)? ");
-        String inputAccount = input.nextLine();
-        
-        // System.out.print("Hello: ");
-        
+        String inputAccount;
+        while (true) {
+            System.out.print("> Do you have an account with us (Y/N)? ");
+            inputAccount = input.nextLine();
+            if (InputValidator.isValidYesNo(inputAccount)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only Y or N.");
+
+            }
+        }
+
         // Get the user Password and Email
         if (inputAccount.equals("Y")) {
             System.out.print("> Please enter your email: ");
