@@ -39,5 +39,4 @@ public class InputValidator {
         return input.matches("[1-4]");
         }       
     
-    
 }
