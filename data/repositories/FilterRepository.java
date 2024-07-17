@@ -32,7 +32,7 @@ public class FilterRepository {
             }
 
         } catch (SQLException exception) {
-            System.err.println("Erreur lors de la récupération des étudiants : " + exception.getMessage());
+            System.err.println("Error fetching student : " + exception.getMessage());
         }
     }
 

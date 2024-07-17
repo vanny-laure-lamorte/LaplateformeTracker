@@ -105,23 +105,23 @@ public class FilterDisplay extends HomeDisplay {
             int age, double grade) {
         switch (filterType.toLowerCase()) {
             case "firstname":
-                String student = "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Field: " + field + " | "
+                String student = "First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Field: " + field + " | "
                         + "Age: " + age + " | " + " ID: " + id;
                 Frame.displayInFrame(student);
                 break;
             case "lastname":
 
                 System.out
-                        .println("Nom: " + lastName + " | " + "Prénom: " + firstName + " | " + "Field: " + field + " | "
+                        .println("Last Name: " + lastName + " | " + "First Name: " + firstName + " | " + "Field: " + field + " | "
                                 + "Age: " + age + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
                 break;
             case "age":
-                System.out.println("Age: " + age + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName + " | "
+                System.out.println("Age: " + age + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName + " | "
                         + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
                 break;
             case "grade":
                 System.out
-                        .println("Average Grade: " + grade + " | " + "Nom: " + lastName + " | " + "Prénom: " + firstName
+                        .println("Average Grade: " + grade + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName
                                 + " | " + "Field: " + field + " | "
                                 + "Age: " + age + " | " + " ID: " + id);
                 break;
@@ -167,7 +167,7 @@ public class FilterDisplay extends HomeDisplay {
     // Display students according to their field
     public static void filterStudentsByField(int id, String firstName, String lastName, int age, double grade) {
         System.out.println(
-                "Prénom: " + firstName + " | " + "Nom: " + lastName + " | " + "Age: " + age + " | " + "Grade: " + grade
+                "First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Age: " + age + " | " + "Grade: " + grade
                         + " | " + " ID: " + id);
     }
 
