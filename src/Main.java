@@ -7,7 +7,9 @@ public class Main {
 
         try (Scanner input = new Scanner(System.in)) {
             HomeDisplay display = new HomeDisplay(input);
-            display.homeDisplay();
+            LoginDisplay login = new LoginDisplay(input);
+            if (login.userAccount())
+                display.homeDisplay();
         }
     }
 }

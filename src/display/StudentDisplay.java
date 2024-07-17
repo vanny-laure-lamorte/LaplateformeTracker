@@ -169,7 +169,7 @@ public class StudentDisplay extends HomeDisplay {
                 Frame.displayInFrame(title);
                 if (!choice.equalsIgnoreCase("N") && !choice.equalsIgnoreCase("R") && !choice.equalsIgnoreCase("Y")
                         && !choice.equalsIgnoreCase("")) {
-                    Frame.displayInFrame("Invalid choice. Please enter Y, N, or R.");
+                    System.out.println("Invalid choice. Please enter Y, N, or R.");
                 }
                 System.out.print("Your selection: ");
                 choice = input.nextLine();

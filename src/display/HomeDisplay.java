@@ -2,12 +2,13 @@ import java.util.Scanner;
 
 public class HomeDisplay {
     protected static Scanner input;
+    public static boolean connected = false;
 
     public HomeDisplay(Scanner input) {
         HomeDisplay.input = input;
     }
 
-    public void homeDisplay() {
+    public boolean homeDisplay() {
         Frame.clearScreen();
         int pageNumber = 1;
         int choice = -1;
@@ -90,7 +91,7 @@ public class HomeDisplay {
                         break;
 
                     case 6:
-                        break;
+                        return false;
                     case 9:
                         pageNumber = 1;
                         break;
@@ -103,6 +104,7 @@ public class HomeDisplay {
                 }
             }
         } while (choice != 0);
+        return true;
     }
 
     private void displayPageOneMenu() {

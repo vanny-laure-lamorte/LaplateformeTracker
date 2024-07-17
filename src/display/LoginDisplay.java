@@ -5,16 +5,18 @@ public class LoginDisplay extends HomeDisplay {
         super(input);
     }
 
-    private static final LoginRepository tracker = new LoginRepository();
+    private final LoginRepository tracker = new LoginRepository();
 
-    public static void userAccount() {
+    public boolean userAccount() {
         String userPassword = "";
         String userLogin = "";
 
         // Ask the user if he has an account
         String inputAccount;
+        Frame.clearScreen();
+        Frame.displayInFrame("\n          WELCOME TO LA PLATEFORME TRACKER          \n ");
         while (true) {
-            System.out.print("> Do you have an account with us (Y/N)? ");
+            System.out.print("\n> Do you have an account with us (Y/N)? ");
             inputAccount = input.nextLine();
             if (InputValidator.isValidYesNo(inputAccount)) {
                 break;
@@ -24,7 +26,7 @@ public class LoginDisplay extends HomeDisplay {
         }
 
         // Get the user Password and Email
-        if (inputAccount.equals("Y")) {
+        if (inputAccount.equalsIgnoreCase("Y")) {
             System.out.print("> Please enter your email: ");
             userLogin = input.nextLine();
             System.out.print("> Please enter your password: ");
@@ -34,9 +36,29 @@ public class LoginDisplay extends HomeDisplay {
             boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
 
             if (loginSuccessful) {
-                System.out.println("Login successful!");
+                String choice;
+                do {
+                    Frame.displayInFrame("Login successful!" + "\n\nPress Enter to continue");
+                    choice = input.nextLine();
+                } while (!choice.equalsIgnoreCase(""));
+                return true;
             } else {
-                System.out.println("Invalid email or password.");
+                String choice;
+                while (true) {
+                    Frame.displayInFrame(
+                            "Invalid email or password." + "\n\n Do you wish to retry ?" + "\n [Y] Yes   [N] No");
+                    choice = input.nextLine();
+                    if (InputValidator.isValidYesNo(choice)) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter only Y or N.");
+                    }
+                }
+                if (inputAccount.equalsIgnoreCase("Y")) {
+                    userAccount();
+                } else if (inputAccount.equalsIgnoreCase("N")) {
+                    return false;
+                }
             }
         } else if (inputAccount.equalsIgnoreCase("N")) {
 
@@ -54,12 +76,18 @@ public class LoginDisplay extends HomeDisplay {
             boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
 
             if (registrationSuccessful) {
-                System.out.println("Registration successful!");
+                String choice;
+                do {
+                    Frame.displayInFrame("Registration successful!" + "\n\nPress Enter to continue");
+                    choice = input.nextLine();
+                } while (!choice.equalsIgnoreCase(""));
+                return true;
             } else {
                 System.out.println("Registration failed. Try again.");
             }
         } else {
             System.out.println("Invalid input. Please enter 'Y' or 'N'.");
         }
+        return false;
     }
 }
