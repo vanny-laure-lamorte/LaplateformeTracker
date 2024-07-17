@@ -4,12 +4,13 @@ import java.util.Scanner;
 public class HomeDisplay {
     protected static Scanner input;
     private static final StudentRepository tracker = new StudentRepository();
+    public static boolean connected = false;
 
     public HomeDisplay(Scanner input) {
         HomeDisplay.input = input;
     }
 
-    public void homeDisplay() {
+    public boolean homeDisplay() {
         Frame.clearScreen();
         int pageNumber = 1;
         int choice = -1;
@@ -38,7 +39,7 @@ public class HomeDisplay {
                         StudentRepository.updateAverageGrades();
                         break;
                     case 8:
-                        StudentDisplay.displaySearchStudent();
+                        StudentDisplay.displayStudentById();
                         break;
                     case 9:
                         pageNumber = 2;
@@ -98,7 +99,7 @@ public class HomeDisplay {
                         System.out.println("Students exported to students.csv and students.html");
                         break;
                     case 6:
-                        break;
+                        return false;
                     case 9:
                         pageNumber = 1;
                         break;
@@ -111,6 +112,7 @@ public class HomeDisplay {
                 }
             }
         } while (choice != 0);
+        return true;
     }
 
     private void displayPageOneMenu() {

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class StudentDisplay extends HomeDisplay {
     public static void displayAllStudents() {
         int currentPage = 1;
         int pageSize = 5;
-        String quit = "";
+        String choice = "";
 
         do {
             Frame.clearScreen();
@@ -31,6 +32,7 @@ public class StudentDisplay extends HomeDisplay {
             List<Student> students = tracker.getAllStudents();
             int startIndex = (currentPage - 1) * pageSize;
             int endIndex = Math.min(startIndex + pageSize, students.size());
+            int totalPages = (int) Math.ceil((double) students.size() / pageSize);
 
             for (int i = startIndex; i < endIndex; i++) {
                 Student student = students.get(i);
@@ -44,19 +46,27 @@ public class StudentDisplay extends HomeDisplay {
             }
 
             displayText.append("\n")
-                    .append("    [N] Next Page  [P] Previous Page  [R] Return");
-
+                    .append("    [N] Next Page  [P] Previous Page  [R] Return " +
+                            "                                   page " + currentPage + " / " + totalPages);
             Frame.displayInFrame(displayText.toString());
-            System.out.print("Your selection: ");
-            quit = input.nextLine();
+            if (!choice.equalsIgnoreCase("N") && !choice.equalsIgnoreCase("R") && !choice.equalsIgnoreCase("Y")
+                    && !choice.equalsIgnoreCase("")) {
+                System.out.println("Invalid choice. Please enter Y, N, or R.");
+            }
+            System.out.print("> Your selection: ");
+            choice = input.nextLine();
 
-            if (quit.equalsIgnoreCase("N")) {
-                currentPage++;
-            } else if (quit.equalsIgnoreCase("P")) {
-                currentPage = Math.max(1, currentPage - 1);
+            if (choice.equalsIgnoreCase("N")) {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                }
+            } else if (choice.equalsIgnoreCase("P")) {
+                if (currentPage > 1) {
+                    currentPage--;
+                }
             }
 
-        } while (!quit.equalsIgnoreCase("R"));
+        } while (!choice.equalsIgnoreCase("R"));
     }
 
     // Method to add a new student
@@ -159,7 +169,7 @@ public class StudentDisplay extends HomeDisplay {
                 Frame.displayInFrame(title);
                 if (!choice.equalsIgnoreCase("N") && !choice.equalsIgnoreCase("R") && !choice.equalsIgnoreCase("Y")
                         && !choice.equalsIgnoreCase("")) {
-                    Frame.displayInFrame("Invalid choice. Please enter Y, N, or R.");
+                    System.out.println("Invalid choice. Please enter Y, N, or R.");
                 }
                 System.out.print("Your selection: ");
                 choice = input.nextLine();
@@ -384,28 +394,40 @@ public class StudentDisplay extends HomeDisplay {
         // Get the student with the given ID
         String studentFound = tracker.getStudentNameById(searchStudentID);
         Frame.displayInFrame("Found student: " + studentFound);
+
     }
 
     // Method to display student by ID
     public static void displayStudentById() {
         StringBuilder displayText = new StringBuilder();
-        Frame.displayInFrame("SEARCH STUDENT");
+        Student student = null;
+        String studentIdStr = "";
+        int studentId = 0;
 
         // Verify if the input user is only digit
-        String studentIdStr;
         while (true) {
+            // Title display
+            Frame.clearScreen();
+            String title = "                SEARCH STUDENT BY ID                ";
+            Frame.displayInFrame(title);
+            if (studentId == -1)
+                System.out.println("Invalid input. Please enter only digits.");
             System.out.print("> Enter student ID: ");
             studentIdStr = input.nextLine();
             if (InputValidator.isValidDigit(studentIdStr)) {
+                studentId = Integer.parseInt(studentIdStr);
                 break;
             } else {
-                System.out.println("Invalid input. Please enter only digits.");
+                studentId = -1;
             }
         }
 
-        int studentId = Integer.parseInt(studentIdStr);
         // Retrieve the student with the given ID
-        Student student = new Student(studentId);
+        List<Integer> studentIds = new ArrayList<>();
+        studentIds = tracker.getAllStudentIds();
+        if (studentIds.contains(studentId)) {
+            student = new Student(studentId);
+        }
 
         if (student != null) {
             displayText.append("Student found:\n")
@@ -414,6 +436,8 @@ public class StudentDisplay extends HomeDisplay {
                     .append(student.getLastName())
                     .append(" | Age: ").append(student.getAge())
                     .append(" | Field: ").append(student.getField()).append("\n");
+        } else {
+            displayText.append("No student found with id " + studentIdStr);
         }
 
         String choice = "";
