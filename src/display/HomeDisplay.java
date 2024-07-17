@@ -37,7 +37,9 @@ public class HomeDisplay {
                         StudentRepository.updateAverageGrades();
                         break;
                     case 8:
-                        StudentDisplay.displaySearchStudent();
+                        //StudentDisplay.displaySearchStudent();
+                        GradeDisplay.displayGrades();
+                        break;
                     case 9:
                         pageNumber = 2;
                         break;
