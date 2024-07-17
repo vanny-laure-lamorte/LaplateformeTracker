@@ -59,6 +59,9 @@ public class StudentDisplay extends HomeDisplay {
     }
 
     public static void displayAddStudent() {
+
+        String newAgeStr; 
+
         String title = "                    ADD A NEW STUDENT                  ";
         Frame.displayInFrame(title);
 
@@ -66,13 +69,22 @@ public class StudentDisplay extends HomeDisplay {
         String newFirstName = input.nextLine();
         System.out.print("> Enter student's last name: ");
         String newLastName = input.nextLine();
-        System.out.print("> Enter student's age: ");
-        int newAge = input.nextInt();
-        input.nextLine();
         System.out.print("> Enter student's field: ");
         String newField = input.nextLine();
         double newAverageGrade = 0;
 
+        // Verify the user input if it's a digit and display an error message if it's not
+        while (true) {
+            System.out.print("> Enter student's age: ");
+            newAgeStr = input.nextLine();
+            if (InputValidator.isValidDigit(newAgeStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }           
+        }
+        
+        int newAge = Integer.parseInt(newAgeStr);
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
             StringBuilder displayText = new StringBuilder();

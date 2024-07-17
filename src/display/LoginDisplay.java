@@ -20,7 +20,6 @@ public class LoginDisplay extends HomeDisplay {
                 break;
             } else {
                 System.out.println("Invalid input. Please enter only Y or N.");
-
             }
         }
 
