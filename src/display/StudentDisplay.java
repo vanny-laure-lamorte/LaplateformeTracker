@@ -160,12 +160,21 @@ public class StudentDisplay extends HomeDisplay {
                 Frame.displayInFrame("Invalid choice. Please enter Y, N, or Q.");
                 continue; 
             }
+            // Ask the user to select a student by their Id and verify the input user 
 
+            String studentIdStr;
+            while (true) {
+                System.out.print("> Enter student ID: ");
+                studentIdStr = input.nextLine();
+                if (InputValidator.isValidDigit(studentIdStr)) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter only digits.");
+                }
+            }
 
-            // Ask the user to select a student by their Id
-            System.out.print("> Please choose the student Id: ");
-            int studentId = input.nextInt();
-            input.nextLine();
+            // Convert the input user from string to int
+            int studentId = Integer.parseInt(studentIdStr);
 
             // Display the user choice
             String studentSelected = tracker.getStudentNameById(studentId);
@@ -331,10 +340,7 @@ public class StudentDisplay extends HomeDisplay {
                 "╚═══════════════════════════════════════════════════════╝\n";
         Frame.displayInFrame(title);
 
-        // Ask the user to choose the ID of a student
-        System.out.print("> Please enter the student's ID: ");  
-
-        // Verify if the input user is only digit
+        // Ask the user to choose the ID of a student and verify if the input user is only digit
         String studentIdStr;
         while (true) {
             System.out.print("> Enter student ID: ");
@@ -347,13 +353,12 @@ public class StudentDisplay extends HomeDisplay {
         }
 
         // Convert the input user from sting to integer
-        int searchStudentID = Integer.parseInt(studentIdStr);
+        int searchStudentID = Integer.parseInt(studentIdStr);        
 
         // Get the student with the given ID
         String studentFound = tracker.getStudentNameById(searchStudentID);
         Frame.displayInFrame("Found student: " + studentFound);
     }
-
 
     // Method to display student by ID
     public static void displayStudentById() {
