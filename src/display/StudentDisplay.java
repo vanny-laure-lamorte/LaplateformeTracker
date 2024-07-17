@@ -60,20 +60,52 @@ public class StudentDisplay extends HomeDisplay {
 
     public static void displayAddStudent() {
 
-        String newAgeStr; 
-
+        
         String title = "                    ADD A NEW STUDENT                  ";
         Frame.displayInFrame(title);
 
-        System.out.print("> Enter student's first name: ");
-        String newFirstName = input.nextLine();
-        System.out.print("> Enter student's last name: ");
-        String newLastName = input.nextLine();
-        System.out.print("> Enter student's field: ");
-        String newField = input.nextLine();
-        double newAverageGrade = 0;
+        String newFirstName;
+        String newLastName;
+        String newField;
+        
+                
+             // Validate first name
+        while (true) {
+            System.out.print("> Enter student's first name: ");
+            newFirstName = input.nextLine();
+            if (InputValidator.isValidAlphabetic(newFirstName)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only letters.");
+            }
+        }
 
-        // Verify the user input if it's a digit and display an error message if it's not
+        // Validate last name
+        while (true) {
+            System.out.print("> Enter student's last name: ");
+            newLastName = input.nextLine();
+            if (InputValidator.isValidAlphabetic(newLastName)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only letters.");
+            }
+        }
+
+        // Validate field
+        while (true) {
+            System.out.print("> Enter student's field: ");
+            newField = input.nextLine();
+            if (InputValidator.isValidAlphabetic(newField)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only letters.");
+            }
+        }
+
+        double newAverageGrade = 0;
+        
+        // Verify the user input if it's a digit and display an error message if it's not.
+        String newAgeStr; 
         while (true) {
             System.out.print("> Enter student's age: ");
             newAgeStr = input.nextLine();
@@ -159,34 +191,62 @@ public class StudentDisplay extends HomeDisplay {
                         input.nextLine();
 
                         if (infoToModify < 1 || infoToModify > 4) {
-                            Frame.displayInFrame("Invalid input! Please enter 1, 2, 3, or 4");
+                            Frame.displayInFrame("Invalid input. Please enter 1, 2, 3, or 4");
                         }
                     }
 
                     // Update the database based on the user choice
                     switch (infoToModify) {
-                        case 1:
+
+                        case 1: // Modify first name
+
+                        System.out.print("> Enter new first name: ");
+                        String updateFirstName = input.nextLine();
+                        while (!InputValidator.isValidAlphabetic(updateFirstName)) {
+                            System.out.println("Invalid first name input. Please enter only letters.");
                             System.out.print("> Enter new first name: ");
-                            String updateFirstName = input.nextLine();
+                            updateFirstName = input.nextLine();
+                        }                           
                             tracker.updateFirstName(studentId, updateFirstName);
                             Frame.displayInFrame("First name updated successfully! \n");
                             break;
-                        case 2:
+
+                        case 2: // Modify last name
+                        
                             System.out.print("> Enter new last name: ");
                             String updateLastName = input.nextLine();
+                            while (!InputValidator.isValidAlphabetic(updateLastName)) {
+                                System.out.println("Invalid last name input. Please enter only letters.");
+                                System.out.print("> Enter new last name: ");
+                                updateLastName = input.nextLine();
+                            } 
                             tracker.updateLastName(studentId, updateLastName);
                             Frame.displayInFrame("Last name updated successfully! \n");
                             break;
-                        case 3:
+
+                        case 3:// Modify age
                             System.out.print("> Enter new age: ");
-                            int updateAge = input.nextInt();
+                            String updateAgeStr = input.nextLine();
+                            while (!InputValidator.isValidDigit(updateAgeStr)) {
+                                System.out.println("Invalid age input. Please enter only digits.");
+                                System.out.print("> Enter new age: ");
+                                updateAgeStr= input.nextLine();
+                            } 
+                            // Convert a string age into int 
+                            int updateAge  = Integer.parseInt(updateAgeStr);                                              
                             tracker.updateAge(studentId, updateAge);
                             Frame.displayInFrame("Age updated successfully! \n");
                             input.nextLine();
                             break;
-                        case 4:
+
+                        case 4: // Modify field
                             System.out.print("> Enter new field: ");
                             String updateField = input.nextLine();
+                            while (!InputValidator.isValidAlphabetic(updateField)) {
+                                System.out.println("Invalid field input. Please enter only letters.");
+                                System.out.print("> Enter new field: ");
+                                updateField = input.nextLine();
+                            } 
                             tracker.updateField(studentId, updateField);
                             Frame.displayInFrame("Field updated successfully! \n");
                             break;
