@@ -25,12 +25,10 @@ public class InputValidator {
         // Validate only Yes, yes, Y, No, no or N
         public static boolean isValidYesNo(String input) {
             Set<String> validInputs = new HashSet<>();
-            validInputs.add("Yes");
-            validInputs.add("yes");
             validInputs.add("Y");
-            validInputs.add("No");
-            validInputs.add("no");
+            validInputs.add("y");
             validInputs.add("N");
+            validInputs.add("n");
             return validInputs.contains(input);
         }
 

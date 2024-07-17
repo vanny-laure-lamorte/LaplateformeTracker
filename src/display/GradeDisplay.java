@@ -11,20 +11,28 @@ public class GradeDisplay extends HomeDisplay{
     private static GradeRepository gradeRepository = new GradeRepository();
 
     public static void displayGrades() {
-        System.out.print("> Enter student ID: ");
-        int studentID = input.nextInt();
-        input.nextLine(); // Consume newline character
-        List<Grade> grades = gradeRepository.getGradesByStudentId(studentID);
+        String studentID;
+        while (true) {
+            System.out.print("> Enter student ID: ");
+            studentID = input.nextLine();
+            if (InputValidator.isValidDigit(studentID)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+
+        int studentIDInt = Integer.parseInt(studentID);
+        List<Grade> grades = gradeRepository.getGradesByStudentId(studentIDInt);
         if (grades.isEmpty()) {
-            System.out.println("No grades found for student ID: " + studentID);
+            System.out.println("No grades found for student ID: " + studentIDInt);
         } else {
-            System.out.println("Grades for student ID " + studentID + ":");
+            System.out.println("Grades for student ID " + studentIDInt + ":");
             for (Grade grade : grades) {
                 System.out.println("Course: " + grade.getCourseName() + ", Grade: " + grade.getGrade());
             }
         }
     }
-
     public void sortAndDisplayGrades() {
         System.out.print("> Enter student ID: ");
         int studentID = input.nextInt();

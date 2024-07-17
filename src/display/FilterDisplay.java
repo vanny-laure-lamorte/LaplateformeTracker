@@ -186,9 +186,21 @@ public class FilterDisplay extends HomeDisplay {
                         "[3] Age \n" +
                         "> Please choose the advanced search type ? ");
 
-        int choiceAdvancedSearch = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        int choiceAdvancedSearch = -1;
+        while(true){
+            String userInput = input.nextLine(); 
+        
+        if (InputValidator.isValidDigit(userInput)) {
+            choiceAdvancedSearch = Integer.parseInt(userInput);
+            if (choiceAdvancedSearch >= 1 && choiceAdvancedSearch <= 3) {
+                break;
+            } else {
+                System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+            }
+        } else {
+            System.out.print("Invalid input. Please enter digits only: ");
+        }
+    }
         return choiceAdvancedSearch;
     }
 
@@ -227,9 +239,21 @@ public class FilterDisplay extends HomeDisplay {
                         "[3] Students passing or failing \n \n" +
                         "> Please choose an option: ");
 
-        int choiceStatistic = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        int choiceStatistic = 0;
+        while (true) {
+            String userInput = input.nextLine();
+            
+            if (InputValidator.isValidDigit(userInput)) {
+                choiceStatistic = Integer.parseInt(userInput);
+                if (choiceStatistic >= 1 && choiceStatistic <= 3) {
+                    break;
+                } else {
+                    System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter digits only: ");
+            }
+        }
         return choiceStatistic;
     }
 
