@@ -49,7 +49,7 @@ public class HomeDisplay {
                         break;
                 }
             } else if (pageNumber == 2) {
-                Frame.clearScreen();
+                // Frame.clearScreen();
                 displayPageTwoMenu();
                 choice = Frame.getUserChoice(input, 9);
                 input.nextLine();

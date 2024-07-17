@@ -183,11 +183,26 @@ public class FilterDisplay extends HomeDisplay {
                         "[3] Age \n" +
                         "> Please choose the advanced search type ? ");
 
-        int choiceAdvancedSearch = input.nextInt();
-        input.nextLine();
-        System.out.println();
+        int choiceAdvancedSearch = -1;
+        while(true){
+            String userInput = input.nextLine(); 
+        
+        if (InputValidator.isValidDigit(userInput)) {
+            choiceAdvancedSearch = Integer.parseInt(userInput);
+            if (choiceAdvancedSearch >= 1 && choiceAdvancedSearch <= 3) {
+                break;
+            } else {
+                System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+            }
+        } else {
+            System.out.print("Invalid input. Please enter digits only: ");
+        }
+    }
         return choiceAdvancedSearch;
     }
+
+
+
 
     public static void getAdvancedSearchFirstName() {
         System.out.print("> Please add a first name: ");
