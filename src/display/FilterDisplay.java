@@ -56,12 +56,29 @@ public class FilterDisplay extends HomeDisplay {
                         "[4] Sort by field \n" +
                         "[5] Sort by grade \n \n" +
                         "> Please your filter option: ");
-        int filterSortingStudents = input.nextInt();
-        input.nextLine();
+
+        int filterSortingStudents = -1;
+
+        while (true) {
+            String userInput = input.nextLine();
+            if (InputValidator.isValidDigit(userInput)) {
+                filterSortingStudents = Integer.parseInt(userInput);
+                if (filterSortingStudents >= 1 && filterSortingStudents <= 5) {
+                    break;
+                } else {
+                    System.out.print("Invalid choice. Please enter a number between 1 and 5: ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter digits only: ");
+            }
+        }
 
         String selectedChoice = array.get(filterSortingStudents - 1);
-        // To modify
-        System.out.print("═════ SORTING BY " + selectedChoice + "  ══════" + "\n");
+
+        System.out.print("\n---------------------------\n" +
+                "SORTING BY " + selectedChoice + " \n" +
+                "---------------------------\n \n");
+
         return filterSortingStudents;
     }
 
@@ -116,13 +133,24 @@ public class FilterDisplay extends HomeDisplay {
                         "[3] IA \n" +
                         "[4] Web \n" +
                         "[5] DPO \n" +
-                        "[6] Immersive Systems \n" +
-                        "> Which specialty's student list do you want ? ");
+                        "[6] Immersive Systems \n " +
+                        "> Please choose a specialty: ");
 
-        int choiceField = input.nextInt();
-        input.nextLine();
-        System.out.println();
-        return choiceField;
+        while (true) {
+
+            String userInput = input.nextLine();
+            if (InputValidator.isValidDigit(userInput)) {
+                int choiceField = Integer.parseInt(userInput);
+                if (choiceField >= 1 && choiceField <= 6) {
+                    System.out.println();
+                    return choiceField;
+                } else {
+                    System.out.print("Please enter a number between 1 and 6: ");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter a digit: ");
+            }
+        }
     }
 
     // Display students according to their field
@@ -283,6 +311,13 @@ public class FilterDisplay extends HomeDisplay {
 
     public static void staticsGrade() {
         try {
+
+            double overallAverageGrade = filterRepository.getStatisticsAverageGrade();
+
+            System.out.println("------------------------------\n" +
+                    "STUDENTS AVERAGE GRADE: " + overallAverageGrade + "\n" +
+                    "------------------------------\n");
+
             // Students passing
             System.out.println("-----------------\n" +
                     "STUDENTS PASSING \n" +

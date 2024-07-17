@@ -312,4 +312,35 @@ public class FilterRepository {
             }
         }
     }
+
+     // Method to get the average grade
+     public double getStatisticsAverageGrade() {
+        double averageGrade = 0.0;
+        try (Connection connection = database.connect()) {
+            String selectSql = "SELECT averageGrade FROM student";
+            try (PreparedStatement statement = connection.prepareStatement(selectSql)) {
+                
+                ResultSet resultSet = statement.executeQuery();
+    
+                double totalGrade = 0;
+                int count = 0;
+    
+                while (resultSet.next()) {
+                    double grade = resultSet.getDouble("averageGrade");
+                    totalGrade += grade;
+                    count++;
+                }
+    
+                if (count > 0) {
+                    averageGrade = Math.round(count == 0 ? 0.0 : totalGrade / count * 100.0) / 100.0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return averageGrade;
+    }
+    
+
+
 }
