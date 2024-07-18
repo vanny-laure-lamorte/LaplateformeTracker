@@ -4,6 +4,7 @@ import java.util.List;
 
 public class StudentRepository {
 
+    private static GradeRepository gradeRepository = new GradeRepository();
     private static Database database = new Database() {
 
     };
@@ -190,7 +191,7 @@ public class StudentRepository {
                 ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                GradeRepository.setAverageGrades(resultSet.getInt("id"));
+                gradeRepository.setAverageGrades(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

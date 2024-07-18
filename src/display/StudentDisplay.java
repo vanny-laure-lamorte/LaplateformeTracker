@@ -238,7 +238,7 @@ public class StudentDisplay extends HomeDisplay {
                     Frame.clearScreen();
                     displayStudentInfo(student);
                     Frame.displayInFrame("Do you want to modify " + student.getFirstName() + " " + student.getLastName()
-                    + " s information" + "\n\n   [Y] Yes    [N] No ");
+                            + " s information" + "\n\n   [Y] Yes    [N] No ");
                     if (inputStudentUpdate != "") {
                         System.out.println("Invalid input. Please enter only Y or N.");
                     }

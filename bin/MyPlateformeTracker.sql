@@ -1,4 +1,4 @@
--- Active: 1720430402366@@127.0.0.1@3306@plateformetracker
+-- Active: 1707919785972@@localhost@3306@plateformetracker
 CREATE DATABASE PlateformeTracker;
 -- DROP DATABASE PlateformeTracker;
 
@@ -57,7 +57,7 @@ INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Jean','Dubois', '40', 'DPO');
 
 
-drop table grades; 
+DROP TABLE grades; 
 CREATE TABLE grades (
     id INT PRIMARY KEY AUTO_INCREMENT,
     studentId VARCHAR(255),
