@@ -55,40 +55,40 @@ public class GradeDisplay extends HomeDisplay {
         int currentPage = 1;
         int pageSize = 10; // Number of grades per page
         String choice = "";
-    
+
         List<Grade> grades = gradeRepository.getAllGrades();
         if (grades.isEmpty()) {
             System.out.println("No grades found in the database.");
             return;
         }
-    
+
         do {
             Frame.clearScreen();
             StringBuilder displayText = new StringBuilder();
             displayText.append("╔═══════════════════════════════════════════════════════╗\n")
-                       .append("║                    ALL GRADES                         ║\n")
-                       .append("╚═══════════════════════════════════════════════════════╝\n\n");
-    
+                    .append("║                    ALL GRADES                         ║\n")
+                    .append("╚═══════════════════════════════════════════════════════╝\n\n");
+
             int startIndex = (currentPage - 1) * pageSize;
             int endIndex = Math.min(startIndex + pageSize, grades.size());
             int totalPages = (int) Math.ceil((double) grades.size() / pageSize);
-    
+
             for (int i = startIndex; i < endIndex; i++) {
                 Grade grade = grades.get(i);
                 displayText.append("Grade ID: ").append(grade.getId())
-                           .append(" | Student ID: ").append(grade.getStudentId())
-                           .append(" | Course: ").append(grade.getCourseName())
-                           .append(" | Grade: ").append(grade.getGrade())
-                           .append("\n");
+                        .append(" | Student ID: ").append(grade.getStudentId())
+                        .append(" | Course: ").append(grade.getCourseName())
+                        .append(" | Grade: ").append(grade.getGrade())
+                        .append("\n");
             }
-    
+
             displayText.append("\n[N] Next Page  [P] Previous Page  [R] Return\n")
-                       .append("Page ").append(currentPage).append(" / ").append(totalPages);
-    
+                    .append("Page ").append(currentPage).append(" / ").append(totalPages);
+
             Frame.displayInFrame(displayText.toString());
             System.out.print("> Your selection: ");
             choice = input.nextLine().trim();
-    
+
             if (choice.equalsIgnoreCase("N")) {
                 if (currentPage < totalPages) {
                     currentPage++;
@@ -98,60 +98,77 @@ public class GradeDisplay extends HomeDisplay {
                     currentPage--;
                 }
             }
-    
+
         } while (!choice.equalsIgnoreCase("R"));
     }
 
     public static void displaydeleteGrades() {
-
+   
         // Display title
         String title = "╔═══════════════════════════════════════════════════════╗\n" +
-                "║ DELETE GRADE ║\n" +
+                "║                      DELETE GRADE                     ║\n" +
                 "╚═══════════════════════════════════════════════════════╝\n";
         Frame.displayInFrame(title);
-
-        // Display all students the user can delete
+    
+        // Display all grades the user can delete
         displayAllGrades();
-
-        // Ask the user to select a student by id and verify the user input
+    
+        // Ask the user to select a grade by id and verify the user input
         String inputUserStr;
         while (true) {
-            System.out.print("> Please choose the grade Id: ");
+            System.out.print("> Please choose the grade ID to delete: ");
             inputUserStr = input.nextLine();
             if (InputValidator.isValidDigit(inputUserStr)) {
-                break;
+                int deleteGradeId = Integer.parseInt(inputUserStr);
+                
+                // Retrieve the grade details
+                Grade gradeToDelete = gradeRepository.getGrade(deleteGradeId);
+                if (gradeToDelete == null) {
+                    System.out.println("No grade found with ID: " + deleteGradeId);
+                    continue;
+                }
+    
+                // Display confirmation with grade details
+                Frame.clearScreen();
+                StringBuilder confirmationMessage = new StringBuilder();
+                confirmationMessage.append("Are you sure you want to delete the following grade?\n\n")
+                        .append("Grade ID: ").append(gradeToDelete.getId())
+                        .append(" | Student ID: ").append(gradeToDelete.getStudentId())
+                        .append(" | Course: ").append(gradeToDelete.getCourseName())
+                        .append(" | Grade: ").append(gradeToDelete.getGrade())
+                        .append("\n\n");
+    
+                confirmationMessage.append("[Y] Yes, delete this grade  [N] No, cancel\n");
+                Frame.displayInFrame(confirmationMessage.toString());
+    
+                // Ask confirmation before deleting the grade and verify if the input user is correct
+                while (true) {
+                    System.out.print("> Your selection: ");
+                    String inputDelete = input.nextLine();
+                    if (inputDelete.equalsIgnoreCase("Y")) {
+                        gradeRepository.deleteGradeById(deleteGradeId);
+                        Frame.clearScreen();
+                        Frame.displayInFrame("Grade ID: " + deleteGradeId + " has been successfully deleted.\n [R] return");
+                        break;
+                    } else if (inputDelete.equalsIgnoreCase("N")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter Y or N.");
+                    }
+                }
+    
+                break; // Exit the grade selection loop
             } else {
-                System.out.println("Invalid input. Please enter only digits.");
+                System.out.println("Invalid input. Please enter only digits or [R] to return.");
             }
         }
-        // Convert the user input from string to int
-        int deleteStudentId = Integer.parseInt(inputUserStr);
-
-        // Display the user choice
-        Frame.clearScreen();
-
-        // Ask confirmation before deleting the student and verify if the input user is
-        // correct
-
-        while (true) {
-            System.out.print("> Do you wish to delete the grade permanently (Y/N)? ");
-            String inputDelete = input.nextLine();
-            if (InputValidator.isValidYesNo(inputDelete)) {
-
-                gradeRepository.deleteGradeById(deleteStudentId);
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter only Y or N.");
-            }
-        }
-        String quit = "";
+    
+        // Wait for the user to press 'R' to return
+        String quit;
         do {
-            Frame.clearScreen();
-            Frame.displayInFrame("Grade :" + deleteStudentId + " has correctly been deleted." + "\n [R] return");
             System.out.print(" > Press R: ");
             quit = input.nextLine();
         } while (!quit.equalsIgnoreCase("R"));
-
     }
 
     public static void modifyGrade() {

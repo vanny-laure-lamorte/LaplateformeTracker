@@ -149,8 +149,8 @@ public class GradeRepository {
 
             if (resultSet.next()) {
                 int gradeId = resultSet.getInt("id");
-                int studentId = resultSet.getInt("student_id");
-                String courseName = resultSet.getString("course_name");
+                int studentId = resultSet.getInt("studentId");
+                String courseName = resultSet.getString("subjectName");
                 double gradeValue = resultSet.getDouble("grade");
 
                 grade = new Grade(gradeId, studentId, courseName, gradeValue);
