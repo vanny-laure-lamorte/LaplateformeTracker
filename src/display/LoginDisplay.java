@@ -8,6 +8,7 @@ public class LoginDisplay extends HomeDisplay {
     private final LoginRepository tracker = new LoginRepository();
 
     public boolean userAccount() {
+        boolean registrationSuccessful = false;
         String userPassword;
         String userLogin;
 
@@ -70,7 +71,7 @@ public class LoginDisplay extends HomeDisplay {
                 String hashedNewPassword = Login.hashPassword(userPassword);
 
                 // Register the new user using the method in Login class
-                boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
+                registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
 
                 if (registrationSuccessful) {
                     Frame.displayInFrame("Registration successful!" + "\n\nPress Enter to continue");
