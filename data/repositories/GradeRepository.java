@@ -80,4 +80,24 @@ public class GradeRepository {
         }
         return grades;
     }
+
+    // Method to delete a grade
+    public boolean deleteGradeById(int id) {
+        String deleteSql = "DELETE FROM grades WHERE Id = ?";
+    
+        try (Connection connection = database.connect();
+             PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+    
+            statement.setInt(1, id);
+    
+            int rowsAffected = statement.executeUpdate();
+    
+            // Vérifier si une ligne a été supprimée
+            return rowsAffected > 0;
+        } catch (SQLException exception) {
+            System.err.println("Error connecting to database or executing query: " + exception.getMessage());
+            return false;
+        }
+
+}
 }

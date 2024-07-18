@@ -49,6 +49,7 @@ public class GradeDisplay extends HomeDisplay{
         }
     }
 
+    // Method to display all grades
     public static void displayAllGrades() {
         List<Grade> grades = gradeRepository.getAllGrades();
         if (grades.isEmpty()) {
@@ -62,6 +63,53 @@ public class GradeDisplay extends HomeDisplay{
             }
         }
     }
+
+    public static void displaydeleteGrades() {
+
+        // Display title
+        String title = "╔═══════════════════════════════════════════════════════╗\n" +
+                "║ DELETE GRADE ║\n" +
+                "╚═══════════════════════════════════════════════════════╝\n";
+        Frame.displayInFrame(title);
+
+        // Display all students the user can delete
+        displayAllGrades();
+
+        // Ask the user to select a student by id and verify the user input
+        String inputUserStr;
+        while (true) {
+            System.out.print("> Please choose the grade Id: ");
+            inputUserStr = input.nextLine();
+            if (InputValidator.isValidDigit(inputUserStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+         // Convert the user input from string to int
+         int deleteStudentId = Integer.parseInt(inputUserStr);
+
+         // Display the user choice
+         Frame.clearScreen();         
+         
+         // Ask confirmation before deleting the student and verify if the input user is
+         // correct
+         
+         while (true) {
+             System.out.print("> Do you wish to delete the grade permanently (Y/N)? ");
+             String inputDelete = input.nextLine();
+             if (InputValidator.isValidYesNo(inputDelete)) {
+
+                gradeRepository.deleteGradeById(deleteStudentId);
+                
+                 break;
+             } else {
+                 System.out.println("Invalid input. Please enter only Y or N.");
+             }
+         }
+
+        }
+
 
 
 
