@@ -81,17 +81,20 @@ public class FilterRepository {
 
             statement.setString(1, firstName);
             ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                Frame.displayInFrame("No Student found with first name " + firstName);
+            } else {
+                // Iterate through the result set and display each student
+                do {
+                    int id = resultSet.getInt("id");
+                    String lastName = resultSet.getString("lastName");
+                    String field = resultSet.getString("field");
+                    int age = resultSet.getInt("age");
+                    double grade = resultSet.getDouble("averageGrade");
 
-            // Iterate through the result set and display each student
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String lastName = resultSet.getString("lastName");
-                String field = resultSet.getString("field");
-                int age = resultSet.getInt("age");
-                double grade = resultSet.getDouble("averageGrade");
-
-                // Display students
-                FilterDisplay.filterStudents("lastName",id, firstName, lastName, field, age, grade);
+                    // Display students
+                    FilterDisplay.filterStudents("lastName", id, firstName, lastName, field, age, grade);
+                } while (resultSet.next());
             }
 
         } catch (SQLException exception) {
@@ -108,15 +111,20 @@ public class FilterRepository {
             ResultSet resultSet = statement.executeQuery();
 
             // Iterate through the result set and display each student
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String firstName = resultSet.getString("firstName");
-                String field = resultSet.getString("field");
-                int age = resultSet.getInt("age");
-                double grade = resultSet.getDouble("averageGrade");
+            if (!resultSet.next()) {
+                Frame.displayInFrame("No Student found with last name " + lastName);
+            } else {
+                // Iterate through the result set and display each student
+                do {
+                    int id = resultSet.getInt("id");
+                    String firstName = resultSet.getString("firstName");
+                    String field = resultSet.getString("field");
+                    int age = resultSet.getInt("age");
+                    double grade = resultSet.getDouble("averageGrade");
 
-                // Display students
-                FilterDisplay.filterStudents("lastName", id, firstName, lastName, field, age, grade);
+                    // Display students
+                    FilterDisplay.filterStudents("lastName", id, firstName, lastName, field, age, grade);
+                } while (resultSet.next());
             }
         } catch (SQLException exception) {
             System.err.println("ERROR " + exception.getMessage());
@@ -132,15 +140,20 @@ public class FilterRepository {
             ResultSet resultSet = statement.executeQuery();
 
             // Iterate through the result set and display each student
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String firstName = resultSet.getString("firstName");
-                String lastName = resultSet.getString("lastName");
-                String field = resultSet.getString("field");
-                double grade = resultSet.getDouble("averageGrade");
+            if (!resultSet.next()) {
+                Frame.displayInFrame("No Student found with age " + age);
+            } else {
+                // Iterate through the result set and display each student
+                do {
+                    int id = resultSet.getInt("id");
+                    String firstName = resultSet.getString("firstName");
+                    String field = resultSet.getString("field");
+                    String lastName = resultSet.getString("lastName");
+                    double grade = resultSet.getDouble("averageGrade");
 
-                // Display students
-                FilterDisplay.filterStudents("lastName",id, firstName, lastName, field, age, grade);
+                    // Display students
+                    FilterDisplay.filterStudents("lastName", id, firstName, lastName, field, age, grade);
+                } while (resultSet.next());
             }
         } catch (SQLException exception) {
             System.err.println("ERROR " + exception.getMessage());

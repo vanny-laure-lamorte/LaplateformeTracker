@@ -1,7 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class HomeDisplay {
     protected static Scanner input;
+    private static final StudentRepository tracker = new StudentRepository();
     public static boolean connected = false;
 
     public HomeDisplay(Scanner input) {
@@ -46,7 +48,7 @@ public class HomeDisplay {
                         pageNumber = 2;
                         break;
                     case 0:
-                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
+                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !1");
                         break;
                     default:
                         System.out.println("ERROR. Option not available.");
@@ -92,7 +94,13 @@ public class HomeDisplay {
                         }
 
                         break;
-
+                    case 4:
+                        List<Student> students = tracker.getAllStudents();
+                        ExportResults exportResults = new ExportResults();
+                        exportResults.exportToCSV(students, "files\\export\\students.csv");
+                        exportResults.exportToHTML(students, "files\\export\\students.html");
+                        System.out.println("Students exported to students.csv and students.html");
+                        break;
                     case 6:
                         return false;
                     case 9:
