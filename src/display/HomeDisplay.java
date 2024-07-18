@@ -103,7 +103,7 @@ public class HomeDisplay {
                         case 4:
                             List<Student> students = tracker.getAllStudents();
                             ExportResults exportResults = new ExportResults();
-                            exportResults.exportToCSV(students, "files\\export\\students.csv");
+                            ExportResults.exportToCSV(students, "files\\export\\students.csv");
                             exportResults.exportToHTML(students, "files\\export\\students.html");
                             System.out.println("Students exported to students.csv and students.html");
                             break;
