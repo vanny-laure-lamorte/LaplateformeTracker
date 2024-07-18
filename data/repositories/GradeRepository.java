@@ -30,7 +30,7 @@ public class GradeRepository {
         return grades;
     }
 
-    public static int setAverageGrades(int studentID) throws SQLException {
+    public int setAverageGrades(int studentID) throws SQLException {
         String selectSql = "SELECT grade FROM grades WHERE studentId = ?";
         String updateSql = "UPDATE student SET averageGrade = ? WHERE id = ?";
 
@@ -117,25 +117,48 @@ public class GradeRepository {
         }
     }
 
-    // Method to add a grade 
+    // Method to add a grade
 
-public int addGrade(int studentId, String subjectName, double grade) throws SQLException {
-    String insertSql = "INSERT INTO grades (studentId, subjectName, grade) VALUES (?, ?, ?)";
+    public int addGrade(int studentId, String subjectName, double grade) throws SQLException {
+        String insertSql = "INSERT INTO grades (studentId, subjectName, grade) VALUES (?, ?, ?)";
 
-    try (Connection connection = database.connect();
-         PreparedStatement statement = connection.prepareStatement(insertSql)) {
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(insertSql)) {
 
-        // Définir les paramètres de la requête
-        statement.setInt(1, studentId);
-        statement.setString(2, subjectName);
-        statement.setDouble(3, grade);
+            // Définir les paramètres de la requête
+            statement.setInt(1, studentId);
+            statement.setString(2, subjectName);
+            statement.setDouble(3, grade);
 
-        // Exécuter la requête d'insertion
-        return statement.executeUpdate();
-    } catch (SQLException exception) {
-        System.err.println("Error adding grade: " + exception.getMessage());
-        throw exception;
+            // Exécuter la requête d'insertion
+            return statement.executeUpdate();
+        } catch (SQLException exception) {
+            System.err.println("Error adding grade: " + exception.getMessage());
+            throw exception;
+        }
     }
-}
+
+    public Grade getGrade(int id) {
+        String selectSql = "SELECT * FROM grades WHERE id = ?";
+        Grade grade = null;
+
+        try (Connection connection = database.connect();
+                PreparedStatement preparedStatement = connection.prepareStatement(selectSql)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int gradeId = resultSet.getInt("id");
+                int studentId = resultSet.getInt("student_id");
+                String courseName = resultSet.getString("course_name");
+                double gradeValue = resultSet.getDouble("grade");
+
+                grade = new Grade(gradeId, studentId, courseName, gradeValue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return grade;
+    }
 
 }

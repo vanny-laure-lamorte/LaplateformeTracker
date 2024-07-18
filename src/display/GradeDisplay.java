@@ -51,20 +51,55 @@ public class GradeDisplay extends HomeDisplay {
         }
     }
 
-    // Method to display all grades
     public static void displayAllGrades() {
+        int currentPage = 1;
+        int pageSize = 10; // Number of grades per page
+        String choice = "";
+    
         List<Grade> grades = gradeRepository.getAllGrades();
         if (grades.isEmpty()) {
             System.out.println("No grades found in the database.");
-        } else {
-            System.out.println("\n----------\n" +
-                    "ALL GRADES \n" +
-                    "-----------\n");
-            for (Grade grade : grades) {
-                System.out.println("Grade ID: " + grade.getId() + " | Student ID: " + grade.getStudentId()
-                        + " | Course: " + grade.getCourseName() + " | Grade: " + grade.getGrade());
-            }
+            return;
         }
+    
+        do {
+            Frame.clearScreen();
+            StringBuilder displayText = new StringBuilder();
+            displayText.append("╔═══════════════════════════════════════════════════════╗\n")
+                       .append("║                    ALL GRADES                         ║\n")
+                       .append("╚═══════════════════════════════════════════════════════╝\n\n");
+    
+            int startIndex = (currentPage - 1) * pageSize;
+            int endIndex = Math.min(startIndex + pageSize, grades.size());
+            int totalPages = (int) Math.ceil((double) grades.size() / pageSize);
+    
+            for (int i = startIndex; i < endIndex; i++) {
+                Grade grade = grades.get(i);
+                displayText.append("Grade ID: ").append(grade.getId())
+                           .append(" | Student ID: ").append(grade.getStudentId())
+                           .append(" | Course: ").append(grade.getCourseName())
+                           .append(" | Grade: ").append(grade.getGrade())
+                           .append("\n");
+            }
+    
+            displayText.append("\n[N] Next Page  [P] Previous Page  [R] Return\n")
+                       .append("Page ").append(currentPage).append(" / ").append(totalPages);
+    
+            Frame.displayInFrame(displayText.toString());
+            System.out.print("> Your selection: ");
+            choice = input.nextLine().trim();
+    
+            if (choice.equalsIgnoreCase("N")) {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                }
+            } else if (choice.equalsIgnoreCase("P")) {
+                if (currentPage > 1) {
+                    currentPage--;
+                }
+            }
+    
+        } while (!choice.equalsIgnoreCase("R"));
     }
 
     public static void displaydeleteGrades() {
@@ -104,12 +139,18 @@ public class GradeDisplay extends HomeDisplay {
             if (InputValidator.isValidYesNo(inputDelete)) {
 
                 gradeRepository.deleteGradeById(deleteStudentId);
-
                 break;
             } else {
                 System.out.println("Invalid input. Please enter only Y or N.");
             }
         }
+        String quit = "";
+        do {
+            Frame.clearScreen();
+            Frame.displayInFrame("Grade :" + deleteStudentId + " has correctly been deleted." + "\n [R] return");
+            System.out.print(" > Press R: ");
+            quit = input.nextLine();
+        } while (!quit.equalsIgnoreCase("R"));
 
     }
 
@@ -120,7 +161,7 @@ public class GradeDisplay extends HomeDisplay {
 
         String studentIdStr;
         while (true) {
-            System.out.print("> Enter student ID: ");
+            System.out.print("> Enter grade ID: ");
             studentIdStr = input.nextLine();
             if (InputValidator.isValidDigit(studentIdStr)) {
                 break;
@@ -155,59 +196,94 @@ public class GradeDisplay extends HomeDisplay {
             }
 
         }
-        
+
     }
 
-
-    // Method to add a new grade 
+    // Method to add a new grade
     public static void addGrade() {
+        String recap = "";
+        String choice = "";
+        do {
+            Frame.clearScreen();
+            String title = "                    ADD GRADE                    \n\n" +
+                    "   Do you want to display students before ? \n\n" +
+                    "   [Y] Yes    [N] No  ";
+
+            Frame.displayInFrame(title);
+            if (!choice.equalsIgnoreCase("N") && !choice.equalsIgnoreCase("Y")
+                    && !choice.equalsIgnoreCase("")) {
+                System.out.println("Invalid choice. Please enter Y or N");
+            }
+            System.out.print("Your selection: ");
+            choice = input.nextLine();
+
+        } while (!choice.equalsIgnoreCase("N") && !choice.equalsIgnoreCase("Y"));
+        // Ask the user to select a student by their Id and verify the input user
+        if (choice.equalsIgnoreCase("Y")) {
+            StudentDisplay.displayAllStudents();
+        }
 
         String inputIdStr;
         String inputSubjectName;
-        String inputGradeStr; 
+        String inputGradeStr;
 
         while (true) {
             System.out.print("> Enter a student id : ");
-            inputIdStr = input.nextLine(); 
+            inputIdStr = input.nextLine();
             if (InputValidator.isValidDigit(inputIdStr)) {
+                Frame.clearScreen();
+                recap += "Student Id: " + inputIdStr;
                 break;
             } else {
                 System.out.println("Invalid input. Please enter only digit.");
-            }            
+            }
         }
 
         while (true) {
+            Frame.displayInFrame(recap);
             System.out.print("> Enter a subject name: ");
             inputSubjectName = input.nextLine();
-            if (InputValidator.isValidAlphabetic( inputSubjectName)) {
+            if (InputValidator.isValidAlphabetic(inputSubjectName)) {
+                Frame.clearScreen();
+                recap += "\nSubject name: " + inputSubjectName;
                 break;
             } else {
                 System.out.println("Invalid input. Please enter only letters.");
             }
         }
 
-        
         while (true) {
+            Frame.displayInFrame(recap);
             System.out.print("> Enter a grade: ");
-            inputGradeStr= input.nextLine();
+            inputGradeStr = input.nextLine();
             if (InputValidator.isValidDigitDouble(inputGradeStr)) {
+                Frame.clearScreen();
+                recap += "\nGrade: " + inputGradeStr;
                 break;
             } else {
                 System.out.println("Invalid input. Please enter only a digit.");
             }
-        } 
+        }
 
-        int inputId = Integer.parseInt(inputIdStr); 
-        double inputGrade = Double.parseDouble(inputGradeStr); 
+        int inputId = Integer.parseInt(inputIdStr);
+        double inputGrade = Double.parseDouble(inputGradeStr);
         try {
             gradeRepository.addGrade(inputId, inputSubjectName, inputGrade);
-            Frame.displayInFrame("\n Grade added successfully! \n");
+
+            gradeRepository.setAverageGrades(inputId);
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }
+        String quit = "";
+        do {
+            Frame.clearScreen();
+            Frame.displayInFrame("Grade added successfully! \n");
+            recap += "\n[R] Return: ";
+            Frame.displayInFrame(recap);
+            System.out.print(" > Press R: ");
+            quit = input.nextLine();
+        } while (!quit.equalsIgnoreCase("R"));
+
     }
-
-    
-
 
 }
