@@ -3,8 +3,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class ExportResults {
+    /*
+     * ExportResults class is responsible for exporting student data to different file formats.
+     * It provides methods to export student data to CSV, PDF, and HTML formats.
+     * The exportToCSV method takes a list of Student objects and a file path as input,
+     */
 
-    public void exportToCSV(List<Student> students, String filePath) {
+    static void exportToCSV(List<Student> students, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.append("ID,First Name,Last Name,Age,Field,Average Grade\n");
             for (Student student : students) {

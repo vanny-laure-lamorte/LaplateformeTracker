@@ -54,7 +54,7 @@ public class HomeDisplay {
                         pageNumber = 2;
                         break;
                     case 0:
-                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !1");
+                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !");
                         break;
                     default:
                         System.out.println("ERROR. Option not available.");
@@ -103,7 +103,7 @@ public class HomeDisplay {
                         case 4:
                             List<Student> students = tracker.getAllStudents();
                             ExportResults exportResults = new ExportResults();
-                            exportResults.exportToCSV(students, "files\\export\\students.csv");
+                            ExportResults.exportToCSV(students, "files\\export\\students.csv");
                             exportResults.exportToHTML(students, "files\\export\\students.html");
                             System.out.println("Students exported to students.csv and students.html");
                             break;
