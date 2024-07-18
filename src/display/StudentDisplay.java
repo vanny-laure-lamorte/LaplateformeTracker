@@ -158,6 +158,13 @@ public class StudentDisplay extends HomeDisplay {
     }
 
     // Method to modify a student information
+    public static boolean studentExists(int studentId) {
+        // Implement the logic to check if a student exists in the database
+        // This is a placeholder, replace with actual database check
+        Student student = new Student(studentId);
+        return student.getFirstName() != null;
+    }
+
     public static void displayModifyStudent() {
         String choice = "";
         do {
@@ -197,23 +204,48 @@ public class StudentDisplay extends HomeDisplay {
             // Convert the input user from string to int
             int studentId = Integer.parseInt(studentIdStr);
 
+            // Check if the student exists
+            if (!studentExists(studentId)) {
+                String retryChoice;
+                while (true) {
+                    Frame.displayInFrame("No student found with id " + studentId +
+                            "\n\nDo you want to enter a new ID ?" +
+                            "\n   [Y] Yes    [R] Return");
+                    System.out.print("> Select an option : ");
+                    retryChoice = input.nextLine();
+                    if (retryChoice.equalsIgnoreCase("Y") || retryChoice.equalsIgnoreCase("R")) {
+                        break;
+                    } else {
+                        System.out.println("Invalid input. Please enter Y or R.");
+                    }
+                }
+                if (retryChoice.equalsIgnoreCase("R")) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
             // Display the user choice
             Student student = new Student(studentId);
             Frame.clearScreen();
 
-            String inputStudentUpdate;
+            String inputStudentUpdate = "";
 
             do {
-
-                // Veryfy if the input user is correct
+                // Verify if the input user is correct
                 while (true) {
-                    System.out.print("> Do you want to modify " + student.getFirstName() + " " + student.getLastName()
-                            + "'s information (Y/N) ? ");
+                    Frame.clearScreen();
+                    displayStudentInfo(student);
+                    Frame.displayInFrame("Do you want to modify " + student.getFirstName() + " " + student.getLastName()
+                    + " s information" + "\n\n   [Y] Yes    [N] No ");
+                    if (inputStudentUpdate != "") {
+                        System.out.println("Invalid input. Please enter only Y or N.");
+                    }
+                    System.out.print("> Select an option : ");
                     inputStudentUpdate = input.nextLine();
                     if (InputValidator.isValidYesNo(inputStudentUpdate)) {
                         break;
-                    } else {
-                        System.out.println("Invalid input. Please enter only Y or N.");
                     }
                 }
 
