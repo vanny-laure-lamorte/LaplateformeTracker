@@ -16,6 +16,12 @@ public class InputValidator {
         public static boolean isValidDigit(String input) {
             return input.matches("\\d+");
         }
+
+        // Validate only digits
+           public static boolean isValidDigitDouble(String input) {
+            return input.matches("\\d+(\\.\\d+)?");
+        }
+        
         
         // Validate only letters
         public static boolean isValidAlphabetic(String input) {

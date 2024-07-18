@@ -24,43 +24,47 @@ public class HomeDisplay {
                     choice = Frame.getUserChoice(input, 9);
                     input.nextLine();
 
-                    switch (choice) {
-                        case 1:
-                            StudentDisplay.displayAllStudents();
-                            break;
-                        case 2:
-                            StudentDisplay.displayModifyStudent();
-                            break;
-                        case 3:
-                            StudentDisplay.displayAddStudent();
-                            break;
-                        case 4:
-                            StudentDisplay.displayDeleteStudent();
-                            break;
-                        case 6:
-                            GradeDisplay.displaydeleteGrades();
-                            break;
-                        case 7:
-                            StudentRepository.updateAverageGrades();
-                            break;
-                        case 8:
-                            StudentDisplay.displayStudentById();
-                            break;
-                        case 9:
-                            pageNumber = 2;
-                            break;
-                        case 0:
-                            System.out.println("Thanks for using La Plateforme Tracker. Goodbye !1");
-                            break;
-                        default:
-                            System.out.println("ERROR. Option not available.");
-                            break;
-                    }
-                } else if (pageNumber == 2) {
-                    // Frame.clearScreen();
-                    displayPageTwoMenu();
-                    choice = Frame.getUserChoice(input, 9);
-                    input.nextLine();
+                switch (choice) {
+                    case 1:
+                        StudentDisplay.displayAllStudents();
+                        break;
+                    case 2:
+                        StudentDisplay.displayModifyStudent();
+                        break;
+                    case 3:
+                        StudentDisplay.displayAddStudent();
+                        break;
+                    case 4:
+                        StudentDisplay.displayDeleteStudent();
+                        break;
+                    case 5: 
+                        GradeDisplay.addGrade();
+                        break;
+                    case 6:
+                        GradeDisplay.displaydeleteGrades();
+                        break;
+                    case 7:
+                        GradeDisplay.modifyGrade(); 
+                        StudentRepository.updateAverageGrades();
+                        break;
+                    case 8:
+                        StudentDisplay.displayStudentById();
+                        break;
+                    case 9:
+                        pageNumber = 2;
+                        break;
+                    case 0:
+                        System.out.println("Thanks for using La Plateforme Tracker. Goodbye !1");
+                        break;
+                    default:
+                        System.out.println("ERROR. Option not available.");
+                        break;
+                }
+            } else if (pageNumber == 2) {
+                // Frame.clearScreen();
+                displayPageTwoMenu();
+                choice = Frame.getUserChoice(input, 9);
+                input.nextLine();
 
                     switch (choice) {
                         case 1:

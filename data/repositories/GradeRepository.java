@@ -84,20 +84,58 @@ public class GradeRepository {
     // Method to delete a grade
     public boolean deleteGradeById(int id) {
         String deleteSql = "DELETE FROM grades WHERE Id = ?";
-    
+
         try (Connection connection = database.connect();
-             PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-    
+                PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+
             statement.setInt(1, id);
-    
+
             int rowsAffected = statement.executeUpdate();
-    
+
             // Vérifier si une ligne a été supprimée
             return rowsAffected > 0;
         } catch (SQLException exception) {
             System.err.println("Error connecting to database or executing query: " + exception.getMessage());
             return false;
         }
+    }
 
+    // Method to update a grade info
+    public int updateGrade(int gradeId, int newGrade) throws SQLException {
+        String updateSql = "UPDATE grades SET grade = ? WHERE Id = ?";
+
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(updateSql)) {
+
+            statement.setDouble(1, newGrade);
+            statement.setInt(2, gradeId);
+
+            return statement.executeUpdate();
+        } catch (SQLException exception) {
+            System.err.println("Error updating grade: " + exception.getMessage());
+            throw exception;
+        }
+    }
+
+    // Method to add a grade 
+
+public int addGrade(int studentId, String subjectName, double grade) throws SQLException {
+    String insertSql = "INSERT INTO grades (studentId, subjectName, grade) VALUES (?, ?, ?)";
+
+    try (Connection connection = database.connect();
+         PreparedStatement statement = connection.prepareStatement(insertSql)) {
+
+        // Définir les paramètres de la requête
+        statement.setInt(1, studentId);
+        statement.setString(2, subjectName);
+        statement.setDouble(3, grade);
+
+        // Exécuter la requête d'insertion
+        return statement.executeUpdate();
+    } catch (SQLException exception) {
+        System.err.println("Error adding grade: " + exception.getMessage());
+        throw exception;
+    }
 }
+
 }

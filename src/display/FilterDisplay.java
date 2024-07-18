@@ -218,11 +218,21 @@ public class FilterDisplay extends HomeDisplay {
     }
 
     public static void getAdvancedSearchAge() {
-        System.out.print("> Please add an age: ");
-        int filterAge = input.nextInt();
-        input.nextLine();
+        String filterAgeStr;
+        while (true) {
+            System.out.print("> Please add an age: ");
+            filterAgeStr = input.nextLine();
+            if (InputValidator.isValidDigit(filterAgeStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
+
+        int filterAge = Integer.parseInt(filterAgeStr);
         filterRepository.getAdvancedSearchByAge(filterAge);
         System.out.println();
+
     }
 
     // --- STATISTICS ---//
