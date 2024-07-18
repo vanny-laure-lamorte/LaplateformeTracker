@@ -1,14 +1,14 @@
 import java.util.HashSet;
 import java.util.Set;
 
-public class InputValidator {   
+public class InputValidator {
 
         //--- MENU ---//
 
         // Validate only numbers between 1 and 5
         public static boolean isValidMenu(String input) {
             return input.matches("[1-5]");
-        } 
+        }
 
         //--- UPDATE STUDENT INFO ---//
 
@@ -18,14 +18,14 @@ public class InputValidator {
         }
 
         // Validate only digits
-           public static boolean isValidDigitDouble(String input) {
+        public static boolean isValidDigitDouble(String input) {
             return input.matches("\\d+(\\.\\d+)?");
         }
         
         
         // Validate only letters
         public static boolean isValidAlphabetic(String input) {
-            return input.matches("[a-zA-Z]+"); 
+            return input.matches("[a-zA-Z]+");
         }
         
         // Validate only Yes, yes, Y, No, no or N
@@ -41,6 +41,17 @@ public class InputValidator {
         // Validate only numbers between 1 and 5
         public static boolean isValidUpdateStudentInfo(String input) {
         return input.matches("[1-4]");
-        }       
-    
-}
+        }
+        
+        //--- Login Input Validation ---//
+
+        // Validate mail format
+        public static boolean isValidEmail(String input) {
+            return input.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+        }
+
+        // Validate password format
+        public static boolean isValidPassword(String input) {
+            return input.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}$");
+        }
+    }
