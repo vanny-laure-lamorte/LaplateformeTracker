@@ -9,7 +9,7 @@ public class LoginDisplay extends HomeDisplay {
 
     public boolean userAccount() {
         boolean registrationSuccessful = false;
-        String userPassword;
+        String userPassword="";
         String userLogin;
 
         while (true) {
@@ -62,9 +62,21 @@ public class LoginDisplay extends HomeDisplay {
 
                 // Ask the user to enter his account details
                 System.out.print("> Please enter your email: ");
-                userLogin = input.nextLine();
-                System.out.print("> Please enter your password: ");
-                userPassword = input.nextLine();
+                while(true) {
+                    System.out.print("> Please enter your email: ");
+                    userLogin = input.nextLine();
+                    if (InputValidator.isValidEmail(userLogin)) {
+                        System.out.print("> Please enter your password: ");
+                        userPassword = input.nextLine();
+                        if (InputValidator.isValidPassword(userPassword)) {
+                            break;
+                        } else {
+                        System.out.println("Invalid password. Please enter a valid password.");
+                    }
+                    } else {
+                        System.out.println("Invalid email. Please enter a valid email.");
+                    }
+                }
                 int studentID = 0;
 
                 // Hash the user's password
