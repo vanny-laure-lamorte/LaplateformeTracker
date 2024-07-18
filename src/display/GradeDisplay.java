@@ -158,4 +158,56 @@ public class GradeDisplay extends HomeDisplay {
         
     }
 
+
+    // Method to add a new grade 
+    public static void addGrade() {
+
+        String inputIdStr;
+        String inputSubjectName;
+        String inputGradeStr; 
+
+        while (true) {
+            System.out.print("> Enter a student id : ");
+            inputIdStr = input.nextLine(); 
+            if (InputValidator.isValidDigit(inputIdStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digit.");
+            }            
+        }
+
+        while (true) {
+            System.out.print("> Enter a subject name: ");
+            inputSubjectName = input.nextLine();
+            if (InputValidator.isValidAlphabetic( inputSubjectName)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only letters.");
+            }
+        }
+
+        
+        while (true) {
+            System.out.print("> Enter a grade: ");
+            inputGradeStr= input.nextLine();
+            if (InputValidator.isValidDigitDouble(inputGradeStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only a digit.");
+            }
+        } 
+
+        int inputId = Integer.parseInt(inputIdStr); 
+        double inputGrade = Double.parseDouble(inputGradeStr); 
+        try {
+            gradeRepository.addGrade(inputId, inputSubjectName, inputGrade);
+            Frame.displayInFrame("\n Grade added successfully! \n");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+    }
+
+    
+
+
 }

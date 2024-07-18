@@ -35,6 +35,9 @@ public class HomeDisplay {
                     case 4:
                         StudentDisplay.displayDeleteStudent();
                         break;
+                    case 5: 
+                        GradeDisplay.addGrade();
+                        break;
                     case 6:
                         GradeDisplay.displaydeleteGrades();
                         break;
