@@ -213,6 +213,13 @@ public class GradeDisplay extends HomeDisplay {
             }
 
         }
+        String quit = "";
+        do {
+            Frame.clearScreen();
+            Frame.displayInFrame("Grade modified successfully! \n" + "\n[R] Return: ");
+            System.out.print(" > Press R: ");
+            quit = input.nextLine();
+        } while (!quit.equalsIgnoreCase("R"));
 
     }
 

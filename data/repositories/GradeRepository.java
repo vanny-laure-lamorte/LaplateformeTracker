@@ -102,7 +102,7 @@ public class GradeRepository {
 
     // Method to update a grade info
     public int updateGrade(int gradeId, int newGrade) throws SQLException {
-        String updateSql = "UPDATE grades SET grade = ? WHERE Id = ?";
+        String updateSql = "UPDATE grades SET grade = ? WHERE id = ?";
 
         try (Connection connection = database.connect();
                 PreparedStatement statement = connection.prepareStatement(updateSql)) {
