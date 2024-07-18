@@ -33,6 +33,9 @@ public class HomeDisplay {
                     case 4:
                         StudentDisplay.displayDeleteStudent();
                         break;
+                    case 5:
+                        GradeDisplay.displayAllGrades();
+                        break;
                     case 7:
                         StudentRepository.updateAverageGrades();
                         break;

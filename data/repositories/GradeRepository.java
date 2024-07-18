@@ -18,6 +18,7 @@ public class GradeRepository {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Grade grade = new Grade(
+                        resultSet.getInt("id"),
                         resultSet.getInt("studentId"),
                         resultSet.getString("subjectName"),
                         resultSet.getDouble("grade"));
@@ -57,4 +58,26 @@ public class GradeRepository {
         }
     }
 
+    // Get all grades in the database
+    public List<Grade> getAllGrades() {
+        List<Grade> grades = new ArrayList<>();
+        String selectSql = "SELECT * FROM grades";
+
+        try (Connection connection = database.connect();
+                PreparedStatement statement = connection.prepareStatement(selectSql);
+                ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Grade grade = new Grade(
+                        resultSet.getInt("Id"),
+                        resultSet.getInt("studentId"),
+                        resultSet.getString("subjectName"),
+                        resultSet.getDouble("grade"));
+                grades.add(grade);
+            }
+        } catch (SQLException exception) {
+            System.err.println("Error connecting to database or executing query: " + exception.getMessage());
+        }
+        return grades;
+    }
 }

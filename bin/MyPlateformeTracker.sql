@@ -15,7 +15,8 @@ INSERT INTO login(studentID, email, password ) VALUES
 (2,'thanhL@gmail.com', '6b16fe348f3f9a5da3912b0eb0f76333e3099105443787396280867fbb33de30'),
 (3,'vannyL@gmail.com', '4551bf0b433c1aa310fb34420a640c825eca79969117c95f32b8bddbe0c15d72'),
 (4,'lucyM@gmail.com','c2fd916be68a5de81748dbfea16ae3b42a02a7c33b6e85d7ab0e8c514ba89cd2'),
-(5,'aliciaC@gmail.com', '3bd44b4351597dfb632ff7617e95d5d9d00c0ce84761decf06bd3ecc44157312');
+(5,'aliciaC@gmail.com', '3bd44b4351597dfb632ff7617e95d5d9d00c0ce84761decf06bd3ecc44157312'), 
+(6,'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb');
 
 -- Lucas: lucasL@gmail.com, lucasM123!
 -- Thanh: thanhL@gmail.com, thanhL123!
@@ -56,6 +57,7 @@ INSERT INTO student(firstName, lastName, age, field ) VALUES
 ('Jean','Dubois', '40', 'DPO');
 
 CREATE TABLE grades (
+    id INT PRIMARY KEY AUTO_INCREMENT,
     studentId VARCHAR(255),
     grade DOUBLE,
     date DATE,

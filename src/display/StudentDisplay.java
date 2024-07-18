@@ -128,6 +128,7 @@ public class StudentDisplay extends HomeDisplay {
         }
 
         int newAge = Integer.parseInt(newAgeStr);
+
         try {
             int result = tracker.addStudent(newFirstName, newLastName, newAge, newField, newAverageGrade);
             StringBuilder displayText = new StringBuilder();
@@ -282,7 +283,6 @@ public class StudentDisplay extends HomeDisplay {
                             // Convert a string age into int
                             int updateAge = Integer.parseInt(updateAgeStr);
                             tracker.updateAge(studentId, updateAge);
-                            input.nextLine();
                             Frame.clearScreen();
                             student = new Student(studentId);
                             Frame.displayInFrame("Age updated successfully! \n");

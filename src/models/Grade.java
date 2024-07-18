@@ -1,12 +1,22 @@
 public class Grade implements Comparable<Grade> {
+    private int id; 
     private int studentId;
     private String courseName;
     private double grade;
 
-    public Grade(int studentId, String courseName, double grade) {
+    public Grade(int id, int studentId, String courseName, double grade) {
+        this.id = id;
         this.studentId = studentId;
         this.courseName = courseName;
         this.grade = grade;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public double getGrade() {

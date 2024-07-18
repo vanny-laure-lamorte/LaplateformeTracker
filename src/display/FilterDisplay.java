@@ -119,7 +119,7 @@ public class FilterDisplay extends HomeDisplay {
                 System.out.println("Age: " + age + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName + " | "
                         + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
                 break;
-            case "grade":
+            case "averagegrade":
                 System.out
                         .println("Average Grade: " + grade + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName
                                 + " | " + "Field: " + field + " | "

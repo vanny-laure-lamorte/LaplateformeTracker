@@ -49,6 +49,22 @@ public class GradeDisplay extends HomeDisplay{
         }
     }
 
+    public static void displayAllGrades() {
+        List<Grade> grades = gradeRepository.getAllGrades();
+        if (grades.isEmpty()) {
+            System.out.println("No grades found in the database.");
+        } else {
+            System.out.println("\n----------\n" +
+                                "ALL GRADES \n" +
+                                "-----------\n");
+            for (Grade grade : grades) {
+                System.out.println("Grade ID: " + grade.getId() + " | Student ID: " + grade.getStudentId() + " | Course: " + grade.getCourseName() + " | Grade: " + grade.getGrade());
+            }
+        }
+    }
+
+
+
 
 
    
