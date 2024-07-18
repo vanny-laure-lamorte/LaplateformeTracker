@@ -98,6 +98,23 @@ public class GradeRepository {
             System.err.println("Error connecting to database or executing query: " + exception.getMessage());
             return false;
         }
+    }
 
+     // Method to update a grade info
+public int updateGrade(int gradeId, int newGrade) throws SQLException {
+    String updateSql = "UPDATE grades SET grade = ? WHERE Id = ?";
+
+    try (Connection connection = database.connect();
+         PreparedStatement statement = connection.prepareStatement(updateSql)) {
+
+        statement.setDouble(1, newGrade);
+        statement.setInt(2, gradeId);
+
+        return statement.executeUpdate();
+    } catch (SQLException exception) {
+        System.err.println("Error updating grade: " + exception.getMessage());
+        throw exception;
+    }
 }
+
 }

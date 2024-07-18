@@ -1,8 +1,9 @@
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class GradeDisplay extends HomeDisplay{
+public class GradeDisplay extends HomeDisplay {
 
     public GradeDisplay(Scanner input) {
         super(input);
@@ -33,6 +34,7 @@ public class GradeDisplay extends HomeDisplay{
             }
         }
     }
+
     public void sortAndDisplayGrades() {
         System.out.print("> Enter student ID: ");
         int studentID = input.nextInt();
@@ -56,10 +58,11 @@ public class GradeDisplay extends HomeDisplay{
             System.out.println("No grades found in the database.");
         } else {
             System.out.println("\n----------\n" +
-                                "ALL GRADES \n" +
-                                "-----------\n");
+                    "ALL GRADES \n" +
+                    "-----------\n");
             for (Grade grade : grades) {
-                System.out.println("Grade ID: " + grade.getId() + " | Student ID: " + grade.getStudentId() + " | Course: " + grade.getCourseName() + " | Grade: " + grade.getGrade());
+                System.out.println("Grade ID: " + grade.getId() + " | Student ID: " + grade.getStudentId()
+                        + " | Course: " + grade.getCourseName() + " | Grade: " + grade.getGrade());
             }
         }
     }
@@ -86,35 +89,73 @@ public class GradeDisplay extends HomeDisplay{
                 System.out.println("Invalid input. Please enter only digits.");
             }
         }
-         // Convert the user input from string to int
-         int deleteStudentId = Integer.parseInt(inputUserStr);
+        // Convert the user input from string to int
+        int deleteStudentId = Integer.parseInt(inputUserStr);
 
-         // Display the user choice
-         Frame.clearScreen();         
-         
-         // Ask confirmation before deleting the student and verify if the input user is
-         // correct
-         
-         while (true) {
-             System.out.print("> Do you wish to delete the grade permanently (Y/N)? ");
-             String inputDelete = input.nextLine();
-             if (InputValidator.isValidYesNo(inputDelete)) {
+        // Display the user choice
+        Frame.clearScreen();
+
+        // Ask confirmation before deleting the student and verify if the input user is
+        // correct
+
+        while (true) {
+            System.out.print("> Do you wish to delete the grade permanently (Y/N)? ");
+            String inputDelete = input.nextLine();
+            if (InputValidator.isValidYesNo(inputDelete)) {
 
                 gradeRepository.deleteGradeById(deleteStudentId);
-                
-                 break;
-             } else {
-                 System.out.println("Invalid input. Please enter only Y or N.");
-             }
-         }
 
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only Y or N.");
+            }
         }
 
+    }
 
+    public static void modifyGrade() {
 
+        // Display all students the user can delete
+        displayAllGrades();
 
+        String studentIdStr;
+        while (true) {
+            System.out.print("> Enter student ID: ");
+            studentIdStr = input.nextLine();
+            if (InputValidator.isValidDigit(studentIdStr)) {
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter only digits.");
+            }
+        }
 
+        int idStudent = Integer.parseInt(studentIdStr);
 
-   
+        String inputUser;
+        while (true) {
+            System.out.print("> Please confirm you wish to modify the grade (Y/N)? ");
+            inputUser = input.nextLine();
+            if (InputValidator.isValidYesNo(inputUser)) {
+                break;
+
+            } else {
+                System.out.println("Invalid input. Please enter only Y or N.");
+            }
+        }
+
+        if (inputUser.equalsIgnoreCase("Y")) {
+            System.out.print("New grade: ");
+            int newGrade = input.nextInt();
+            input.nextLine();
+            try {
+
+                gradeRepository.updateGrade(idStudent, newGrade);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+        
+    }
 
 }

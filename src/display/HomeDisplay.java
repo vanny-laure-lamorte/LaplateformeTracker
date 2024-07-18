@@ -17,7 +17,7 @@ public class HomeDisplay {
 
         do {
             if (pageNumber == 1) {
-                Frame.clearScreen();
+                //Frame.clearScreen();
                 displayPageOneMenu();
                 choice = Frame.getUserChoice(input, 9);
                 input.nextLine();
@@ -39,6 +39,7 @@ public class HomeDisplay {
                         GradeDisplay.displaydeleteGrades();
                         break;
                     case 7:
+                        GradeDisplay.modifyGrade(); 
                         StudentRepository.updateAverageGrades();
                         break;
                     case 8:
