@@ -47,16 +47,16 @@ public class FilterDisplay extends HomeDisplay {
                 Arrays.asList("FIRST NAME", "LAST NAME", "AGE", "FIELD", "GRADE"));
 
         // Display header for filtering by first name
-        System.out.print(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                      SORTING STUDENTS                 ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n" +
+        Frame.displayInFrame(
+                "╔══════════════════════════════════════════════════╗\n" +
+                        "║                 SORTING STUDENTS                 ║\n" +
+                        "╚══════════════════════════════════════════════════╝\n" +
                         "\n[1] Sort by first Name\n" +
                         "[2] Sort by last Name \n" +
                         "[3] Sort by age \n" +
                         "[4] Sort by field \n" +
-                        "[5] Sort by grade \n \n" +
-                        "> Please your filter option: ");
+                        "[5] Sort by grade \n \n");
+        System.out.print("> Please your filter option: ");
 
         int filterSortingStudents = -1;
 
@@ -76,9 +76,7 @@ public class FilterDisplay extends HomeDisplay {
 
         String selectedChoice = array.get(filterSortingStudents - 1);
 
-        System.out.print("\n---------------------------\n" +
-                "SORTING BY " + selectedChoice + " \n" +
-                "---------------------------\n \n");
+        Frame.displayInFrame("                FILTER STUDENTS BY " + selectedChoice + "                ");
 
         return filterSortingStudents;
     }
@@ -105,23 +103,26 @@ public class FilterDisplay extends HomeDisplay {
             int age, double grade) {
         switch (filterType.toLowerCase()) {
             case "firstname":
-                String student = "First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Field: " + field + " | "
-                        + "Age: " + age + " | " + " ID: " + id;
-                Frame.displayInFrame(student);
+                System.out.println("First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Field: "
+                        + field + " | "
+                        + "Age: " + age + " | " + " ID: " + id);
                 break;
             case "lastname":
 
                 System.out
-                        .println("Last Name: " + lastName + " | " + "First Name: " + firstName + " | " + "Field: " + field + " | "
+                        .println("Last Name: " + lastName + " | " + "First Name: " + firstName + " | " + "Field: "
+                                + field + " | "
                                 + "Age: " + age + " | " + "Average Grade: " + grade + " | " + " ID: " + id);
                 break;
             case "age":
-                System.out.println("Age: " + age + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName + " | "
-                        + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
+                System.out.println(
+                        "Age: " + age + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName + " | "
+                                + "Field: " + field + " | " + "Grade: " + grade + " | " + " ID: " + id);
                 break;
-            case "grade":
+            case "averagegrade":
                 System.out
-                        .println("Average Grade: " + grade + " | " + "Last Name: " + lastName + " | " + "First Name: " + firstName
+                        .println("Average Grade: " + grade + " | " + "Last Name: " + lastName + " | " + "First Name: "
+                                + firstName
                                 + " | " + "Field: " + field + " | "
                                 + "Age: " + age + " | " + " ID: " + id);
                 break;
@@ -135,17 +136,14 @@ public class FilterDisplay extends HomeDisplay {
     public static int filterFieldOptions() {
 
         // Display header for filtering by field
-        System.out.print(
-                "╔═══════════════════════════════════════════════════════╗\n" +
-                        "║                FILTER STUDENTS BY FIELD               ║\n" +
-                        "╚═══════════════════════════════════════════════════════╝\n" +
-                        "[1] Software \n" +
-                        "[2] Cyber \n" +
-                        "[3] IA \n" +
-                        "[4] Web \n" +
-                        "[5] DPO \n" +
-                        "[6] Immersive Systems \n " +
-                        "> Please choose a specialty: ");
+        Frame.displayInFrame("                FILTER STUDENTS BY FIELD                ");
+        System.out.print("[1] Software \n" +
+                "[2] Cyber \n" +
+                "[3] IA \n" +
+                "[4] Web \n" +
+                "[5] DPO \n" +
+                "[6] Immersive Systems \n " +
+                "> Please choose a specialty: ");
 
         while (true) {
 
@@ -167,7 +165,8 @@ public class FilterDisplay extends HomeDisplay {
     // Display students according to their field
     public static void filterStudentsByField(int id, String firstName, String lastName, int age, double grade) {
         System.out.println(
-                "First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Age: " + age + " | " + "Grade: " + grade
+                "First Name: " + firstName + " | " + "Last Name: " + lastName + " | " + "Age: " + age + " | "
+                        + "Grade: " + grade
                         + " | " + " ID: " + id);
     }
 
@@ -187,20 +186,20 @@ public class FilterDisplay extends HomeDisplay {
                         "> Please choose the advanced search type ? ");
 
         int choiceAdvancedSearch = -1;
-        while(true){
-            String userInput = input.nextLine(); 
-        
-        if (InputValidator.isValidDigit(userInput)) {
-            choiceAdvancedSearch = Integer.parseInt(userInput);
-            if (choiceAdvancedSearch >= 1 && choiceAdvancedSearch <= 3) {
-                break;
+        while (true) {
+            String userInput = input.nextLine();
+
+            if (InputValidator.isValidDigit(userInput)) {
+                choiceAdvancedSearch = Integer.parseInt(userInput);
+                if (choiceAdvancedSearch >= 1 && choiceAdvancedSearch <= 3) {
+                    break;
+                } else {
+                    System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+                }
             } else {
-                System.out.print("Invalid choice. Please enter a number between 1 and 3: ");
+                System.out.print("Invalid input. Please enter digits only: ");
             }
-        } else {
-            System.out.print("Invalid input. Please enter digits only: ");
         }
-    }
         return choiceAdvancedSearch;
     }
 
@@ -242,7 +241,7 @@ public class FilterDisplay extends HomeDisplay {
         int choiceStatistic = 0;
         while (true) {
             String userInput = input.nextLine();
-            
+
             if (InputValidator.isValidDigit(userInput)) {
                 choiceStatistic = Integer.parseInt(userInput);
                 if (choiceStatistic >= 1 && choiceStatistic <= 3) {

@@ -8,86 +8,80 @@ public class LoginDisplay extends HomeDisplay {
     private final LoginRepository tracker = new LoginRepository();
 
     public boolean userAccount() {
-        String userPassword = "";
-        String userLogin = "";
+        String userPassword;
+        String userLogin;
 
-        // Ask the user if he has an account
-        String inputAccount;
-        Frame.clearScreen();
-        Frame.displayInFrame("\n          WELCOME TO LA PLATEFORME TRACKER          \n ");
         while (true) {
-            System.out.print("\n> Do you have an account with us (Y/N)? ");
-            inputAccount = input.nextLine();
-            if (InputValidator.isValidYesNo(inputAccount)) {
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter only Y or N.");
+            // Ask the user if he has an account
+            Frame.clearScreen();
+            Frame.displayInFrame("\n          WELCOME TO LA PLATEFORME TRACKER          \n ");
+            String inputAccount;
+            while (true) {
+                System.out.print("\n> Do you have an account with us (Y/N)? ");
+                inputAccount = input.nextLine();
+                if (InputValidator.isValidYesNo(inputAccount)) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter only Y or N.");
+                }
             }
-        }
 
-        // Get the user Password and Email
-        if (inputAccount.equalsIgnoreCase("Y")) {
-            System.out.print("> Please enter your email: ");
-            userLogin = input.nextLine();
-            System.out.print("> Please enter your password: ");
-            userPassword = input.nextLine();
+            // Get the user Password and Email
+            if (inputAccount.equalsIgnoreCase("Y")) {
+                System.out.print("> Please enter your email: ");
+                userLogin = input.nextLine();
+                System.out.print("> Please enter your password: ");
+                userPassword = input.nextLine();
 
-            // Check login credentials
-            boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
+                // Check login credentials
+                boolean loginSuccessful = Login.checkLoginCredentials(userLogin, userPassword);
 
-            if (loginSuccessful) {
-                String choice;
-                do {
+                if (loginSuccessful) {
                     Frame.displayInFrame("Login successful!" + "\n\nPress Enter to continue");
-                    choice = input.nextLine();
-                } while (!choice.equalsIgnoreCase(""));
-                return true;
-            } else {
-                String choice;
-                while (true) {
-                    Frame.displayInFrame(
-                            "Invalid email or password." + "\n\n Do you wish to retry ?" + "\n [Y] Yes   [N] No");
-                    choice = input.nextLine();
-                    if (InputValidator.isValidYesNo(choice)) {
-                        break;
-                    } else {
-                        System.out.println("Invalid input. Please enter only Y or N.");
+                    input.nextLine(); // Wait for user to press enter
+                    return true;
+                } else {
+                    String choiceF;
+                    while (true) {
+                        Frame.displayInFrame(
+                                "Invalid email or password." + "\n\n Do you wish to retry ?" + "\n [Y] Yes   [N] No");
+                        choiceF = input.nextLine();
+                        if (InputValidator.isValidYesNo(choiceF)) {
+                            break;
+                        } else {
+                            System.out.println("Invalid input. Please enter only Y or N.");
+                        }
                     }
+                    if (choiceF.equalsIgnoreCase("N")) {
+                        return false;
+                    }
+                    // If choiceF is "Y", loop will restart and ask for credentials again
                 }
-                if (inputAccount.equalsIgnoreCase("Y")) {
-                    userAccount();
-                } else if (inputAccount.equalsIgnoreCase("N")) {
-                    return false;
-                }
-            }
-        } else if (inputAccount.equalsIgnoreCase("N")) {
+            } else if (inputAccount.equalsIgnoreCase("N")) {
 
-            // Ask the user to enter his account details
-            System.out.print("> Please enter your email: ");
-            userLogin = input.nextLine();
-            System.out.print("> Please enter your password: ");
-            userPassword = input.nextLine();
-            int studentID = 0;
+                // Ask the user to enter his account details
+                System.out.print("> Please enter your email: ");
+                userLogin = input.nextLine();
+                System.out.print("> Please enter your password: ");
+                userPassword = input.nextLine();
+                int studentID = 0;
 
-            // Hash the user's password
-            String hashedNewPassword = Login.hashPassword(userPassword);
+                // Hash the user's password
+                String hashedNewPassword = Login.hashPassword(userPassword);
 
-            // Register the new user using the method in Login class
-            boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
+                // Register the new user using the method in Login class
+                boolean registrationSuccessful = tracker.registerUser(studentID, userLogin, hashedNewPassword);
 
-            if (registrationSuccessful) {
-                String choice;
-                do {
+                if (registrationSuccessful) {
                     Frame.displayInFrame("Registration successful!" + "\n\nPress Enter to continue");
-                    choice = input.nextLine();
-                } while (!choice.equalsIgnoreCase(""));
-                return true;
+                    input.nextLine(); // Wait for user to press enter
+                    return true;
+                } else {
+                    System.out.println("Registration failed. Try again.");
+                }
             } else {
-                System.out.println("Registration failed. Try again.");
+                System.out.println("Invalid input. Please enter 'Y' or 'N'.");
             }
-        } else {
-            System.out.println("Invalid input. Please enter 'Y' or 'N'.");
         }
-        return false;
     }
 }

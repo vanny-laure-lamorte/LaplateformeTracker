@@ -254,6 +254,7 @@ public class StudentDisplay extends HomeDisplay {
                             Frame.clearScreen();
                             student = new Student(studentId);
                             Frame.displayInFrame("First name updated successfully! \n");
+                            displayStudentInfo(student);
                             break;
 
                         case 2: // Modify last name
@@ -269,6 +270,7 @@ public class StudentDisplay extends HomeDisplay {
                             Frame.clearScreen();
                             student = new Student(studentId);
                             Frame.displayInFrame("Last name updated successfully! \n");
+                            displayStudentInfo(student);
                             break;
 
                         case 3:// Modify age
@@ -282,10 +284,10 @@ public class StudentDisplay extends HomeDisplay {
                             // Convert a string age into int
                             int updateAge = Integer.parseInt(updateAgeStr);
                             tracker.updateAge(studentId, updateAge);
-                            input.nextLine();
                             Frame.clearScreen();
                             student = new Student(studentId);
                             Frame.displayInFrame("Age updated successfully! \n");
+                            displayStudentInfo(student);
                             break;
 
                         case 4: // Modify field
@@ -300,6 +302,7 @@ public class StudentDisplay extends HomeDisplay {
                             Frame.clearScreen();
                             student = new Student(studentId);
                             Frame.displayInFrame("Field updated successfully! \n");
+                            displayStudentInfo(student);
                             break;
                         default:
                             Frame.displayInFrame("Invalid choice. Please try again.");
